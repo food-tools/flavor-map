@@ -1,28 +1,22 @@
-const path = require('path');
 module.exports = {
-  entry: './src/index.js',
-  mode: 'development',
-  output: {
-    path: path.resolve('dist'),
-    filename: 'bundle.js'
-  },
-  module: {
-    rules: [
-      { test: /\.css$/,
-        use: [
-          { loader: "style-loader" },
-          { loader: "css-loader" }
+    entry: "./src/index.jsx",
+    mode: "development",
+    devtool: "source-map",
+    output: {
+        filename: "bundle.js",
+        publicPath: "/",
+        path: __dirname + "/dist"
+    },
+    devServer: {
+        contentBase: './'
+    },
+    resolve: {
+        extensions: [".js", ".jsx", ".json"]
+    },
+    module: {
+        rules: [
+            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
+            { test: /\.(js|jsx)$/, exclude: /node_modules/, loader: "babel-loader" }
         ]
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: "babel-loader"
-      }, {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        use: "babel-loader"
-      }
-    ]
-  }
-}
+    }
+};
