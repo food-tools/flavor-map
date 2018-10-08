@@ -19,9 +19,10 @@
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.4",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
+    "html-webpack-plugin": "next",
     "semantic-ui": "^2.4.0",
     "source-map-loader": "^0.2.4",
     "webpack": "^4.20.2",
