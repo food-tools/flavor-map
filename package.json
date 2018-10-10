@@ -7,7 +7,7 @@
   "license": "MIT",
   "sourceMap": true,
   "scripts": {
-    "dev": "webpack && cd src/semantic && gulp build && cd ../.. && webpack-dev-server --hot --inline"
+    "dev": "webpack && cd src/semantic && gulp build && cd ../.. && webpack-dev-server --hot --inline --watch"
   },
   "devtool": "inline-source-map",
   "dependencies": {

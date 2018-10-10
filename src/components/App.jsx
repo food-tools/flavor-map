@@ -7,7 +7,7 @@ export default class App extends React.Component {
     }
 
     render() {
-        return <div>flavor aaaaach</div>;
+        return <div>flavor test change this better change</div>;
     }
 
 }
