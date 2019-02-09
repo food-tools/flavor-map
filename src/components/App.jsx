@@ -1,6 +1,7 @@
 import React from "react";
 import {  Container, Sidebar } from "semantic-ui-react";
 import { Controls } from "../containers/Controls";
+import { Map } from "../containers/Map";
 
 export default class App extends React.Component {
 
@@ -10,9 +11,7 @@ export default class App extends React.Component {
 
     render() {
         return (
-            <Sidebar.Pushable as={Container}>
-                <Controls></Controls>
-            </Sidebar.Pushable>
+            <Map />
         );
     }
 
