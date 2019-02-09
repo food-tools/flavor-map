@@ -1,12 +1,20 @@
 import React from "react";
 import { render } from "react-dom";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
-import { flavorMapApp } from "./reducers/flavorMap";
+import thunk from 'redux-thunk';
+import { flavorMap } from "./reducers/flavorMap";
+
+import { getGraph } from "./actions/actions";
 
 import App from "./components/App";
 
-const store = createStore(flavorMapApp);
+const store = createStore(flavorMap, applyMiddleware(thunk));
+
+console.log("initial", store.getState());
+
+store.subscribe(() => console.log(store.getState()));
+store.dispatch(getGraph());
 
 render(
     <Provider store={store}>
