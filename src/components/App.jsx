@@ -1,4 +1,6 @@
 import React from "react";
+import {  Container, Sidebar } from "semantic-ui-react";
+import { Controls } from "../containers/Controls";
 
 export default class App extends React.Component {
 
@@ -7,7 +9,11 @@ export default class App extends React.Component {
     }
 
     render() {
-        return <div>flavor test change this better change</div>;
+        return (
+            <Sidebar.Pushable as={Container}>
+                <Controls></Controls>
+            </Sidebar.Pushable>
+        );
     }
 
 }

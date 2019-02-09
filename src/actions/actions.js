@@ -27,14 +27,14 @@ export function setSelectedNode(id) {
     }
 }
 
-export function setSelectedCuisine(cuisine) {
+export function setSelectedCuisine(id) {
     return {
         type: SET_SELECTED_CUISINE,
-        cuisine
+        id
     }
 }
 
-export function SET_NODE_COLOR_ENCODING(encoding) {
+export function setNodeColorEncoding(encoding) {
     return {
         type: SET_NODE_COLOR_ENCODING,
         encoding

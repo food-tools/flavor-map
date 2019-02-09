@@ -7,10 +7,28 @@ import {
 } from "../actions/actions";
 
 const initialState = {
-    searchTerm: "",
-    selectedNode: undefined,
-    selectedCuisine: undefined,
-    nodeColorEncoding: NodeColorEncodings.ENCODE_TYPE
+    data: {
+        ingredients: [],
+        cuisines: []
+    },
+    results: {
+        ingredients: {
+            isFetching: false,
+            didInvalidate: false,
+            items: []
+        },
+        cuisines: {
+            isFetching: false,
+            didInvalidate: false,
+            items: []
+        }
+    },
+    options: {
+        searchTerm: "",
+        selectedNode: null,
+        selectedCuisine: null,
+        nodeColorEncoding: NodeColorEncodings.ENCODE_TYPE
+    }
 };
 
 export function flavorMapApp(state=initialState, action) {
@@ -18,12 +36,34 @@ export function flavorMapApp(state=initialState, action) {
         case SET_SEARCH_TERM:
             return {
                 ...state,
-                action.term
+                options: {
+                    ...state.options,
+                    searchTerm: action.term
+                }
             };
         case SET_SELECTED_NODE:
             return {
                 ...state,
-                action.id
+                options: {
+                    ...state.options,
+                    selectedNode: action.id
+                }
+            };
+        case SET_SELECTED_CUISINE:
+            return {
+                ...state,
+                options: {
+                    ...state.options,
+                    selectedCuisine: action.id
+                }
+            };
+        case SET_NODE_COLOR_ENCODING:
+            return {
+                ...state,
+                options: {
+                    ...state.options,
+                    nodeColorEncoding: action.encoding
+                }
             };
         default:
             return state;

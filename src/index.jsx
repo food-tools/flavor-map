@@ -1,6 +1,16 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { render } from "react-dom";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import { flavorMapApp } from "./reducers/flavorMap";
 
 import App from "./components/App";
 
-ReactDOM.render(<App />, document.getElementById("app"));
+const store = createStore(flavorMapApp);
+
+render(
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    document.getElementById("app")
+);
