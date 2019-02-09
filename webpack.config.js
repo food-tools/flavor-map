@@ -1,38 +1,37 @@
-var path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const apiMocker = require("mocker-api");
+
 module.exports = {
     entry: path.resolve(__dirname, "src", "index.jsx"),
     mode: "development",
-    devtool: "source-map",
-    devServer: {
-        contentBase: path.resolve(__dirname, "dist"), // work computer has /src
-        publicPath: path.resolve(__dirname, "dist"),
-        inline: true,
-        historyApiFallback: {
-            index: "index.html"
-        }
-    },
     output: {
         filename: "bundle.js",
         path: path.resolve(__dirname, "dist")
     },
+    devtool: "source-map",
     resolve: {
         extensions: [".js", ".jsx", ".json", ".html", ".css"]
     },
     module: {
         rules: [
             { enforce: "pre", test: /\.(js|jsx$)/, loader: "source-map-loader" },
-            { test: /\.css$/, use: [ "style-loader", "css-loader" ] },
-            { test: /\.(js|jsx)$/, exclude: /node_modules/, loader: "babel-loader", query: { presets: ["@babel/env", "@babel/react"], plugins: ["@babel/plugin-proposal-object-rest-spread"] }}
+            { test: /\.css$/, loader: "style-loader!css-loader?modules=true&localIdentName=[name]__[local]___[hash:base64:5" },
+            { test: /\.(js|jsx)$/, exclude: /node_modules/, loader: "babel-loader", options: { presets: ["@babel/env", "@babel/react"], plugins: ["@babel/plugin-proposal-object-rest-spread", "@babel/plugin-transform-regenerator", "@babel/plugin-transform-runtime"] }},
+            { test: /\.(png|svg|jpg|gif|ico)$/, loader: "file-loader" }
         ]
     },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: "src/index.html",
-            templateParameters: {
-                "title": "Flavor Map",
-                "appContainer": "app"
-            }
-        })
-    ]
+    devServer: {
+        contentBase: path.resolve(__dirname, "src"),
+        publicPath: "/dist",
+        inline: true,
+        historyApiFallback: {
+            index: "index.html"
+        },
+        before(app) {
+            apiMocker(app, path.resolve('./mocker/index.js'), {
+                changeHost: true,
+            })
+        }
+    }
 };
