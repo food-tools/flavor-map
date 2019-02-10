@@ -2,7 +2,7 @@ import {
     SET_SEARCH_TERM,
     SET_SELECTED_NODE,
     SET_HOVERED_NODE,
-    SET_SELECTED_CUISINE,
+    SET_SELECTED_CUISINES,
     SET_NODE_COLOR_ENCODING,
     SET_LINK_STRENGTH_ENCODING,
     NodeColorEncodings,
@@ -13,7 +13,7 @@ const initialState = {
     searchTerm: "",
     selectedNode: null,
     hoveredNode: null,
-    selectedCuisine: null,
+    selectedCuisines: [],
     nodeColorEncoding: NodeColorEncodings.ENCODE_TYPE,
     linkStrengthEncoding: LinkStrengthEncodings.ALL_EQUAL
 };
@@ -35,10 +35,10 @@ export const options = (state=initialState, action) => {
                 ...state,
                 hoveredNode: action.id
             }
-        case SET_SELECTED_CUISINE:
+        case SET_SELECTED_CUISINES:
             return {
                 ...state,
-                selectedCuisine: action.id
+                selectedCuisines: action.ids
             };
         case SET_NODE_COLOR_ENCODING:
             return {

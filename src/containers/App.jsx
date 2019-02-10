@@ -2,7 +2,10 @@ import { connect } from "react-redux";
 import { View } from "../components/View";
 
 const mapStateToProps = (state, ownProps) => {
-    return {};
+    return {
+        isFetchingGraph: state.results.ingredients.isFetching,
+        isFetchingCuisines: state.results.cuisines.isFetching
+    };
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
