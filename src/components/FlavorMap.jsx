@@ -19,7 +19,8 @@ export class FlavorMap extends React.Component {
 
         console.log("Inside flavor map, props are => ", this.props);
 
-        let svg = d3.select("#temp");
+        let svg = d3.select(this.props.container);
+
         let w = svg.node().getBoundingClientRect().width;
         let h = svg.node().getBoundingClientRect().height;
 

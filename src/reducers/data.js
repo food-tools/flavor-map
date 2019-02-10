@@ -13,10 +13,13 @@ export const data = (state=initialState, action) => {
     switch (action.type) {
         case FETCH_GRAPH_SUCCESS: {
             return {
-                ingredients: action.json.nodes.reduce((result, ingredient) => ({
-                    ...result,
-                    [ingredient.id]: ingredient
-                })),
+                ingredients: action.json.nodes.reduce(
+                    (result, ingredient) => ({
+                        ...result,
+                        [ingredient.id]: ingredient
+                    }),
+                    {}
+                ),
                 pairings: action.json.links
             };
         }
