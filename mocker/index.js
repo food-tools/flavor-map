@@ -10,6 +10,7 @@ const volumes = ["quiet", "loud", "moderate-loud", "moderate"];
 // Make random ingredients nodes
 const randomNumberOfIngredients = Math.ceil(Math.random() * 500);
 const randomNumberOfPairings = Math.ceil(Math.random() * 10000);
+const randomNumberOfCuisines = Math.ceil(Math.random() * 30);
 const ingredients = new Array(randomNumberOfIngredients)
     .fill(undefined)
     .map(nothing => ({
@@ -32,20 +33,47 @@ const pairings = new Array(randomNumberOfPairings)
         pairing.source != pairing.target
     );
 
+const cuisines = new Array(randomNumberOfCuisines)
+    .fill(undefined)
+    .map(nothing => ({
+        id: uuid(),
+        name: faker.fake("{{random.word}} {{random.word}}"),
+        ingredients: Array.from(
+            new Set(
+                new Array(Math.ceil(Math.random() * 100))
+                    .fill(undefined)
+                    .map(nothing => ingredients[Math.floor(Math.random() * ingredients.length)].id)
+                )
+            )
+    }));
+
 const proxy = {
     "GET /graph": (req, res) => {
-        return res.json({
-            nodes: ingredients.map(ingredient => ({
-                id: ingredient.id,
-                name: ingredient.name
-            })),
-            links: pairings
-        });
+        setTimeout(function() {
+            return res.json({
+                nodes: ingredients,
+                links: pairings
+            });
+        }, Math.ceil(Math.random() * 10000));
     },
     "GET /ingredient/:id": (req, res) => {
         const { id } = req.params;
         return res.json(
             ingredients[ingredients.map(ingredient => ingredient.id).indexOf(id)]
+        );
+    },
+    "GET /cuisines": (req, res) => {
+        setTimeout(function() {
+            return res.json(cuisines.map(cuisine => ({
+                id: cuisine.id,
+                name: cuisine.name
+            })));
+        }, Math.ceil(Math.random() * 10000));
+    },
+    "GET /cuisine/:id": (req, res) => {
+        const { id } = req.params;
+        return res.json(
+            cuisines[cuisines.map(cuisine => cuisine.id).indexOf(id)]
         );
     }
 }
