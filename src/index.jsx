@@ -2,12 +2,10 @@ import React from "react";
 import { render } from "react-dom";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
-import thunk from 'redux-thunk';
+import thunk from "redux-thunk";
 import { flavorMap } from "./reducers/flavorMap";
-
 import { getGraph } from "./actions/actions";
-
-import App from "./components/App";
+import { App } from "./containers/App";
 
 const store = createStore(flavorMap, applyMiddleware(thunk));
 

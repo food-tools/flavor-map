@@ -15,4 +15,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 export const Map = connect(
     mapStateToProps,
     mapDispatchToProps
-)(MapContainer)
+)(MapContainer);
