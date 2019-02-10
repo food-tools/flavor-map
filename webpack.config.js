@@ -19,32 +19,46 @@ module.exports = {
             ".css"
         ]
     },
+    plugins: [
+        new CopyWebpackPlugin([
+            {
+                from: "node_modules/semantic-ui-css/semantic.min.css",
+                to: "semantic.min.css",
+                toType: "file"
+            },
+            {
+                from: "node_modules/semantic-ui-css/themes/default/assets/fonts",
+                to: "themes/default/assets/fonts",
+                toType: "dir"
+            }
+        ])
+    ],
     module: {
         rules: [
             {
                 enforce: "pre",
-                test: /\.(js|jsx$)/,
+                test: /\.(js|jsx)$/,
                 loader: "source-map-loader"
-            },
-            {
-                test: /\.css$/,
-                loader: "style-loader!css-loader?modules=true&localIdentName=[name]__[local]___[hash:base64:5"
             },
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 loader: "babel-loader",
                 options: {
-                    presets: [
-                        "@babel/env",
-                        "@babel/react"
-                    ],
                     plugins: [
                         "@babel/plugin-proposal-object-rest-spread",
                         "@babel/plugin-transform-regenerator",
                         "@babel/plugin-transform-runtime"
+                    ],
+                    presets: [
+                        "@babel/env",
+                        "@babel/react"
                     ]
                 }
+            },
+            {
+                test: /\.css$/,
+                loader: "style-loader!css-loader?modules=true&localIdentName=[name]__[local]___[hash:base64:5"
             },
             {
                 test: /\.(png|svg|jpg|gif|ico)$/,
