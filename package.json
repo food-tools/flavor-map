@@ -5,11 +5,9 @@
   "repository": "https://github.com/jackvallerie/flavor-map.git",
   "author": "Brett Fouss <bmfouss@gmail.com>",
   "license": "MIT",
-  "sourceMap": true,
   "scripts": {
     "dev": "webpack-dev-server --hot --inline"
   },
-  "devtool": "inline-source-map",
   "dependencies": {
     "cross-fetch": "^3.0.1",
     "d3": "^5.9.1",
