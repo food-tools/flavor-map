@@ -140,6 +140,13 @@ export function setSelectedNode(id) {
     }
 }
 
+export function setHoveredNode(id) {
+    return {
+        type: SET_HOVERED_NODE,
+        id
+    }
+}
+
 export function setSelectedCuisines(ids) {
     return {
         type: SET_SELECTED_CUISINES,
