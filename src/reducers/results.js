@@ -1,7 +1,10 @@
 import {
     FETCH_GRAPH_REQUEST,
     FETCH_GRAPH_SUCCESS,
-    FETCH_GRAPH_FAILURE
+    FETCH_GRAPH_FAILURE,
+    FETCH_CUISINES_REQUEST,
+    FETCH_CUISINES_SUCCESS,
+    FETCH_CUISINES_FAILURE
 } from "../actions/actions";
 
 const initialState = {
@@ -47,8 +50,33 @@ export const results = (state=initialState, action) => {
                     isFetching: false
                 }
             }
-        default: {
+        case FETCH_CUISINES_REQUEST:
+            return {
+                ...state,
+                cuisines: {
+                    ...state.cuisines,
+                    isFetching: true
+                }
+            }
+        case FETCH_CUISINES_SUCCESS:
+            return {
+                ...state,
+                cuisines: {
+                    isFetching: false,
+                    lastUpdated: action.receivedAt,
+                    didInvalidate: false,
+                    items: action.json.map(d => d.id)
+                }
+            }
+        case FETCH_CUISINES_FAILURE:
+            return {
+                ...state,
+                cuisines: {
+                    ...state.cuisines,
+                    isFetching: false
+                }
+            }
+        default:
             return state;
-        }
     }
 }

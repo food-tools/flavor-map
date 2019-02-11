@@ -16,6 +16,11 @@ export class MapContainer extends React.Component {
                     container={this.container.current}
                     ingredients={this.props.ingredients}
                     pairings={this.props.pairings}
+                    selectedNode={this.props.selectedNode}
+                    hoveredNode={this.props.hoveredNode}
+                    onNodeMouseOver={this.props.onNodeMouseOver}
+                    onNodeMouseOut={this.props.onNodeMouseOut}
+                    onNodeClick={this.props.onNodeClick}
                 />
             </svg>
         )
