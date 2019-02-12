@@ -2,21 +2,29 @@ const faker = require("faker");
 const uuid = require("uuid/v4");
 
 // Some random values
+const type = ["vegetable", "fruit", "grain", "dairy", "fat", "nut", "meat"];
 const seasons = ["spring", "summer", "autumn", "winter"];
 const tastes = ["salty", "savory", "sweet", "sour"];
 const weights = ["heavy", "medium", "light"];
 const volumes = ["quiet", "loud", "moderate-loud", "moderate"];
 
 // Make random ingredients nodes
-const randomNumberOfIngredients = Math.ceil(Math.random() * 500);
-const randomNumberOfPairings = Math.ceil(Math.random() * 10000);
-const randomNumberOfCuisines = Math.ceil(Math.random() * 30);
+// const randomNumberOfIngredients = Math.ceil(Math.random() * 500);
+// const randomNumberOfPairings = Math.ceil(Math.random() * 1000);
+// const randomNumberOfCuisines = Math.ceil(Math.random() * 30);
+
+// concrete amounts of nodes and links for graph testing
+const randomNumberOfIngredients = 500;
+const randomNumberOfPairings = 700;
+const randomNumberOfCuisines = 30;
+
 
 const ingredients = new Array(randomNumberOfIngredients)
     .fill(undefined)
     .map(nothing => ({
         id: uuid(),
         name: faker.fake("{{random.word}} {{random.word}}"),
+        type: type[Math.floor(Math.random() * type.length)],
         season: seasons[Math.floor(Math.random() * seasons.length)],
         taste: tastes[Math.floor(Math.random() * tastes.length)],
         weight: weights[Math.floor(Math.random() * weights.length)],

@@ -26,8 +26,23 @@ export class FlavorMap extends React.Component {
 
         console.log(svg, w, h);
 
+        // is color coding something we'll want to do elsewhere?
+        const ingredient_type_color = {
+            "vegetable":"#98a886",
+            "fruit":"#465c69", 
+            "grain":"#c4a69d", 
+            "dairy":"#7391ba", 
+            "fat":"#aa9052", 
+            "nut":"#363457", 
+            "meat":"#ba5734"
+        };
 
-        // BEGIN COPIED CODE FROM http://bl.ocks.org/eyaler/10586116#index.html
+        let zoom = d3.zoom()
+            .scaleExtent([1, 40])
+            .translateExtent([[-100, -100], [w, h]])
+            .on("zoom", zoomed);
+
+        // main fdg code taken from http://bl.ocks.org/eyaler/10586116#index.html
 
         const nodes = this.props.ingredients;
         const links = this.props.pairings;
@@ -36,14 +51,6 @@ export class FlavorMap extends React.Component {
             .force("link", d3.forceLink(links).id(d => d.id))
             .force("charge", d3.forceManyBody())
             .force("center", d3.forceCenter(w / 2, h / 2));
-        
-        let nominal_stroke = 1.5;
-        let max_stroke = 4.5;
-        let nominal_base_node_size = 36;
-        let min_zoom = 0.1;
-        let max_zoom = 7;
-        let zoom = d3.zoom().extent([min_zoom,max_zoom]);
-
 
         const link = svg.append("g")
             .attr("stroke", "#999")
@@ -59,12 +66,12 @@ export class FlavorMap extends React.Component {
             .selectAll("circle")
             .data(nodes)
             .join("circle")
-            .attr("r", 5)
-            // .attr("fill", color)
+            .attr("r", 7)
+            .attr("fill", d => String(ingredient_type_color[d.type]))
             .call(drag(simulation));
         
         node.append("title")
-            .text(d => d.id);
+            .text(d => d.name);
         
         simulation.on("tick", () => {
             link
@@ -78,7 +85,7 @@ export class FlavorMap extends React.Component {
                 .attr("cy", d => d.y);
         });
         
-        // invalidation.then(() => simulation.stop());
+        
         
         // @TODO: do we want this functionality?
         function drag(simulation) {
@@ -106,8 +113,26 @@ export class FlavorMap extends React.Component {
                 .on("end", dragended);
         }
 
+        svg.call(zoom);
+        
+        function zoomed() {
+            //won't be this easy:
+            //svg.attr("transform", d3.event.transform);
+        }
 
-        zoom.on("zoom", function() {
+
+        return svg.node();
+        
+        
+        // zoom.on function from d3v3 example of zooming fdg
+        // http://bl.ocks.org/eyaler/10586116#index.html
+        /*
+
+        let nominal_stroke = 1.5;
+        let max_stroke = 4.5;
+        let nominal_base_node_size = 36;
+
+        function() {
   
             let stroke = nominal_stroke;
             if (nominal_stroke * zoom.scale() > max_stroke) {
@@ -141,9 +166,11 @@ export class FlavorMap extends React.Component {
         });
 
         svg.call(zoom);	
+        */
 
-
-        return svg.node();
+        // this line is in mbostock example, do we need it?
+        // https://beta.observablehq.com/@mbostock/d3-force-directed-graph#drag
+        // invalidation.then(() => simulation.stop());
     }
 
     render() {
