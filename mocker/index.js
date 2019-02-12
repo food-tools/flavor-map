@@ -9,7 +9,7 @@ const volumes = ["quiet", "loud", "moderate-loud", "moderate"];
 
 // Make random ingredients nodes
 const randomNumberOfIngredients = Math.ceil(Math.random() * 500);
-const randomNumberOfPairings = Math.ceil(Math.random() * 10000);
+const randomNumberOfPairings = Math.ceil(Math.random() * 700);
 const randomNumberOfCuisines = Math.ceil(Math.random() * 30);
 const ingredients = new Array(randomNumberOfIngredients)
     .fill(undefined)
