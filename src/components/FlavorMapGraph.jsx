@@ -2,6 +2,8 @@ import * as React from "react";
 import * as d3 from "d3";
 import * as Styles from "../assets/CustomStyles";
 
+import { IngredientTypeColors } from "../assets/IngredientPropertyColors";
+
 const nodeRadius = 9;
 
 export class FlavorMapGraph extends React.Component {
@@ -47,6 +49,8 @@ export class FlavorMapGraph extends React.Component {
 
     handleTick() {
 
+        //const nodes = this.props.ingredients;
+
         this.links
             .selectAll(".link")
             .attr("x1", d => d.source.x)
@@ -84,13 +88,39 @@ export class FlavorMapGraph extends React.Component {
             .attr("width", w)
             .attr("height", h);
 
-        let nodeSelection = this.nodes
+        //  add new nodes into the selection
+        this.nodes
             .selectAll(".node")
-            .data(nodes, d => d.id);
+            .data(nodes, d => d.id)
+            .join(
+                enter => {
+                    enter.append("circle")
+                        .attr("class", "node")
+                        .attr("r", nodeRadius)
+                        .attr("fill", d => IngredientTypeColors[d.type.toUpperCase()])
+                        .style("cursor", "pointer")
+                        //.call(drag(this.simulation))
+                        .on("mouseover", d => this.props.onNodeMouseOver(d.id))
+                        .on("mouseout", d => this.props.onNodeMouseOut(d.id));
+                },
+                update => {},
+                exit => {
+                    exit.remove();
+                }
+            );
 
-        let linkSelection = this.links
+        this.links
             .selectAll(".link")
-            .data(links, d => `${d.source.id}_${d.target.id}`);
+            .data(links, d => `${d.source.id}_${d.target.id}`)
+            .join(
+                enter => {
+                    enter.append("line").attr("class", "link")
+                },
+                update => {},
+                exit => {
+                    exit.remove();
+                }
+            );
 
         function drag(simulation) {
 
@@ -117,35 +147,25 @@ export class FlavorMapGraph extends React.Component {
                 .on("end", dragended);
 
         }
-
-        // remove old nodes and links
-        nodeSelection.exit().remove();
-        linkSelection.exit().remove();
-
-        //  add new nodes into the selection
-        nodeSelection = nodeSelection
-            .enter().append("circle")
-            .attr("class", "node")
-            .attr("r", nodeRadius)
-            .attr("fill", d => d.color)
-            .style("cursor", "pointer")
-            //.call(drag(this.simulation))
-            .on("mouseover", d => this.props.onNodeMouseOver(d.id))
-            .on("mouseout", d => this.props.onNodeMouseOut(d.id))
-            .merge(nodeSelection);
-
-        // add new links into the selection
-        linkSelection = linkSelection
-            .enter().append("line")
-            .attr("class", "link")
-            .merge(linkSelection);
-
+        
         if (this.props.hoveredNode) {
-            nodeSelection.attr("opacity", d => this.props.hoveredNode === d.id ? 1.0 : 0.1);
-            linkSelection.attr("opacity", 0.1);
+
+            this.nodes
+                .selectAll(".node")
+                .attr("opacity", d => this.props.hoveredNode === d.id ? 1.0 : 0.1);
+
+            this.links
+                .attr("opacity", 0.1);
+
         } else {
-            nodeSelection.attr("opacity", 1.0);
-            linkSelection.attr("opacity", 1.0);
+
+            this.nodes
+                .selectAll(".node")
+                .attr("opacity", 1.0);
+
+            this.links
+                .attr("opacity", 1.0);
+
         }
 
         this.simulation
@@ -153,7 +173,8 @@ export class FlavorMapGraph extends React.Component {
             .force("link", d3.forceLink(links))
             .force("charge", d3.forceManyBody())
             .force("center", d3.forceCenter(w/2, h/2))
-            .force("collide", d3.forceCollide(nodeRadius + 2));
+            .force("collide", d3.forceCollide(nodeRadius + 2))
+            .alpha(0.5).restart();
 
     }
 
