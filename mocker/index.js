@@ -74,7 +74,8 @@ const proxy = {
         setTimeout(function() {
             return res.json(cuisines.map(cuisine => ({
                 id: cuisine.id,
-                name: cuisine.name
+                name: cuisine.name,
+                ingredients: cuisine.ingredients
             })));
         }, Math.ceil(Math.random() * 10000));
     },
