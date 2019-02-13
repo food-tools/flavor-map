@@ -85,7 +85,7 @@ export class FlavorMapGraph extends React.Component {
         //let zoom = d3.zoom()
         //    .scaleExtent([1, 40])
         //    .translateExtent([[-100, -100], [w, h]]);
-            //.on("zoom", zoomed);
+        //.on("zoom", zoomed);
 
         // main fdg code taken from http://bl.ocks.org/eyaler/10586116#index.html
 
@@ -133,17 +133,25 @@ export class FlavorMapGraph extends React.Component {
 
         }
 
+        //  add new nodes into the selection
         nodeSelection
             .enter().append("circle")
             .attr("class", "node")
             .attr("r", nodeRadius)
             .attr("fill", d => String(ingredient_type_color[d.type]))
             //.call(drag(this.simulation))
-            .on("mouseover", d => this.props.onNodeMouseOver(d.id));
+            .on("mouseover", d => this.props.onNodeMouseOver(d.id))
+            .on("mouseout", d => this.props.onNodeMouseOut(d.id));
 
         linkSelection
             .enter().append("line")
             .attr("class", "link");
+
+        if (this.props.hoveredNode) {
+            nodeSelection.attr("opacity", d => this.props.hoveredNode === d.id ? 1.0 : 0.1);
+        } else {
+            nodeSelection.attr("opacity", 1.0);
+        }
 
     }
 
