@@ -92,6 +92,11 @@ export class FlavorMapGraph extends React.Component {
         const nodes = this.props.ingredients;
         const links = this.props.pairings;
 
+        // adjust height and width accordingly
+        this.g
+            .attr("width", w)
+            .attr("height", h);
+
         this.simulation
             .nodes(nodes)
             .force("link", d3.forceLink(links).id(d => d.id))
@@ -139,6 +144,7 @@ export class FlavorMapGraph extends React.Component {
             .attr("class", "node")
             .attr("r", nodeRadius)
             .attr("fill", d => String(ingredient_type_color[d.type]))
+            .style("cursor", "pointer")
             //.call(drag(this.simulation))
             .on("mouseover", d => this.props.onNodeMouseOver(d.id))
             .on("mouseout", d => this.props.onNodeMouseOut(d.id));
@@ -149,8 +155,10 @@ export class FlavorMapGraph extends React.Component {
 
         if (this.props.hoveredNode) {
             nodeSelection.attr("opacity", d => this.props.hoveredNode === d.id ? 1.0 : 0.1);
+            linkSelection.attr("opacity", 0.1);
         } else {
             nodeSelection.attr("opacity", 1.0);
+            linkSelection.attr("opacity", 1.0);
         }
 
     }
