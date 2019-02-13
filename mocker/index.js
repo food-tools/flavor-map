@@ -2,7 +2,7 @@ const faker = require("faker");
 const uuid = require("uuid/v4");
 
 // Some random values
-const type = ["vegetable", "fruit", "grain", "dairy", "fat", "nut", "meat"];
+const type = ["vegetable", "fruit", "grain", "dairy", "fat", "nut", "meat", "herb", "spice"];
 const seasons = ["spring", "summer", "autumn", "winter"];
 const tastes = ["salty", "savory", "sweet", "sour"];
 const weights = ["heavy", "medium", "light"];

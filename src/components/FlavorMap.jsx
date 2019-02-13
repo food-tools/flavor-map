@@ -1,6 +1,20 @@
 import * as React from "react";
 import * as d3 from "d3";
 
+// mapping of ingredient types to colors
+export const ingredient_type_color = {
+    "vegetable":"#14453d",
+    "fruit":"#a3333d", 
+    "grain":"#c4a69d", 
+    "dairy":"#7391ba", 
+    "fat":"#aa9052", 
+    "nut":"#363457", 
+    "meat":"#6d3b47",
+    "herb":"#98a886",
+    "spice":"#ba5734"
+};
+
+
 export class FlavorMap extends React.Component {
 
     constructor(props) {
@@ -26,16 +40,7 @@ export class FlavorMap extends React.Component {
 
         console.log(svg, w, h);
 
-        // is color coding something we'll want to do elsewhere?
-        const ingredient_type_color = {
-            "vegetable":"#98a886",
-            "fruit":"#465c69", 
-            "grain":"#c4a69d", 
-            "dairy":"#7391ba", 
-            "fat":"#aa9052", 
-            "nut":"#363457", 
-            "meat":"#ba5734"
-        };
+        const nodeRadius = 9;
 
         let zoom = d3.zoom()
             .scaleExtent([1, 40])
@@ -47,10 +52,13 @@ export class FlavorMap extends React.Component {
         const nodes = this.props.ingredients;
         const links = this.props.pairings;
 
+        svg.call(zoom);
+
         const simulation = d3.forceSimulation(nodes)
             .force("link", d3.forceLink(links).id(d => d.id))
             .force("charge", d3.forceManyBody())
-            .force("center", d3.forceCenter(w / 2, h / 2));
+            .force("center", d3.forceCenter(w / 2, h / 2))
+            .force("collide", d3.forceCollide(nodeRadius + 2));
 
         const link = svg.append("g")
             .attr("stroke", "#999")
@@ -62,16 +70,28 @@ export class FlavorMap extends React.Component {
         
         const node = svg.append("g")
             .attr("stroke", "#fff")
-            .attr("stroke-width", 1.5)
+            .attr("stroke-width", 1)
             .selectAll("circle")
             .data(nodes)
             .join("circle")
-            .attr("r", 7)
+            .attr("r", nodeRadius)
             .attr("fill", d => String(ingredient_type_color[d.type]))
-            .call(drag(simulation));
+            .call(drag(simulation))
+            .on("mouseover", d => this.props.onNodeMouseOver(d.id));
+            // .on("mouseout",);
         
-        node.append("title")
-            .text(d => d.name);
+        
+        let hoveredNodeID = this.props.hoveredNode;
+        console.log(hoveredNodeID);
+        if(hoveredNodeID != null){
+            let hoveredNode = nodes[hoveredNodeID];
+            // @TODO: probably just an issue accessing this data
+            console.log(hoveredNode);
+        }
+
+        // node.append("title")
+        //     .text(d => d.name);
+
         
         simulation.on("tick", () => {
             link
@@ -112,14 +132,11 @@ export class FlavorMap extends React.Component {
                 .on("drag", dragged)
                 .on("end", dragended);
         }
-
-        svg.call(zoom);
         
         function zoomed() {
             //won't be this easy:
             //svg.attr("transform", d3.event.transform);
         }
-
 
         return svg.node();
         
@@ -168,7 +185,7 @@ export class FlavorMap extends React.Component {
         svg.call(zoom);	
         */
 
-        // this line is in mbostock example, do we need it?
+        // @TODO: this line is in mbostock example, do we need it?
         // https://beta.observablehq.com/@mbostock/d3-force-directed-graph#drag
         // invalidation.then(() => simulation.stop());
     }
