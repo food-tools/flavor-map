@@ -8,7 +8,7 @@ import * as Styles from "../assets/CustomStyles";
 export const View = ({ isFetchingGraph, isFetchingCuisines }) => (
     <Grid celled="internally" className={Styles.View}>
         <Grid.Row>
-            <Grid.Column width={12}>
+            <Grid.Column width={12} className={Styles.NoPadding}>
                 {
                     isFetchingGraph ?
                     (
