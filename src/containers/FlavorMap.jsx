@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { MapContainer } from "../components/MapContainer";
+import { FlavorMapGraph } from "../components/FlavorMapGraph";
 import { setHoveredNode, setSelectedNode } from "../actions/actions";
 
 const mapStateToProps = (state, ownProps) => {
@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     }
 }
 
-export const Map = connect(
+export const FlavorMap = connect(
     mapStateToProps,
     mapDispatchToProps
-)(MapContainer);
+)(FlavorMapGraph);

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Grid, Dimmer, Loader } from "semantic-ui-react";
-import { Map } from "../containers/Map";
+import { FlavorMap } from "../containers/FlavorMap";
 import { Title } from "./Title";
 import { Cuisines } from "../containers/Cuisines";
 import * as Styles from "../assets/CustomStyles";
@@ -18,7 +18,7 @@ export const View = ({ isFetchingGraph, isFetchingCuisines }) => (
                     )
                     :
                     (
-                        <Map />
+                        <FlavorMap />
                     )
                 }
             </Grid.Column>
