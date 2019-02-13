@@ -14,10 +14,9 @@ const volumes = ["quiet", "loud", "moderate-loud", "moderate"];
 // const randomNumberOfCuisines = Math.ceil(Math.random() * 30);
 
 // concrete amounts of nodes and links for graph testing
-const randomNumberOfIngredients = 500;
-const randomNumberOfPairings = 700;
+const randomNumberOfIngredients = 100;
+const randomNumberOfPairings = 150;
 const randomNumberOfCuisines = 30;
-
 
 const ingredients = new Array(randomNumberOfIngredients)
     .fill(undefined)
