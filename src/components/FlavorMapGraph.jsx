@@ -90,7 +90,7 @@ export class FlavorMapGraph extends React.Component {
 
         let linkSelection = this.links
             .selectAll(".link")
-            .data(links, d => `${d.source}_${d.target}`);
+            .data(links, d => `${d.source.id}_${d.target.id}`);
 
         function drag(simulation) {
 
