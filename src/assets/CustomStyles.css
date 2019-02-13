@@ -6,3 +6,7 @@
     height: 100%;
     width: 100%;
 }
+
+.NoPadding {
+    padding: 0px !important;
+}
