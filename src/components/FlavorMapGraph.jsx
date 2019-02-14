@@ -11,12 +11,16 @@ export class FlavorMapGraph extends React.Component {
     constructor(props) {
         super(props);
         this.container = React.createRef();
+        this.tooltip = React.createRef();
     }
 
     componentDidMount() {
 
         // set up selections
         this.svg = d3.select(this.container.current);
+        this.tip = d3.select(this.tooltip.current)
+            .attr("opacity", 0);
+        console.log("tooltip: ", this.tip);
 
         // create layers for nodes and links
         this.g = this.svg.append("g").attr("class", "g");
@@ -100,8 +104,8 @@ export class FlavorMapGraph extends React.Component {
                         .attr("fill", d => IngredientTypeColors[d.type.toUpperCase()])
                         .style("cursor", "pointer")
                         //.call(drag(this.simulation))
-                        .on("mouseover", d => this.props.onNodeMouseOver(d.id))
-                        .on("mouseout", d => this.props.onNodeMouseOut(d.id));
+                        .on("mouseover", d => this.props.onNodeMouseOver(d))
+                        .on("mouseout", d => this.props.onNodeMouseOut(d));
                 },
                 update => {},
                 exit => {
@@ -148,15 +152,26 @@ export class FlavorMapGraph extends React.Component {
 
         }
         
-        if (this.props.hoveredNode) {
+        // if hovering on a node add a tooltip with that node's ingredient name
+        let hoveredNode = this.props.hoveredNode;
+        if (hoveredNode) {
+            this.tip.style("opacity", 1);
+            this.tip.html(hoveredNode.name)
+                    .style("left", hoveredNode.x + "px")
+                    .style("top", (hoveredNode.y - 50) + "px")
+                    .style("color", "black");
+        } else {
+            this.tip.style("opacity", 0);
+        }
 
+        // if a node is selected fade all non-neighboring nodes and links
+        if (this.props.selectedNode) {
             this.nodes
                 .selectAll(".node")
                 .attr("opacity", d => this.props.hoveredNode === d.id ? 1.0 : 0.1);
 
             this.links
                 .attr("opacity", 0.1);
-
         } else {
 
             this.nodes
@@ -180,7 +195,10 @@ export class FlavorMapGraph extends React.Component {
 
     render() {
         return (
-            <svg ref={this.container} className={Styles.FlavorMap} />
+            <span>
+                <div ref={this.tooltip} className={Styles.tooltip}></div>
+                <svg ref={this.container} className={Styles.FlavorMap} />
+            </span>
         );
     }
 }
