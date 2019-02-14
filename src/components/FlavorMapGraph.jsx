@@ -53,8 +53,6 @@ export class FlavorMapGraph extends React.Component {
 
     handleTick() {
 
-        //const nodes = this.props.ingredients;
-
         this.links
             .selectAll(".link")
             .attr("x1", d => d.source.x)
@@ -163,6 +161,7 @@ export class FlavorMapGraph extends React.Component {
         } else {
             this.tip.style("opacity", 0);
         }
+
 
         // if a node is selected fade all non-neighboring nodes and links
         if (this.props.selectedNode) {
