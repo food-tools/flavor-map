@@ -49,8 +49,6 @@ export class FlavorMapGraph extends React.Component {
 
     handleTick() {
 
-        //const nodes = this.props.ingredients;
-
         this.links
             .selectAll(".link")
             .attr("x1", d => d.source.x)
@@ -147,7 +145,7 @@ export class FlavorMapGraph extends React.Component {
                 .on("end", dragended);
 
         }
-        
+
         if (this.props.hoveredNode) {
 
             this.nodes
