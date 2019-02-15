@@ -20,7 +20,6 @@ export class FlavorMapGraph extends React.Component {
         this.svg = d3.select(this.container.current);
         this.tip = d3.select(this.tooltip.current)
             .attr("opacity", 0);
-        console.log("tooltip: ", this.tip);
 
         // create layers for nodes and links
         this.g = this.svg.append("g").attr("class", "g");
@@ -103,7 +102,8 @@ export class FlavorMapGraph extends React.Component {
                         .style("cursor", "pointer")
                         //.call(drag(this.simulation))
                         .on("mouseover", d => this.props.onNodeMouseOver(d))
-                        .on("mouseout", d => this.props.onNodeMouseOut(d));
+                        .on("mouseout", d => this.props.onNodeMouseOut(d))
+                        .on("click", d => this.props.onNodeClick(d));
                 },
                 update => {},
                 exit => {
@@ -152,6 +152,7 @@ export class FlavorMapGraph extends React.Component {
         
         // if hovering on a node add a tooltip with that node's ingredient name
         let hoveredNode = this.props.hoveredNode;
+        console.log("hovered node:", hoveredNode);
         if (hoveredNode) {
             this.tip.style("opacity", 1);
             this.tip.html(hoveredNode.name)
@@ -160,14 +161,19 @@ export class FlavorMapGraph extends React.Component {
                     .style("color", "black");
         } else {
             this.tip.style("opacity", 0);
+
+            // this.svg.on("click", () => this.props.onBackgroundClick(null));
         }
 
 
         // if a node is selected fade all non-neighboring nodes and links
-        if (this.props.selectedNode) {
+        let selectedNode = this.props.selectedNode;
+        console.log("Selected node:", selectedNode);
+        if (selectedNode) {
+
             this.nodes
                 .selectAll(".node")
-                .attr("opacity", d => this.props.hoveredNode === d.id ? 1.0 : 0.1);
+                .attr("opacity", d => selectedNode.id === d.id ? 1.0 : 0.1);
 
             this.links
                 .attr("opacity", 0.1);
@@ -179,7 +185,6 @@ export class FlavorMapGraph extends React.Component {
 
             this.links
                 .attr("opacity", 1.0);
-
         }
 
         this.simulation

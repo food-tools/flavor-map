@@ -24,7 +24,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         onNodeMouseOver: (id) => dispatch(setHoveredNode(id)),
         onNodeMouseOut: (id) => dispatch(setHoveredNode(null)),
-        onNodeClick: (id) => dispatch(setSelectedNode(id))
+        onNodeClick: (id) => dispatch(setSelectedNode(id)),
+        onBackgroundClick: (id) => dispatch(setSelectedNode(id))
     }
 }
 
