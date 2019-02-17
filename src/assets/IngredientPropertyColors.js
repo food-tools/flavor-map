@@ -7,49 +7,51 @@ import {
     IngredientVolumes
 } from "./IngredientProperties";
 
+import { ClassyJack as ColorScheme } from "./Colors";
+
 import { NodeColorEncodings } from "../actions/actions";
 
 export const IngredientTypeColors = {
-    [IngredientTypes.VEGETABLE]: "#14453d",
-    [IngredientTypes.FRUIT]: "#a3333d",
-    [IngredientTypes.GRAIN]: "#c4a69d",
-    [IngredientTypes.DAIRY]: "#7391ba",
-    [IngredientTypes.FAT]: "#aa9052",
-    [IngredientTypes.NUT]: "#363457",
-    [IngredientTypes.MEAT]: "#6d3b47",
-    [IngredientTypes.HERB]: "#98a886",
-    [IngredientTypes.SPICE]: "#ba5734"
+    [IngredientTypes.VEGETABLE]: ColorScheme.DARK_GREEN,
+    [IngredientTypes.FRUIT]: ColorScheme.LIGHT_RED,
+    [IngredientTypes.GRAIN]: ColorScheme.BEIGE,
+    [IngredientTypes.DAIRY]: ColorScheme.LIGHT_BLUE,
+    [IngredientTypes.FAT]: ColorScheme.YELLOW,
+    [IngredientTypes.NUT]: ColorScheme.DARK_BLUE,
+    [IngredientTypes.MEAT]: ColorScheme.DARK_RED,
+    [IngredientTypes.HERB]: ColorScheme.LIGHT_GREEN,
+    [IngredientTypes.SPICE]: ColorScheme.ORANGE
 };
 
 export const IngredientFunctionColors = {
-    [IngredientFunctions.TEST]: "#14453d"
+    [IngredientFunctions.TEST]: ColorScheme.DARK_GREEN
 };
 
 export const IngredientSeasonColors = {
-    [IngredientSeasons.SPRING]: "#14453d",
-    [IngredientSeasons.SUMMER]: "#a3333d",
-    [IngredientSeasons.AUTUMN]: "#c4a69d",
-    [IngredientSeasons.WINTER]: "#7391ba"
+    [IngredientSeasons.SPRING]: ColorScheme.DARK_GREEN,
+    [IngredientSeasons.SUMMER]: ColorScheme.LIGHT_RED,
+    [IngredientSeasons.AUTUMN]: ColorScheme.BEIGE,
+    [IngredientSeasons.WINTER]: ColorScheme.LIGHT_BLUE
 };
 
 export const IngredientTasteColors = {
-    [IngredientTastes.SALTY]: "#14453d",
-    [IngredientTastes.SWEET]: "#a3333d",
-    [IngredientTastes.SOUR]: "#c4a69d",
-    [IngredientTastes.SAVORY]: "#7391ba"
+    [IngredientTastes.SALTY]: ColorScheme.DARK_GREEN,
+    [IngredientTastes.SWEET]: ColorScheme.LIGHT_RED,
+    [IngredientTastes.SOUR]: ColorScheme.BEIGE,
+    [IngredientTastes.SAVORY]: ColorScheme.LIGHT_BLUE
 };
 
 export const IngredientWeightColors = {
-    [IngredientWeights.HEAVY]: "#14453d",
-    [IngredientWeights.MEDIUM]: "#a3333d",
-    [IngredientWeights.LIGHT]: "#c4a69d"
+    [IngredientWeights.HEAVY]: ColorScheme.DARK_GREEN,
+    [IngredientWeights.MEDIUM]: ColorScheme.LIGHT_RED,
+    [IngredientWeights.LIGHT]: ColorScheme.BEIGE
 };
 
 export const IngredientVolumeColors = {
-    [IngredientVolumes.QUIET]: "#14453d",
-    [IngredientVolumes.MODERATE]: "#a3333d",
-    [IngredientVolumes.MODERATE_LOUD]: "#c4a69d",
-    [IngredientVolumes.LOUD]: "#7391ba"
+    [IngredientVolumes.QUIET]: ColorScheme.DARK_GREEN,
+    [IngredientVolumes.MODERATE]: ColorScheme.LIGHT_RED,
+    [IngredientVolumes.MODERATE_LOUD]: ColorScheme.BEIGE,
+    [IngredientVolumes.LOUD]: ColorScheme.LIGHT_BLUE
 };
 
 export const GetColorScheme = (nodeColorEncoding=NodeColorEncodings.ENCODE_TYPE) => {
