@@ -28,30 +28,30 @@ export const IngredientFunctionColors = {
 };
 
 export const IngredientSeasonColors = {
-    [IngredientSeasons.SPRING]: ColorScheme.DARK_GREEN,
-    [IngredientSeasons.SUMMER]: ColorScheme.LIGHT_RED,
-    [IngredientSeasons.AUTUMN]: ColorScheme.BEIGE,
-    [IngredientSeasons.WINTER]: ColorScheme.LIGHT_BLUE
+    [IngredientSeasons.SPRING]: ColorScheme.LIGHT_GREEN,
+    [IngredientSeasons.SUMMER]: ColorScheme.YELLOW,
+    [IngredientSeasons.AUTUMN]: ColorScheme.ORANGE,
+    [IngredientSeasons.WINTER]: ColorScheme.DARK_BLUE
 };
 
 export const IngredientTasteColors = {
-    [IngredientTastes.SALTY]: ColorScheme.DARK_GREEN,
-    [IngredientTastes.SWEET]: ColorScheme.LIGHT_RED,
-    [IngredientTastes.SOUR]: ColorScheme.BEIGE,
-    [IngredientTastes.SAVORY]: ColorScheme.LIGHT_BLUE
+    [IngredientTastes.SALTY]: ColorScheme.LIGHT_BLUE,
+    [IngredientTastes.SWEET]: ColorScheme.YELLOW,
+    [IngredientTastes.SOUR]: ColorScheme.LIGHT_GREEN,
+    [IngredientTastes.SAVORY]: ColorScheme.DARK_RED
 };
 
 export const IngredientWeightColors = {
-    [IngredientWeights.HEAVY]: ColorScheme.DARK_GREEN,
-    [IngredientWeights.MEDIUM]: ColorScheme.LIGHT_RED,
-    [IngredientWeights.LIGHT]: ColorScheme.BEIGE
+    [IngredientWeights.HEAVY]: ColorScheme.DARK_RED,
+    [IngredientWeights.MEDIUM]: ColorScheme.ORANGE,
+    [IngredientWeights.LIGHT]: ColorScheme.YELLOW
 };
 
 export const IngredientVolumeColors = {
-    [IngredientVolumes.QUIET]: ColorScheme.DARK_GREEN,
-    [IngredientVolumes.MODERATE]: ColorScheme.LIGHT_RED,
-    [IngredientVolumes.MODERATE_LOUD]: ColorScheme.BEIGE,
-    [IngredientVolumes.LOUD]: ColorScheme.LIGHT_BLUE
+    [IngredientVolumes.QUIET]: ColorScheme.LIGHT_BLUE,
+    [IngredientVolumes.MODERATE]: ColorScheme.BEIGE,
+    [IngredientVolumes.MODERATE_LOUD]: ColorScheme.YELLOW,
+    [IngredientVolumes.LOUD]: ColorScheme.DARK_RED
 };
 
 export const GetColorScheme = (nodeColorEncoding=NodeColorEncodings.ENCODE_TYPE) => {
