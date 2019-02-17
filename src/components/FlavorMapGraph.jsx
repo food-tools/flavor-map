@@ -187,12 +187,14 @@ export class FlavorMapGraph extends React.Component {
             this.nodes
                 .selectAll(".node")
                 .attr("opacity", d => 
-                    selectedNode.id === d.id ||
-                    areNeighborNodes(selectedNode, d) 
+                    selectedNode.id === d.id || areNeighborNodes(selectedNode, d) 
                     ? 1.0 : 0.1);
 
             this.links
-                .attr("opacity", 0.1);
+                .selectAll(".link")
+                .attr("opacity", d => 
+                    selectedNode.id === d.target.id || selectedNode.id === d.source.id
+                    ? 1.0 : 0.1);
         } else {
 
             this.nodes
@@ -200,6 +202,7 @@ export class FlavorMapGraph extends React.Component {
                 .attr("opacity", 1.0);
 
             this.links
+                .selectAll(".link")
                 .attr("opacity", 1.0);
         }
 
@@ -210,9 +213,6 @@ export class FlavorMapGraph extends React.Component {
                 (pairing.source.id === node2.id && pairing.target.id === node1.id)
             ).length > 0;
         }
-
-        // helper function to check if a link touches a node
-        function 
 
 
         this.simulation
