@@ -3,6 +3,7 @@ import { Grid, Dimmer, Loader } from "semantic-ui-react";
 import { FlavorMap } from "../containers/FlavorMap";
 import { Title } from "./Title";
 import { Cuisines } from "../containers/Cuisines";
+import { ColorEncodings } from "../containers/ColorEncodings";
 import * as Styles from "../assets/CustomStyles";
 
 export const View = ({ isFetchingGraph, isFetchingCuisines }) => (
@@ -34,7 +35,11 @@ export const View = ({ isFetchingGraph, isFetchingCuisines }) => (
                         )
                         :
                         (
-                            <Cuisines />
+                            <div>
+                                <Cuisines />
+                                <br />
+                                <ColorEncodings />
+                            </div>
                         )
                     }
                 </Grid.Row>
