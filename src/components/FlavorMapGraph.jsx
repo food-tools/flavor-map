@@ -23,8 +23,14 @@ export class FlavorMapGraph extends React.Component {
 
         // create layers for nodes and links
         this.g = this.svg.append("g").attr("class", "g");
+        this.background = this.g.append("g").attr("class", "background");
         this.links = this.g.append("g").attr("class", "links");
         this.nodes = this.g.append("g").attr("class", "nodes");
+
+        this.background
+            .append("rect")
+            .attr("x", 0)
+            .attr("y", 0);
 
         // apply some global attributes to nodes and links
         this.links
@@ -89,7 +95,15 @@ export class FlavorMapGraph extends React.Component {
             .attr("width", w)
             .attr("height", h);
 
-        //  add new nodes into the selection
+        // set the background to cover the same height and width
+        // add listener on background to de-select nodes
+        this.background.select("rect")
+            .attr("width", w)
+            .attr("height", h)
+            .attr("fill", "white")
+            .on("click", d => this.props.onBackgroundClick());
+
+        // add new nodes into the selection
         this.nodes
             .selectAll(".node")
             .data(nodes, d => d.id)
@@ -161,8 +175,6 @@ export class FlavorMapGraph extends React.Component {
                     .style("color", "black");
         } else {
             this.tip.style("opacity", 0);
-
-            // this.svg.on("click", () => this.props.onBackgroundClick(null));
         }
 
 
