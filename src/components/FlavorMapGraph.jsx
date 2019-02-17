@@ -27,6 +27,7 @@ export class FlavorMapGraph extends React.Component {
         this.links = this.g.append("g").attr("class", "links");
         this.nodes = this.g.append("g").attr("class", "nodes");
 
+        // define background as a rectangle starting at the top left corner
         this.background
             .append("rect")
             .attr("x", 0)
@@ -185,7 +186,10 @@ export class FlavorMapGraph extends React.Component {
 
             this.nodes
                 .selectAll(".node")
-                .attr("opacity", d => selectedNode.id === d.id ? 1.0 : 0.1);
+                .attr("opacity", d => 
+                    selectedNode.id === d.id ||
+                    areNeighborNodes(selectedNode, d) 
+                    ? 1.0 : 0.1);
 
             this.links
                 .attr("opacity", 0.1);
@@ -198,6 +202,18 @@ export class FlavorMapGraph extends React.Component {
             this.links
                 .attr("opacity", 1.0);
         }
+
+        // helper function to check if a node is a neighbor of another
+        function areNeighborNodes(node1, node2) {
+            return links.filter(pairing => 
+                (pairing.source.id === node1.id && pairing.target.id === node2.id) ||
+                (pairing.source.id === node2.id && pairing.target.id === node1.id)
+            ).length > 0;
+        }
+
+        // helper function to check if a link touches a node
+        function 
+
 
         this.simulation
             .nodes(nodes)
