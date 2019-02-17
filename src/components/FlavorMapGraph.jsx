@@ -119,6 +119,12 @@ export class FlavorMapGraph extends React.Component {
         // state is internal (we don't use state because we don't need to)
         const w = this.container.current.getBoundingClientRect().width;
         const h = this.container.current.getBoundingClientRect().height;
+        
+        // helper function to check if a node is a neighbor of another
+        const areNeighborNodes = (node1, node2) => this.graph.links.filter(pairing =>
+            (pairing.source.id === node1.id && pairing.target.id === node2.id) ||
+            (pairing.source.id === node2.id && pairing.target.id === node1.id)
+        ).length > 0;
 
         //let zoom = d3.zoom()
         //    .scaleExtent([1, 40])
@@ -154,22 +160,49 @@ export class FlavorMapGraph extends React.Component {
             this.tip.style("opacity", 0);
         }
 
-        // if a node is selected fade all non-neighboring nodes and links
-        let selectedNode = this.props.selectedNode;
-        console.log("Selected node:", selectedNode);
-        if (selectedNode) {
+        if (this.props.selectedNode) {
 
             this.nodes
                 .selectAll(".node")
-                .attr("opacity", d =>
-                    selectedNode.id === d.id || areNeighborNodes(selectedNode, d)
-                    ? 1.0 : 0.1);
+                .attr("opacity",
+                    d =>
+                    this.props.selectedNode.id === d.id || areNeighborNodes(this.props.selectedNode, d) ?
+                    1.0 :
+                    0.1
+                );
 
             this.links
                 .selectAll(".link")
-                .attr("opacity", d =>
-                    selectedNode.id === d.target.id || selectedNode.id === d.source.id
-                    ? 1.0 : 0.1);
+                .attr("opacity",
+                    d =>
+                    this.props.selectedNode.id === d.target.id || this.props.selectedNode.id === d.source.id ?
+                    1.0 :
+                    0.1
+                );
+
+        } else if (this.props.selectedCuisine) {
+
+            this.nodes
+                .selectAll(".node")
+                .attr("opacity",
+                    d =>
+                    this.props.selectedCuisine.ingredients.indexOf(d.id) >= 0 ?
+                    1.0 :
+                    0.1
+                );
+
+            this.links
+                .selectAll(".link")
+                .attr("opacity",
+                    d =>
+                    (
+                        this.props.selectedCuisine.ingredients.indexOf(d.source.id) >= 0 &&
+                        this.props.selectedCuisine.ingredients.indexOf(d.target.id) >= 0
+                    ) ?
+                    1.0 :
+                    0.1
+                );
+
         } else {
 
             this.nodes
@@ -179,15 +212,10 @@ export class FlavorMapGraph extends React.Component {
             this.links
                 .selectAll(".link")
                 .attr("opacity", 1.0);
+
         }
 
-        // helper function to check if a node is a neighbor of another
-        function areNeighborNodes(node1, node2) {
-            return links.filter(pairing =>
-                (pairing.source.id === node1.id && pairing.target.id === node2.id) ||
-                (pairing.source.id === node2.id && pairing.target.id === node1.id)
-            ).length > 0;
-        }
+        this.simulation.force("center", d3.forceCenter(w/2, h/2));
 
     }
 
