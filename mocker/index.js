@@ -3,6 +3,7 @@ const uuid = require("uuid/v4");
 
 // Some random values
 const type = ["vegetable", "fruit", "grain", "dairy", "fat", "nut", "meat", "herb", "spice"];
+const functions = ["test"];
 const seasons = ["spring", "summer", "autumn", "winter"];
 const tastes = ["salty", "savory", "sweet", "sour"];
 const weights = ["heavy", "medium", "light"];
@@ -24,6 +25,7 @@ const ingredients = new Array(randomNumberOfIngredients)
         id: uuid(),
         name: faker.fake("{{random.word}} {{random.word}}"),
         type: type[Math.floor(Math.random() * type.length)],
+        function: functions[Math.floor(Math.random() * functions.length)],
         season: seasons[Math.floor(Math.random() * seasons.length)],
         taste: tastes[Math.floor(Math.random() * tastes.length)],
         weight: weights[Math.floor(Math.random() * weights.length)],

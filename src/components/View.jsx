@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Grid, Dimmer, Loader } from "semantic-ui-react";
+import { Grid, Segment, Dimmer, Loader } from "semantic-ui-react";
 import { FlavorMap } from "../containers/FlavorMap";
 import { Title } from "./Title";
 import { Cuisines } from "../containers/Cuisines";
@@ -28,20 +28,29 @@ export const View = ({ isFetchingGraph, isFetchingCuisines }) => (
                     <Title />
                 </Grid.Row>
                 <Grid.Row>
-                    {
-                        isFetchingCuisines ?
-                        (
-                              <Loader size="large"></Loader>
-                        )
-                        :
-                        (
-                            <div>
+                    <Segment basic>
+                        {
+                            isFetchingCuisines ?
+                            (
+                                  <Loader size="small" active inline="centered"></Loader>
+                            )
+                            :
+                            (
                                 <Cuisines />
-                                <br />
+                            )
+                        }
+                        <br />
+                        {
+                            isFetchingGraph ?
+                            (
+                                  <Loader size="small" active inline="centered"></Loader>
+                            )
+                            :
+                            (
                                 <ColorEncodings />
-                            </div>
-                        )
-                    }
+                            )
+                        }
+                    </Segment>
                 </Grid.Row>
             </Grid.Column>
         </Grid.Row>

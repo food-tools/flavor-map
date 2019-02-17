@@ -17,11 +17,15 @@ export const IngredientSeasons = {
     WINTER: "WINTER"
 };
 
+export const IngredientFunctions = {
+    TEST: "TEST"
+};
+
 export const IngredientTastes = {
     SALTY: "SALTY",
-    SUMMER: "SUMMER",
-    AUTUMN: "AUTUMN",
-    WINTER: "WINTER"
+    SWEET: "SWEET",
+    SOUR: "SOUR",
+    SPICY: "SPICY"
 };
 
 export const IngredientWeights = {

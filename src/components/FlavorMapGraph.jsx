@@ -2,8 +2,6 @@ import * as React from "react";
 import * as d3 from "d3";
 import * as Styles from "../assets/CustomStyles";
 
-import { IngredientTypeColors } from "../assets/IngredientPropertyColors";
-
 const nodeRadius = 9;
 
 export class FlavorMapGraph extends React.Component {
@@ -12,6 +10,10 @@ export class FlavorMapGraph extends React.Component {
         super(props);
         this.container = React.createRef();
         this.tooltip = React.createRef();
+        this.graph = {
+            nodes: this.props.ingredients,
+            links: this.props.pairings
+        };
     }
 
     componentDidMount() {
@@ -30,7 +32,9 @@ export class FlavorMapGraph extends React.Component {
         this.background
             .append("rect")
             .attr("x", 0)
-            .attr("y", 0);
+            .attr("y", 0)
+            .attr("fill", "white")
+            .on("click", this.props.onBackgroundClick);
 
         // apply some global attributes to nodes and links
         this.links
@@ -41,9 +45,44 @@ export class FlavorMapGraph extends React.Component {
             .attr("stroke", "#fff")
             .attr("stroke-width", 1);
 
-        // initialize simulation
-        this.simulation = d3.forceSimulation();
-        this.simulation.on("tick", () => this.handleTick());
+        this.nodes
+            .selectAll(".node")
+            .data(this.graph.nodes, d => d.id)
+            .join(
+                enter => {
+                    enter.append("circle")
+                        .attr("class", "node")
+                        .attr("r", nodeRadius)
+                        .style("cursor", "pointer")
+                        .on("mouseover", d => this.props.onNodeMouseOver(d))
+                        .on("mouseout", d => this.props.onNodeMouseOut(d))
+                        .on("click", d => this.props.onNodeClick(d));
+                },
+                update => {},
+                exit => {
+                    exit.remove();
+                }
+            );
+
+        this.links
+            .selectAll(".link")
+            .data(this.graph.links, d => `${d.source.id}_${d.target.id}`)
+            .join(
+                enter => {
+                    enter.append("line").attr("class", "link")
+                },
+                update => {},
+                exit => {
+                    exit.remove();
+                }
+            );
+
+        this.simulation = d3.forceSimulation()
+            .nodes(this.graph.nodes)
+            .force("link", d3.forceLink(this.graph.links).id(d => d.id))
+            .force("charge", d3.forceManyBody())
+            .force("collide", d3.forceCollide(nodeRadius + 2))
+            .on("tick", () => this.handleTick());
 
         // draw with the initial state
         this.draw();
@@ -85,11 +124,6 @@ export class FlavorMapGraph extends React.Component {
         //    .translateExtent([[-100, -100], [w, h]]);
         //.on("zoom", zoomed);
 
-        // main fdg code taken from http://bl.ocks.org/eyaler/10586116#index.html
-
-        const nodes = this.props.ingredients;
-        const links = this.props.pairings;
-
         // adjust height and width accordingly
         this.g
             .attr("width", w)
@@ -97,73 +131,15 @@ export class FlavorMapGraph extends React.Component {
 
         // set the background to cover the same height and width
         // add listener on background to de-select nodes
-        this.background.select("rect")
+        this.background
+            .select("rect")
             .attr("width", w)
-            .attr("height", h)
-            .attr("fill", "white")
-            .on("click", d => this.props.onBackgroundClick());
+            .attr("height", h);
 
-        // add new nodes into the selection
         this.nodes
             .selectAll(".node")
-            .data(nodes, d => d.id)
-            .join(
-                enter => {
-                    enter.append("circle")
-                        .attr("class", "node")
-                        .attr("r", nodeRadius)
-                        .attr("fill", d => IngredientTypeColors[d.type.toUpperCase()])
-                        .style("cursor", "pointer")
-                        //.call(drag(this.simulation))
-                        .on("mouseover", d => this.props.onNodeMouseOver(d))
-                        .on("mouseout", d => this.props.onNodeMouseOut(d))
-                        .on("click", d => this.props.onNodeClick(d));
-                },
-                update => {},
-                exit => {
-                    exit.remove();
-                }
-            );
+            .attr("fill", d => this.props.nodeColors[d.id]);
 
-        this.links
-            .selectAll(".link")
-            .data(links, d => `${d.source.id}_${d.target.id}`)
-            .join(
-                enter => {
-                    enter.append("line").attr("class", "link")
-                },
-                update => {},
-                exit => {
-                    exit.remove();
-                }
-            );
-
-        function drag(simulation) {
-
-            function dragstarted(d) {
-              if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-              d.fx = d.x;
-              d.fy = d.y;
-            }
-
-            function dragged(d) {
-              d.fx = d3.event.x;
-              d.fy = d3.event.y;
-            }
-
-            function dragended(d) {
-              if (!d3.event.active) simulation.alphaTarget(0);
-              d.fx = null;
-              d.fy = null;
-            }
-
-            return d3.drag()
-                .on("start", dragstarted)
-                .on("drag", dragged)
-                .on("end", dragended);
-
-        }
-        
         // if hovering on a node add a tooltip with that node's ingredient name
         let hoveredNode = this.props.hoveredNode;
         console.log("hovered node:", hoveredNode);
@@ -176,7 +152,6 @@ export class FlavorMapGraph extends React.Component {
         } else {
             this.tip.style("opacity", 0);
         }
-
 
         // if a node is selected fade all non-neighboring nodes and links
         let selectedNode = this.props.selectedNode;
@@ -199,13 +174,7 @@ export class FlavorMapGraph extends React.Component {
                 .attr("opacity", 1.0);
         }
 
-        this.simulation
-            .nodes(nodes)
-            .force("link", d3.forceLink(links))
-            .force("charge", d3.forceManyBody())
-            .force("center", d3.forceCenter(w/2, h/2))
-            .force("collide", d3.forceCollide(nodeRadius + 2))
-            .alpha(0.5).restart();
+        this.simulation.force("center", d3.forceCenter(w/2, h/2));
 
     }
 
@@ -282,6 +251,32 @@ function() {
         g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
     }
 });
+
+function drag(simulation) {
+
+    function dragstarted(d) {
+      if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+      d.fx = d.x;
+      d.fy = d.y;
+    }
+
+    function dragged(d) {
+      d.fx = d3.event.x;
+      d.fy = d3.event.y;
+    }
+
+    function dragended(d) {
+      if (!d3.event.active) simulation.alphaTarget(0);
+      d.fx = null;
+      d.fy = null;
+    }
+
+    return d3.drag()
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended);
+
+}
 
 svg.call(zoom);
 */
