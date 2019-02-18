@@ -229,27 +229,6 @@ export class FlavorMapGraph extends React.Component {
     }
 }
 
-//let hoveredNodeID = this.props.hoveredNode;
-//console.log(hoveredNodeID);
-//if (hoveredNodeID != null){
-//    let hoveredNode = nodes[hoveredNodeID];
-    // @TODO: probably just an issue accessing this data
-//    console.log(hoveredNode);
-//}
-
-// node.append("title")
-//     .text(d => d.name);
-
-// @TODO: do we want this functionality?
-/*
-
-*/
-
-//function zoomed() {
-    //won't be this easy:
-    //svg.attr("transform", d3.event.transform);
-
-//return svg.node();
 
 
 // zoom.on function from d3v3 example of zooming fdg
@@ -293,6 +272,15 @@ function() {
     }
 });
 
+svg.call(zoom);
+*/
+
+// @TODO: this line is in mbostock example, do we need it?
+// https://beta.observablehq.com/@mbostock/d3-force-directed-graph#drag
+// invalidation.then(() => simulation.stop());
+
+// @TODO: do we want this functionality?
+/*
 function drag(simulation) {
 
     function dragstarted(d) {
@@ -319,9 +307,4 @@ function drag(simulation) {
 
 }
 
-svg.call(zoom);
 */
-
-// @TODO: this line is in mbostock example, do we need it?
-// https://beta.observablehq.com/@mbostock/d3-force-directed-graph#drag
-// invalidation.then(() => simulation.stop());
