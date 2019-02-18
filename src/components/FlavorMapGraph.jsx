@@ -127,11 +127,7 @@ export class FlavorMapGraph extends React.Component {
             (pairing.source.id === node2.id && pairing.target.id === node1.id)
         ).length > 0;
 
-        //let zoom = d3.zoom()
-        //    .scaleExtent([1, 40])
-        //    .translateExtent([[-100, -100], [w, h]]);
-        //.on("zoom", zoomed);
-
+        
         // adjust height and width accordingly
         this.g
             .attr("width", w)
@@ -236,51 +232,6 @@ export class FlavorMapGraph extends React.Component {
     }
 }
 
-
-
-// zoom.on function from d3v3 example of zooming fdg
-// http://bl.ocks.org/eyaler/10586116#index.html
-/*
-
-let nominal_stroke = 1.5;
-let max_stroke = 4.5;
-let nominal_base_node_size = 36;
-
-function() {
-
-    let stroke = nominal_stroke;
-    if (nominal_stroke * zoom.scale() > max_stroke) {
-        stroke = max_stroke/zoom.scale();
-    }
-    link.style("stroke-width",stroke);
-    circle.style("stroke-width",stroke);
-
-    let base_radius = nominal_base_node_size;
-    if (nominal_base_node_size * zoom.scale() > max_base_node_size) {
-        base_radius = max_base_node_size/zoom.scale();
-    }
-    circle.attr("d", d3.svg.symbol()
-        .size(function(d) { return Math.PI * Math.pow(size(d.size) *
-                base_radius/nominal_base_node_size || base_radius , 2); })
-        .type(function(d) { return d.type; }))
-
-    if (!text_center) {
-        text.attr("dx", function(d) {
-            return (size(d.size) * base_radius/nominal_base_node_size || base_radius);
-        });
-
-        let text_size = nominal_text_size;
-        if (nominal_text_size*zoom.scale()>max_text_size) {
-            text_size = max_text_size/zoom.scale();
-        }
-        text.style("font-size",text_size + "px");
-
-        g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-    }
-});
-
-svg.call(zoom);
-*/
 
 // @TODO: this line is in mbostock example, do we need it?
 // https://beta.observablehq.com/@mbostock/d3-force-directed-graph#drag
