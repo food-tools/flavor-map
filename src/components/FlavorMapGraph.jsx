@@ -2,8 +2,6 @@ import * as React from "react";
 import * as d3 from "d3";
 import * as Styles from "../assets/CustomStyles";
 
-const nodeRadius = 9;
-
 export class FlavorMapGraph extends React.Component {
 
     constructor(props) {
@@ -54,7 +52,7 @@ export class FlavorMapGraph extends React.Component {
                 enter => {
                     enter.append("circle")
                         .attr("class", "node")
-                        .attr("r", nodeRadius)
+                        .attr("r", 10)
                         .style("cursor", "pointer")
                         .on("mouseover", d => this.props.onNodeMouseOver(d))
                         .on("mouseout", d => this.props.onNodeMouseOut(d))
@@ -83,7 +81,7 @@ export class FlavorMapGraph extends React.Component {
             .nodes(this.graph.nodes)
             .force("link", d3.forceLink(this.graph.links).id(d => d.id))
             .force("charge", d3.forceManyBody())
-            .force("collide", d3.forceCollide(nodeRadius + 2))
+            .force("collide", d3.forceCollide(12))
             .on("tick", () => this.handleTick());
 
         // draw with the initial state
@@ -120,7 +118,9 @@ export class FlavorMapGraph extends React.Component {
         // state is internal (we don't use state because we don't need to)
         const w = this.container.current.getBoundingClientRect().width;
         const h = this.container.current.getBoundingClientRect().height;
-        
+
+        const ease = d3.transition().duration(100).ease(d3.easeLinear);
+
         // helper function to check if a node is a neighbor of another
         const areNeighborNodes = (node1, node2) => this.graph.links.filter(pairing =>
             (pairing.source.id === node1.id && pairing.target.id === node2.id) ||
@@ -145,6 +145,7 @@ export class FlavorMapGraph extends React.Component {
 
         this.nodes
             .selectAll(".node")
+            .transition(ease)
             .attr("fill", d => this.props.nodeColors[d.id]);
 
         // if hovering on a node add a tooltip with that node's ingredient name
@@ -164,6 +165,7 @@ export class FlavorMapGraph extends React.Component {
 
             this.nodes
                 .selectAll(".node")
+                .transition(ease)
                 .attr("opacity",
                     d =>
                     this.props.selectedNode.id === d.id || areNeighborNodes(this.props.selectedNode, d) ?
@@ -173,6 +175,7 @@ export class FlavorMapGraph extends React.Component {
 
             this.links
                 .selectAll(".link")
+                .transition(ease)
                 .attr("opacity",
                     d =>
                     this.props.selectedNode.id === d.target.id || this.props.selectedNode.id === d.source.id ?
@@ -184,6 +187,7 @@ export class FlavorMapGraph extends React.Component {
 
             this.nodes
                 .selectAll(".node")
+                .transition(ease)
                 .attr("opacity",
                     d =>
                     this.props.selectedCuisine.ingredients.indexOf(d.id) >= 0 ?
@@ -193,6 +197,7 @@ export class FlavorMapGraph extends React.Component {
 
             this.links
                 .selectAll(".link")
+                .transition(ease)
                 .attr("opacity",
                     d =>
                     (
@@ -207,10 +212,12 @@ export class FlavorMapGraph extends React.Component {
 
             this.nodes
                 .selectAll(".node")
+                .transition(ease)
                 .attr("opacity", 1.0);
 
             this.links
                 .selectAll(".link")
+                .transition(ease)
                 .attr("opacity", 1.0);
 
         }
