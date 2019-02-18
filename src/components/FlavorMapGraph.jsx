@@ -30,6 +30,7 @@ export class FlavorMapGraph extends React.Component {
         this.nodes = this.g.append("g").attr("class", "nodes");
 
         // define background as a rectangle starting at the top left corner
+        // add listener on background to de-select nodes
         this.background
             .append("rect")
             .attr("x", 0)
@@ -137,7 +138,6 @@ export class FlavorMapGraph extends React.Component {
             .attr("height", h);
 
         // set the background to cover the same height and width
-        // add listener on background to de-select nodes
         this.background
             .select("rect")
             .attr("width", w)
