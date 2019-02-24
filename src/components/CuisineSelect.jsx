@@ -3,11 +3,15 @@ import { Dropdown, Header } from "semantic-ui-react";
 
 export const CuisineSelect = ({ cuisines, onSelectCuisines }) => (
     <div>
+        {
+            console.log("IN JSX", cuisines)
+        }
         <Header size="tiny">Select a cuisine</Header>
         <Dropdown
             fluid
             search
             selection
+            clearable
             options={
                 cuisines.map(cuisine => ({
                     text: cuisine.name,
@@ -18,7 +22,7 @@ export const CuisineSelect = ({ cuisines, onSelectCuisines }) => (
             onChange={
                 (event, { value }) => onSelectCuisines([value])
             }
-            value={ cuisines.filter(cuisine => cuisine.selected).map(cuisine => cuisine.id)[0] }
+            value={ cuisines.filter(cuisine => cuisine.selected).length > 0 ? cuisines.filter(cuisine => cuisine.selected).map(cuisine => cuisine.id)[0] : "" }
         />
     </div>
 );

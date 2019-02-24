@@ -13,7 +13,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        onSelectCuisines: (cuisines) => dispatch(setSelectedCuisines(cuisines))
+        onSelectCuisines: (cuisines) => cuisines[0] === "" ? dispatch(setSelectedCuisines([])) : dispatch(setSelectedCuisines(cuisines))
     };
 }
 
