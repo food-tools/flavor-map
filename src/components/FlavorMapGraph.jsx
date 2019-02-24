@@ -23,7 +23,6 @@ export class FlavorMapGraph extends React.Component {
             .attr("opacity", 0);
 
         // create layers for nodes and links
-        // @TODO: append background to g?
         this.g = this.svg.append("g").attr("class", "g")
         this.background = this.g.append("g").attr("class", "background");
         this.links = this.g.append("g").attr("class", "links");
@@ -162,7 +161,7 @@ export class FlavorMapGraph extends React.Component {
             .transition(ease)
             .attr("fill", d => this.props.nodeColors[d.id]);
 
-        // @TODO: change this to get correct transform values
+
         // if hovering on a node add a tooltip with that node's ingredient name
         if (hoveredNode) {
 
@@ -176,10 +175,8 @@ export class FlavorMapGraph extends React.Component {
             const tipbox = this.tooltip.current.getBoundingClientRect();
             const bbox = document.getElementById(`${hoveredNode.id}`).getBoundingClientRect();
 
-            let tipX = bbox.x + (bbox.width/2) + 10;
-            let tipY = bbox.y - tipbox.height - 10;
-            // let tipX = hoveredNode.x + zoomX;
-            // let tipY = hoveredNode.y + zoomY - 50;
+            let tipX = bbox.x + (bbox.width/2);
+            let tipY = bbox.y - tipbox.height - 5;
 
             console.log(`Hovered node: ${hoveredNode.x}, ${hoveredNode.y}`);
             console.log(`Zoom: {k: ${zoomTransform.k}, x: ${zoomTransform.x}, y: ${zoomTransform.y}}`);
