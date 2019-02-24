@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as d3 from "d3";
 import * as Styles from "../assets/CustomStyles";
+import { Transform } from "stream";
 
 export class FlavorMapGraph extends React.Component {
 
@@ -22,10 +23,17 @@ export class FlavorMapGraph extends React.Component {
             .attr("opacity", 0);
 
         // create layers for nodes and links
-        this.g = this.svg.append("g").attr("class", "g");
-        this.background = this.g.append("g").attr("class", "background");
+        // @TODO: append background to g?
+        this.g = this.svg.append("g").attr("class", "g")
+        this.background = this.g.append("background").attr("class", "background");
         this.links = this.g.append("g").attr("class", "links");
         this.nodes = this.g.append("g").attr("class", "nodes");
+
+        // @TODO: add a translateExtent to restrict panning?
+        this.zoom = d3.zoom()
+            .scaleExtent([0.1, 7])
+            .on("zoom", this.zoomed.bind(this));
+
 
         // define background as a rectangle starting at the top left corner
         // add listener on background to de-select nodes
@@ -35,6 +43,7 @@ export class FlavorMapGraph extends React.Component {
             .attr("y", 0)
             .attr("fill", "white")
             .on("click", this.props.onBackgroundClick);
+
 
         // apply some global attributes to nodes and links
         this.links
@@ -84,6 +93,8 @@ export class FlavorMapGraph extends React.Component {
             .force("collide", d3.forceCollide(12))
             .on("tick", () => this.handleTick());
 
+        this.svg.call(this.zoom);
+
         // draw with the initial state
         this.draw();
 
@@ -111,6 +122,11 @@ export class FlavorMapGraph extends React.Component {
 
     }
 
+    zoomed(){
+        this.props.onZoom(d3.event.transform);
+        console.log(`event: (${d3.event.sourceEvent.x}, ${d3.event.sourceEvent.y})`);
+    }
+
     draw() {
 
         // this runs whenever "state" or "props" changes
@@ -127,11 +143,13 @@ export class FlavorMapGraph extends React.Component {
             (pairing.source.id === node2.id && pairing.target.id === node1.id)
         ).length > 0;
 
-        
-        // adjust height and width accordingly
+        const { hoveredNode, selectedNode, selectedCuisine, zoomTransform } = this.props;
+
+        // adjust height and width and apply the zoom transform
         this.g
             .attr("width", w)
-            .attr("height", h);
+            .attr("height", h)
+            .attr("transform", `translate(${zoomTransform.x}, ${zoomTransform.y}) scale(${zoomTransform.k})`);        
 
         // set the background to cover the same height and width
         this.background
@@ -144,27 +162,42 @@ export class FlavorMapGraph extends React.Component {
             .transition(ease)
             .attr("fill", d => this.props.nodeColors[d.id]);
 
+
+        // @TODO: change this to get correct transform values
         // if hovering on a node add a tooltip with that node's ingredient name
-        let hoveredNode = this.props.hoveredNode;
-        console.log("hovered node:", hoveredNode);
         if (hoveredNode) {
+            
+            let zoomScale = zoomTransform.k,
+            zoomX = zoomTransform.x,
+            zoomY = zoomTransform.y;
+            
+            let tipX = hoveredNode.x + (zoomX * zoomScale);
+            let tipY = hoveredNode.y + (zoomY * zoomScale) - 50 * zoomScale;
+            // let tipX = hoveredNode.x + zoomX;
+            // let tipY = hoveredNode.y + zoomY - 50;
+            
+            console.log(`Hovered node: ${hoveredNode.x}, ${hoveredNode.y}`);
+            console.log(`Zoom: {k: ${zoomTransform.k}, x: ${zoomTransform.x}, y: ${zoomTransform.y}}`);
+            console.log(`Tooltip: ${tipX}, ${tipY}`);
+
+
             this.tip.style("opacity", 1);
             this.tip.html(hoveredNode.name)
-                    .style("left", hoveredNode.x + "px")
-                    .style("top", (hoveredNode.y - 50) + "px")
+                    .style("left", tipX + "px")
+                    .style("top", tipY + "px")
                     .style("color", "black");
         } else {
             this.tip.style("opacity", 0);
         }
 
-        if (this.props.selectedNode) {
+        if (selectedNode) {
 
             this.nodes
                 .selectAll(".node")
                 .transition(ease)
                 .attr("opacity",
                     d =>
-                    this.props.selectedNode.id === d.id || areNeighborNodes(this.props.selectedNode, d) ?
+                    selectedNode.id === d.id || areNeighborNodes(selectedNode, d) ?
                     1.0 :
                     0.1
                 );
@@ -174,19 +207,19 @@ export class FlavorMapGraph extends React.Component {
                 .transition(ease)
                 .attr("opacity",
                     d =>
-                    this.props.selectedNode.id === d.target.id || this.props.selectedNode.id === d.source.id ?
+                    selectedNode.id === d.target.id || selectedNode.id === d.source.id ?
                     1.0 :
                     0.1
                 );
 
-        } else if (this.props.selectedCuisine) {
+        } else if (selectedCuisine) {
 
             this.nodes
                 .selectAll(".node")
                 .transition(ease)
                 .attr("opacity",
                     d =>
-                    this.props.selectedCuisine.ingredients.indexOf(d.id) >= 0 ?
+                    selectedCuisine.ingredients.indexOf(d.id) >= 0 ?
                     1.0 :
                     0.1
                 );
@@ -197,8 +230,8 @@ export class FlavorMapGraph extends React.Component {
                 .attr("opacity",
                     d =>
                     (
-                        this.props.selectedCuisine.ingredients.indexOf(d.source.id) >= 0 &&
-                        this.props.selectedCuisine.ingredients.indexOf(d.target.id) >= 0
+                        selectedCuisine.ingredients.indexOf(d.source.id) >= 0 &&
+                        selectedCuisine.ingredients.indexOf(d.target.id) >= 0
                     ) ?
                     1.0 :
                     0.1
