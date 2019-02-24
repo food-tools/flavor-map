@@ -33,7 +33,6 @@ export class FlavorMapGraph extends React.Component {
             .scaleExtent([0.1, 7])
             .on("zoom", this.zoomed.bind(this));
 
-
         // define background as a rectangle starting at the top left corner
         // add listener on background to de-select nodes
         this.background
@@ -64,7 +63,22 @@ export class FlavorMapGraph extends React.Component {
                         .style("cursor", "pointer")
                         .on("mouseover", d => this.props.onNodeMouseOver(d))
                         .on("mouseout", d => this.props.onNodeMouseOut(d))
-                        .on("click", d => this.props.onNodeClick(d));
+                        .on("click", d => {
+
+                            const w = this.container.current.getBoundingClientRect().width;
+                            const h = this.container.current.getBoundingClientRect().height;
+                            const midpoint = {x: w/2, y: h/2};
+
+                            // determine zoomTransform x, y, k
+                            const zoomTransform = {
+                                k: 1,
+                                x: midpoint.x - d.x,
+                                y: midpoint.y - d.y
+                            }
+
+                            this.zoomed(zoomTransform);
+                            this.props.onNodeClick(d);
+                        });
                 },
                 update => {},
                 exit => {
@@ -121,8 +135,9 @@ export class FlavorMapGraph extends React.Component {
 
     }
 
-    zoomed() {
-        this.props.onZoom(d3.event.transform);
+    zoomed (zoomTransform) {
+        console.log("event:", d3.event);
+        this.props.onZoom(zoomTransform ? zoomTransform : d3.event.transform);
     }
 
     draw() {
@@ -147,7 +162,7 @@ export class FlavorMapGraph extends React.Component {
         this.g
             .attr("width", w)
             .attr("height", h)
-            .attr("transform", `translate(${zoomTransform.x}, ${zoomTransform.y}) scale(${zoomTransform.k})`);
+            .attr("transform", zoomTransform.toString());
 
         // set the background to cover the same height and width
         this.background
@@ -170,8 +185,8 @@ export class FlavorMapGraph extends React.Component {
             const tipbox = this.tooltip.current.getBoundingClientRect();
             const bbox = document.getElementById(`${hoveredNode.id}`).getBoundingClientRect();
 
-            let tipX = bbox.x + (bbox.width/2);
-            let tipY = bbox.y - tipbox.height - 5;
+            const tipX = bbox.x + (bbox.width/2);
+            const tipY = bbox.y - tipbox.height - 5;
 
             this.tip.style("left", tipX + "px")
                     .style("top", tipY + "px")
@@ -183,6 +198,8 @@ export class FlavorMapGraph extends React.Component {
 
         if (selectedNode) {
 
+            // change the opacity to "highlight" only the selected node and its
+            // neighboring nodes and links
             this.nodes
                 .selectAll(".node")
                 .transition(ease)
@@ -202,6 +219,10 @@ export class FlavorMapGraph extends React.Component {
                     1.0 :
                     0.1
                 );
+
+            // this.zoom = d3.zoom()
+            //     .scaleExtent([0.1, 7])
+            //     .on("zoom", this.zoomed.bind(this));
 
         } else if (selectedCuisine) {
 
