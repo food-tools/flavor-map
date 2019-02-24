@@ -123,7 +123,6 @@ export class FlavorMapGraph extends React.Component {
 
     zoomed() {
         this.props.onZoom(d3.event.transform);
-        console.log(`event: (${d3.event.sourceEvent.x}, ${d3.event.sourceEvent.y})`);
     }
 
     draw() {
@@ -165,10 +164,6 @@ export class FlavorMapGraph extends React.Component {
         // if hovering on a node add a tooltip with that node's ingredient name
         if (hoveredNode) {
 
-            let zoomScale = zoomTransform.k,
-            zoomX = zoomTransform.x,
-            zoomY = zoomTransform.y;
-
             this.tip.style("opacity", 1);
             this.tip.html(hoveredNode.name);
 
@@ -177,10 +172,6 @@ export class FlavorMapGraph extends React.Component {
 
             let tipX = bbox.x + (bbox.width/2);
             let tipY = bbox.y - tipbox.height - 5;
-
-            console.log(`Hovered node: ${hoveredNode.x}, ${hoveredNode.y}`);
-            console.log(`Zoom: {k: ${zoomTransform.k}, x: ${zoomTransform.x}, y: ${zoomTransform.y}}`);
-            console.log(`Tooltip: ${tipX}, ${tipY}`);
 
             this.tip.style("left", tipX + "px")
                     .style("top", tipY + "px")
