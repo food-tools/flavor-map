@@ -162,7 +162,7 @@ export class FlavorMapGraph extends React.Component {
         this.g
             .attr("width", w)
             .attr("height", h)
-            .attr("transform", zoomTransform.toString());
+            .attr("transform", `translate(${zoomTransform.x}, ${zoomTransform.y}) scale(${zoomTransform.k})`);
 
         // set the background to cover the same height and width
         this.background
