@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { FlavorMapGraph } from "../components/FlavorMapGraph";
-import { setHoveredNode, setSelectedNode } from "../actions/actions";
+import { setHoveredNode, setSelectedNode, setZoomTransform } from "../actions/actions";
 import { GetColorScheme, GetColorKey } from "../assets/IngredientPropertyColors";
 
 const mapStateToProps = (state, ownProps) => {
@@ -21,7 +21,8 @@ const mapStateToProps = (state, ownProps) => {
         ),
         selectedCuisine: state.options.selectedCuisines.length > 0 ? state.data.cuisines[state.options.selectedCuisines[0]] : null,
         selectedNode: state.options.selectedNode,
-        hoveredNode: state.options.hoveredNode
+        hoveredNode: state.options.hoveredNode,
+        zoomTransform: state.options.zoomTransform
     }
 }
 
@@ -30,7 +31,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         onNodeMouseOver: (id) => dispatch(setHoveredNode(id)),
         onNodeMouseOut: (id) => dispatch(setHoveredNode(null)),
         onNodeClick: (id) => dispatch(setSelectedNode(id)),
-        onBackgroundClick: () => dispatch(setSelectedNode(null))
+        onBackgroundClick: () => dispatch(setSelectedNode(null)),
+        onZoom: (zoomTransform) => dispatch(setZoomTransform(zoomTransform))
     }
 }
 

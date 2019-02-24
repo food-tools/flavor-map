@@ -1,8 +1,7 @@
 import * as React from "react";
 import * as d3 from "d3";
 import * as Styles from "../assets/CustomStyles";
-
-const nodeRadius = 9;
+import { Transform } from "stream";
 
 export class FlavorMapGraph extends React.Component {
 
@@ -24,12 +23,20 @@ export class FlavorMapGraph extends React.Component {
             .attr("opacity", 0);
 
         // create layers for nodes and links
-        this.g = this.svg.append("g").attr("class", "g");
+        // @TODO: append background to g?
+        this.g = this.svg.append("g").attr("class", "g")
         this.background = this.g.append("g").attr("class", "background");
         this.links = this.g.append("g").attr("class", "links");
         this.nodes = this.g.append("g").attr("class", "nodes");
 
+        // @TODO: add a translateExtent to restrict panning?
+        this.zoom = d3.zoom()
+            .scaleExtent([0.1, 7])
+            .on("zoom", this.zoomed.bind(this));
+
+
         // define background as a rectangle starting at the top left corner
+        // add listener on background to de-select nodes
         this.background
             .append("rect")
             .attr("x", 0)
@@ -53,7 +60,8 @@ export class FlavorMapGraph extends React.Component {
                 enter => {
                     enter.append("circle")
                         .attr("class", "node")
-                        .attr("r", nodeRadius)
+                        .attr("r", 10)
+                        .attr("id", d => d.id)
                         .style("cursor", "pointer")
                         .on("mouseover", d => this.props.onNodeMouseOver(d))
                         .on("mouseout", d => this.props.onNodeMouseOut(d))
@@ -82,8 +90,10 @@ export class FlavorMapGraph extends React.Component {
             .nodes(this.graph.nodes)
             .force("link", d3.forceLink(this.graph.links).id(d => d.id))
             .force("charge", d3.forceManyBody())
-            .force("collide", d3.forceCollide(nodeRadius + 2))
+            .force("collide", d3.forceCollide(12))
             .on("tick", () => this.handleTick());
+
+        this.svg.call(this.zoom);
 
         // draw with the initial state
         this.draw();
@@ -112,6 +122,11 @@ export class FlavorMapGraph extends React.Component {
 
     }
 
+    zoomed() {
+        this.props.onZoom(d3.event.transform);
+        console.log(`event: (${d3.event.sourceEvent.x}, ${d3.event.sourceEvent.y})`);
+    }
+
     draw() {
 
         // this runs whenever "state" or "props" changes
@@ -119,25 +134,24 @@ export class FlavorMapGraph extends React.Component {
         // state is internal (we don't use state because we don't need to)
         const w = this.container.current.getBoundingClientRect().width;
         const h = this.container.current.getBoundingClientRect().height;
-        
+
+        const ease = d3.transition().duration(100).ease(d3.easeLinear);
+
         // helper function to check if a node is a neighbor of another
         const areNeighborNodes = (node1, node2) => this.graph.links.filter(pairing =>
             (pairing.source.id === node1.id && pairing.target.id === node2.id) ||
             (pairing.source.id === node2.id && pairing.target.id === node1.id)
         ).length > 0;
 
-        //let zoom = d3.zoom()
-        //    .scaleExtent([1, 40])
-        //    .translateExtent([[-100, -100], [w, h]]);
-        //.on("zoom", zoomed);
+        const { hoveredNode, selectedNode, selectedCuisine, zoomTransform } = this.props;
 
-        // adjust height and width accordingly
+        // adjust height and width and apply the zoom transform
         this.g
             .attr("width", w)
-            .attr("height", h);
+            .attr("height", h)
+            .attr("transform", `translate(${zoomTransform.x}, ${zoomTransform.y}) scale(${zoomTransform.k})`);
 
         // set the background to cover the same height and width
-        // add listener on background to de-select nodes
         this.background
             .select("rect")
             .attr("width", w)
@@ -145,59 +159,82 @@ export class FlavorMapGraph extends React.Component {
 
         this.nodes
             .selectAll(".node")
+            .transition(ease)
             .attr("fill", d => this.props.nodeColors[d.id]);
 
+        // @TODO: change this to get correct transform values
         // if hovering on a node add a tooltip with that node's ingredient name
-        let hoveredNode = this.props.hoveredNode;
-        console.log("hovered node:", hoveredNode);
         if (hoveredNode) {
+
+            let zoomScale = zoomTransform.k,
+            zoomX = zoomTransform.x,
+            zoomY = zoomTransform.y;
+
             this.tip.style("opacity", 1);
-            this.tip.html(hoveredNode.name)
-                    .style("left", hoveredNode.x + "px")
-                    .style("top", (hoveredNode.y - 50) + "px")
+            this.tip.html(hoveredNode.name);
+
+            const tipbox = this.tooltip.current.getBoundingClientRect();
+            const bbox = document.getElementById(`${hoveredNode.id}`).getBoundingClientRect();
+
+            let tipX = bbox.x + (bbox.width/2) + 10;
+            let tipY = bbox.y - tipbox.height - 10;
+            // let tipX = hoveredNode.x + zoomX;
+            // let tipY = hoveredNode.y + zoomY - 50;
+
+            console.log(`Hovered node: ${hoveredNode.x}, ${hoveredNode.y}`);
+            console.log(`Zoom: {k: ${zoomTransform.k}, x: ${zoomTransform.x}, y: ${zoomTransform.y}}`);
+            console.log(`Tooltip: ${tipX}, ${tipY}`);
+
+            this.tip.style("left", tipX + "px")
+                    .style("top", tipY + "px")
                     .style("color", "black");
+
         } else {
             this.tip.style("opacity", 0);
         }
 
-        if (this.props.selectedNode) {
+        if (selectedNode) {
 
             this.nodes
                 .selectAll(".node")
+                .transition(ease)
                 .attr("opacity",
                     d =>
-                    this.props.selectedNode.id === d.id || areNeighborNodes(this.props.selectedNode, d) ?
+                    selectedNode.id === d.id || areNeighborNodes(selectedNode, d) ?
                     1.0 :
                     0.1
                 );
 
             this.links
                 .selectAll(".link")
+                .transition(ease)
                 .attr("opacity",
                     d =>
-                    this.props.selectedNode.id === d.target.id || this.props.selectedNode.id === d.source.id ?
+                    selectedNode.id === d.target.id || selectedNode.id === d.source.id ?
                     1.0 :
                     0.1
                 );
 
-        } else if (this.props.selectedCuisine) {
+        } else if (selectedCuisine) {
 
             this.nodes
                 .selectAll(".node")
+                .transition(ease)
                 .attr("opacity",
                     d =>
-                    this.props.selectedCuisine.ingredients.indexOf(d.id) >= 0 ?
+                    selectedCuisine.ingredients.indexOf(d.id) >= 0 ?
                     1.0 :
                     0.1
                 );
 
             this.links
                 .selectAll(".link")
+                .transition(ease)
                 .attr("opacity",
                     d =>
                     (
-                        this.props.selectedCuisine.ingredients.indexOf(d.source.id) >= 0 &&
-                        this.props.selectedCuisine.ingredients.indexOf(d.target.id) >= 0
+                        selectedCuisine.ingredients.indexOf(d.source.id) >= 0 &&
+                        selectedCuisine.ingredients.indexOf(d.target.id) >= 0
                     ) ?
                     1.0 :
                     0.1
@@ -207,10 +244,12 @@ export class FlavorMapGraph extends React.Component {
 
             this.nodes
                 .selectAll(".node")
+                .transition(ease)
                 .attr("opacity", 1.0);
 
             this.links
                 .selectAll(".link")
+                .transition(ease)
                 .attr("opacity", 1.0);
 
         }
@@ -229,70 +268,13 @@ export class FlavorMapGraph extends React.Component {
     }
 }
 
-//let hoveredNodeID = this.props.hoveredNode;
-//console.log(hoveredNodeID);
-//if (hoveredNodeID != null){
-//    let hoveredNode = nodes[hoveredNodeID];
-    // @TODO: probably just an issue accessing this data
-//    console.log(hoveredNode);
-//}
 
-// node.append("title")
-//     .text(d => d.name);
+// @TODO: this line is in mbostock example, do we need it?
+// https://beta.observablehq.com/@mbostock/d3-force-directed-graph#drag
+// invalidation.then(() => simulation.stop());
 
 // @TODO: do we want this functionality?
 /*
-
-*/
-
-//function zoomed() {
-    //won't be this easy:
-    //svg.attr("transform", d3.event.transform);
-
-//return svg.node();
-
-
-// zoom.on function from d3v3 example of zooming fdg
-// http://bl.ocks.org/eyaler/10586116#index.html
-/*
-
-let nominal_stroke = 1.5;
-let max_stroke = 4.5;
-let nominal_base_node_size = 36;
-
-function() {
-
-    let stroke = nominal_stroke;
-    if (nominal_stroke * zoom.scale() > max_stroke) {
-        stroke = max_stroke/zoom.scale();
-    }
-    link.style("stroke-width",stroke);
-    circle.style("stroke-width",stroke);
-
-    let base_radius = nominal_base_node_size;
-    if (nominal_base_node_size * zoom.scale() > max_base_node_size) {
-        base_radius = max_base_node_size/zoom.scale();
-    }
-    circle.attr("d", d3.svg.symbol()
-        .size(function(d) { return Math.PI * Math.pow(size(d.size) *
-                base_radius/nominal_base_node_size || base_radius , 2); })
-        .type(function(d) { return d.type; }))
-
-    if (!text_center) {
-        text.attr("dx", function(d) {
-            return (size(d.size) * base_radius/nominal_base_node_size || base_radius);
-        });
-
-        let text_size = nominal_text_size;
-        if (nominal_text_size*zoom.scale()>max_text_size) {
-            text_size = max_text_size/zoom.scale();
-        }
-        text.style("font-size",text_size + "px");
-
-        g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-    }
-});
-
 function drag(simulation) {
 
     function dragstarted(d) {
@@ -319,9 +301,4 @@ function drag(simulation) {
 
 }
 
-svg.call(zoom);
 */
-
-// @TODO: this line is in mbostock example, do we need it?
-// https://beta.observablehq.com/@mbostock/d3-force-directed-graph#drag
-// invalidation.then(() => simulation.stop());
