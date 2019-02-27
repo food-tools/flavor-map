@@ -17,7 +17,7 @@ const initialState = {
     selectedCuisines: [],
     nodeColorEncoding: NodeColorEncodings.ENCODE_TYPE,
     linkStrengthEncoding: LinkStrengthEncodings.ALL_EQUAL,
-    zoomTransform: {k: 1, x: 0, y: 0}
+    zoomTransform: null
 };
 
 export const options = (state=initialState, action) => {
