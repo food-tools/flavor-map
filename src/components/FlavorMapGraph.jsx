@@ -124,7 +124,6 @@ export class FlavorMapGraph extends React.Component {
 
     zoomed() {
         this.props.onZoom(d3.event.transform);
-        console.log(`event: (${d3.event.sourceEvent.x}, ${d3.event.sourceEvent.y})`);
     }
 
     draw() {
