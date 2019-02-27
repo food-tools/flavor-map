@@ -24,3 +24,15 @@
     border-radius: 8px;
     pointer-events: none;
 }
+
+.SearchBar {
+    padding: 1rem !important;
+    position: absolute !important;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+}
+
+.FullWidth {
+    width: 100%;
+}

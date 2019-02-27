@@ -3,9 +3,6 @@ import { Dropdown, Header } from "semantic-ui-react";
 
 export const CuisineSelect = ({ cuisines, onSelectCuisines }) => (
     <div>
-        {
-            console.log("IN JSX", cuisines)
-        }
         <Header size="tiny">Select a cuisine</Header>
         <Dropdown
             fluid
