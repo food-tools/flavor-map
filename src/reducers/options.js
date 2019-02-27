@@ -1,6 +1,7 @@
 import {
     SET_SEARCH_TERM,
     SET_SELECTED_NODE,
+    SET_NODE_SELECTION_TRANSITION,
     SET_HOVERED_NODE,
     SET_SELECTED_CUISINES,
     SET_NODE_COLOR_ENCODING,
@@ -13,6 +14,7 @@ import {
 const initialState = {
     searchTerm: "",
     selectedNode: null,
+    isNodeSelectionTransition: false,
     hoveredNode: null,
     selectedCuisines: [],
     nodeColorEncoding: NodeColorEncodings.ENCODE_TYPE,
@@ -31,7 +33,12 @@ export const options = (state=initialState, action) => {
             return {
                 ...state,
                 selectedNode: action.id
-            };
+            };    
+        case SET_NODE_SELECTION_TRANSITION:
+            return {
+                ...state,
+                isNodeSelectionTransition: action.bool
+            }
         case SET_HOVERED_NODE:
             return {
                 ...state,
