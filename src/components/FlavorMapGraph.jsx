@@ -23,7 +23,6 @@ export class FlavorMapGraph extends React.Component {
             .attr("opacity", 0);
 
         // create layers for nodes and links
-        // @TODO: append background to g?
         this.g = this.svg.append("g").attr("class", "g")
         this.background = this.g.append("g").attr("class", "background");
         this.links = this.g.append("g").attr("class", "links");
@@ -171,8 +170,8 @@ export class FlavorMapGraph extends React.Component {
             const tipbox = this.tooltip.current.getBoundingClientRect();
             const bbox = document.getElementById(`${hoveredNode.id}`).getBoundingClientRect();
 
-            let tipX = bbox.x + (bbox.width/2) + 10;
-            let tipY = bbox.y - tipbox.height - 10;
+            const tipX = bbox.x + (bbox.width/2);
+            const tipY = bbox.y - tipbox.height - 5;
 
             this.tip.style("left", tipX + "px")
                     .style("top", tipY + "px")
