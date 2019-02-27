@@ -2,7 +2,25 @@
     height: 100vh;
 }
 
-.Map {
+.FlavorMap {
     height: 100%;
     width: 100%;
+}
+
+.NoPadding {
+    padding: 0px !important;
+}
+
+.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 80px;
+    height: 40px;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: lightgrey;
+    color: black;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
 }

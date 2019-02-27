@@ -6,7 +6,8 @@ import {
     SET_NODE_COLOR_ENCODING,
     SET_LINK_STRENGTH_ENCODING,
     NodeColorEncodings,
-    LinkStrengthEncodings
+    LinkStrengthEncodings,
+    SET_ZOOM_TRANSFORM
 } from "../actions/actions";
 
 const initialState = {
@@ -15,7 +16,8 @@ const initialState = {
     hoveredNode: null,
     selectedCuisines: [],
     nodeColorEncoding: NodeColorEncodings.ENCODE_TYPE,
-    linkStrengthEncoding: LinkStrengthEncodings.ALL_EQUAL
+    linkStrengthEncoding: LinkStrengthEncodings.ALL_EQUAL,
+    zoomTransform: {k: 1, x: 0, y: 0}
 };
 
 export const options = (state=initialState, action) => {
@@ -50,6 +52,11 @@ export const options = (state=initialState, action) => {
                 ...state,
                 linkStrengthEncoding: action.encoding
             };
+        case SET_ZOOM_TRANSFORM:
+            return {
+                ...state,
+                zoomTransform: action.zoomTransform
+            }
         default:
             return state;
     }
