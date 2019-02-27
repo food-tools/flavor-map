@@ -7,10 +7,21 @@ export class SearchBar extends React.Component {
     constructor(props) {
         super(props);
         this.handleSearchChange = this.handleSearchChange.bind(this);
+        this.handleResultSelect = this.handleResultSelect.bind(this);
     }
 
     handleSearchChange(e, { value }) {
         this.props.onSearchKeyUp(value);
+    }
+
+    handleResultSelect(e, { result }) {
+        if (result.type === "ingredient") {
+            this.props.onSearchKeyUp(result.title);
+            this.props.onSelectIngredient(result.id);
+        } else {
+            this.props.onSearchKeyUp(result.title);
+            this.props.onSelectCuisine(result.id);
+        }
     }
 
     render() {
@@ -24,6 +35,7 @@ export class SearchBar extends React.Component {
                     name: "Ingredients",
                     results: this.props.ingredients.map(ingredient => ({
                         title: ingredient.name,
+                        type: "ingredient",
                         id: ingredient.id
                     }))
                 }
@@ -37,6 +49,7 @@ export class SearchBar extends React.Component {
                     name: "Cuisines",
                     results: this.props.cuisines.map(cuisine => ({
                         title: cuisine.name,
+                        type: "cuisine",
                         id: cuisine.id
                     }))
                 }
@@ -54,9 +67,10 @@ export class SearchBar extends React.Component {
                             fluid
                             className={Styles.SearchBar}
                             onSearchChange={this.handleSearchChange}
+                            onResultSelect={this.handleResultSelect}
                             value={this.props.searchTerm}
                             results={results}
-                            size="medium"
+                            size="large"
                             input={{ fluid: true }}
                         />
                     </Grid.Column>
