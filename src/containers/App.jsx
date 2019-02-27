@@ -4,7 +4,8 @@ import { View } from "../components/View";
 const mapStateToProps = (state, ownProps) => {
     return {
         isFetchingGraph: state.results.ingredients.isFetching,
-        isFetchingCuisines: state.results.cuisines.isFetching
+        isFetchingCuisines: state.results.cuisines.isFetching,
+        selectedNode: state.options.selectedNode
     };
 }
 

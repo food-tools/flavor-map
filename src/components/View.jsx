@@ -1,13 +1,15 @@
 import * as React from "react";
-import { Grid, Segment, Dimmer, Loader } from "semantic-ui-react";
+import { Grid, Segment, Dimmer, Loader, Divider } from "semantic-ui-react";
 import { FlavorMap } from "../containers/FlavorMap";
 import { Title } from "./Title";
 import { Cuisines } from "../containers/Cuisines";
 import { ColorEncodings } from "../containers/ColorEncodings";
 import { Search } from "../containers/Search";
+import { Ingredient } from "../containers/Ingredient"
 import * as Styles from "../assets/CustomStyles";
+import { setSelectedNode } from "../actions/actions";
 
-export const View = ({ isFetchingGraph, isFetchingCuisines }) => (
+export const View = ({ isFetchingGraph, isFetchingCuisines, selectedNode }) => (
     <Grid celled="internally" className={Styles.View}>
         <Grid.Row>
             <Grid.Column width={12} className={Styles.NoPadding}>
@@ -50,6 +52,18 @@ export const View = ({ isFetchingGraph, isFetchingCuisines }) => (
                             :
                             (
                                 <ColorEncodings />
+                            )
+                        }
+                        <br />
+                        <Divider />
+                        {
+                            selectedNode ?
+                            (
+                                <Ingredient />
+                            )
+                            :
+                            (
+                                <span></span>
                             )
                         }
                     </Segment>
