@@ -125,11 +125,11 @@ export class FlavorMapGraph extends React.Component {
         this.props.onZoom(d3.event.transform);
     }
 
+    // this runs whenever "state" or "props" changes
+    // props come from outside
+    // state is internal (we don't use state because we don't need to)
     draw() {
 
-        // this runs whenever "state" or "props" changes
-        // props come from outside
-        // state is internal (we don't use state because we don't need to)
         const w = this.container.current.getBoundingClientRect().width;
         const h = this.container.current.getBoundingClientRect().height;
 
@@ -140,6 +140,55 @@ export class FlavorMapGraph extends React.Component {
             (pairing.source.id === node1.id && pairing.target.id === node2.id) ||
             (pairing.source.id === node2.id && pairing.target.id === node1.id)
         ).length > 0;
+
+        // helper function to highlight selected node and neighboring nodes and links
+        const runSelectedNodeResponse = () => {
+            this.nodes
+                .selectAll(".node")
+                .transition(ease)
+                .attr("opacity",
+                    d =>
+                    selectedNode.id === d.id || areNeighborNodes(selectedNode, d) ?
+                    1.0 :
+                    0.1
+                );
+
+            this.links
+                .selectAll(".link")
+                .transition(ease)
+                .attr("opacity",
+                    d =>
+                    selectedNode.id === d.target.id || selectedNode.id === d.source.id ?
+                    1.0 :
+                    0.1
+                );
+        }
+        
+        // helper function to highlight selected cuisine nodes and links
+        const highlightCuisine = () => {
+            this.nodes
+                .selectAll(".node")
+                .transition(ease)
+                .attr("opacity",
+                    d =>
+                    selectedCuisine.ingredients.indexOf(d.id) >= 0 ?
+                    1.0 :
+                    0.1
+                );
+
+            this.links
+                .selectAll(".link")
+                .transition(ease)
+                .attr("opacity",
+                    d =>
+                    (
+                        selectedCuisine.ingredients.indexOf(d.source.id) >= 0 &&
+                        selectedCuisine.ingredients.indexOf(d.target.id) >= 0
+                    ) ?
+                    1.0 :
+                    0.1
+                );
+        }
 
         const { hoveredNode, selectedNode, selectedCuisine, zoomTransform } = this.props;
 
@@ -178,55 +227,28 @@ export class FlavorMapGraph extends React.Component {
                     .style("color", "black");
 
         } else {
+            
             this.tip.style("opacity", 0);
         }
 
+        // on node selection highlight that node and its neighbors
         if (selectedNode) {
 
-            this.nodes
-                .selectAll(".node")
-                .transition(ease)
-                .attr("opacity",
-                    d =>
-                    selectedNode.id === d.id || areNeighborNodes(selectedNode, d) ?
-                    1.0 :
-                    0.1
-                );
+            runSelectedNodeResponse();
 
-            this.links
-                .selectAll(".link")
-                .transition(ease)
-                .attr("opacity",
-                    d =>
-                    selectedNode.id === d.target.id || selectedNode.id === d.source.id ?
-                    1.0 :
-                    0.1
-                );
+            // make sure cuisine highlight happens even if an ingredient is selected
+            // if (selectedCuisine) {
+            //     highlightCuisine();
+            // }
 
         } else if (selectedCuisine) {
+            
+            highlightCuisine();
 
-            this.nodes
-                .selectAll(".node")
-                .transition(ease)
-                .attr("opacity",
-                    d =>
-                    selectedCuisine.ingredients.indexOf(d.id) >= 0 ?
-                    1.0 :
-                    0.1
-                );
-
-            this.links
-                .selectAll(".link")
-                .transition(ease)
-                .attr("opacity",
-                    d =>
-                    (
-                        selectedCuisine.ingredients.indexOf(d.source.id) >= 0 &&
-                        selectedCuisine.ingredients.indexOf(d.target.id) >= 0
-                    ) ?
-                    1.0 :
-                    0.1
-                );
+            // make sure node highlight happens even if a cuisine is selected
+            // if (selectedNode) {
+            //     runSelectedNodeResponse();
+            // }
 
         } else {
 
@@ -255,38 +277,3 @@ export class FlavorMapGraph extends React.Component {
         );
     }
 }
-
-
-// @TODO: this line is in mbostock example, do we need it?
-// https://beta.observablehq.com/@mbostock/d3-force-directed-graph#drag
-// invalidation.then(() => simulation.stop());
-
-// @TODO: do we want this functionality?
-/*
-function drag(simulation) {
-
-    function dragstarted(d) {
-      if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-      d.fx = d.x;
-      d.fy = d.y;
-    }
-
-    function dragged(d) {
-      d.fx = d3.event.x;
-      d.fy = d3.event.y;
-    }
-
-    function dragended(d) {
-      if (!d3.event.active) simulation.alphaTarget(0);
-      d.fx = null;
-      d.fy = null;
-    }
-
-    return d3.drag()
-        .on("start", dragstarted)
-        .on("drag", dragged)
-        .on("end", dragended);
-
-}
-
-*/
