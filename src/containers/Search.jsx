@@ -12,7 +12,8 @@ const mapStateToProps = (state, ownProps) => {
     return {
         searchTerm: state.options.searchTerm,
         ingredients: Array.from(filteredIngredients).slice(0, 5),
-        cuisines: Array.from(filteredCuisines).slice(0, 5)
+        cuisines: Array.from(filteredCuisines).slice(0, 5),
+        stateIngredients: state.data.ingredients
     };
 }
 
@@ -20,6 +21,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         onSearchKeyUp: (value) => dispatch(setSearchTerm(value)),
         onSelectIngredient: (value) => {
+            console.log("value:", value);
             dispatch(setSelectedNode(value));
         },
         onSelectCuisine: (value) => {

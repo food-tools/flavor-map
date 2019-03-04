@@ -17,9 +17,13 @@ export class SearchBar extends React.Component {
     handleResultSelect(e, { result }) {
         if (result.type === "ingredient") {
             this.props.onSearchKeyUp(result.title);
-            this.props.onSelectIngredient(result);
+
+            const ingredient = this.props.stateIngredients[result.id]
+            this.props.onSelectIngredient(ingredient);
         } else {
             this.props.onSearchKeyUp(result.title);
+
+            console.log("cuisine:", result);
             this.props.onSelectCuisine(result.id);
         }
     }
