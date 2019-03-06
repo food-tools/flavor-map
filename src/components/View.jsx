@@ -4,6 +4,7 @@ import { FlavorMap } from "../containers/FlavorMap";
 import { Title } from "./Title";
 import { Cuisines } from "../containers/Cuisines";
 import { ColorEncodings } from "../containers/ColorEncodings";
+import { Search } from "../containers/Search";
 import { Ingredient } from "../containers/Ingredient"
 import * as Styles from "../assets/CustomStyles";
 import { setSelectedNode } from "../actions/actions";
@@ -24,6 +25,7 @@ export const View = ({ isFetchingGraph, isFetchingCuisines, selectedNode }) => (
                         <FlavorMap />
                     )
                 }
+                <Search />
             </Grid.Column>
             <Grid.Column width={4}>
                 <Grid.Row>

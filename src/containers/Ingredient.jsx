@@ -4,7 +4,7 @@ import { setSelectedNode } from "../actions/actions";
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        ingredient: state.options.selectedNode,
+        ingredient: state.options.selectedNode
     }
 }
 
