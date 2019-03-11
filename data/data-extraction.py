@@ -1,13 +1,11 @@
-import PyPDF2
+from lxml import html
 
-pdfFileObj = open('flavor-bible.pdf', 'rb')
-pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
+file = open("flavor-bible.html", "rb")
+page = file.read()
 
-pageObj = pdfReader.getPage(42)
+root = html.fromstring(page)
+text = html.tostring(root, encoding="utf-8", method="text")
 
-# this isn't working for some reason, text might be in an unexpected format
-print(pageObj.extractText())
-
-# file = open("flavor-charts.txt", 'w')
-# file.write(pageText)
-# file.close()
+file = open("flavor-charts.txt", 'w')
+file.write(text)
+file.close()

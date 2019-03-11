@@ -6,7 +6,7 @@ library(tm)
 
 #extract text from pdf
 read <- readPDF(control = list(text = "-layout"))
-document <- Corpus(URISource("./flavor-bible-.pdf"), 
+document <- Corpus(URISource("./flavor-bible.pdf"), 
                    readerControl = list(reader = read))
 
 #include only pages with flavor matching charts

@@ -1,0 +1,7 @@
+Ingredient/cuisine headers:
+<div style="position:absolute;left:5.00px;top:349.92px" class="cls_011"><span class="cls_011">ACHIOTE SEEDS</span></div>
+<div style="position:absolute;left:5.00px;top:234.00px" class="cls_011"><span class="cls_011">AFRICAN CUISINE (NORTH) (See also Moroccan Cuisine)</span></div>
+
+from start of flavor charts (line 1329), if class is "cls_011" and at least first word
+of text is all caps, it is an ingredient/cuisine heading
+
