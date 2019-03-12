@@ -7,5 +7,5 @@ root = html.fromstring(page)
 text = html.tostring(root, encoding="utf-8", method="text")
 
 file = open("flavor-charts.txt", 'w')
-file.write(text)
+file.write(str(text))
 file.close()
