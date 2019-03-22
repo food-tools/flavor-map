@@ -4,8 +4,14 @@ file = open("flavor-bible.html", "rb")
 page = file.read()
 
 root = html.fromstring(page)
-text = html.tostring(root, encoding="utf-8", method="text")
+print(root)
+classes = root.get('classes')
 
-file = open("flavor-charts.txt", 'w')
-file.write(str(text))
-file.close()
+
+print(classes)
+
+# text = html.tostring(root, encoding="utf-8", method="text")
+
+# file = open("flavor-charts.txt", 'w')
+# file.write(str(text))
+# file.close()
