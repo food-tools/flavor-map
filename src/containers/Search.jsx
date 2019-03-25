@@ -21,7 +21,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         onSearchKeyUp: (value) => dispatch(setSearchTerm(value)),
         onSelectIngredient: (value) => {
-            console.log("value:", value);
             dispatch(setSelectedNode(value));
         },
         onSelectCuisine: (value) => {
