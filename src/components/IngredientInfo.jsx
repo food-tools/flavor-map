@@ -5,13 +5,16 @@ export const IngredientInfo = ({ ingredient, name }) => (
     <div>
         <Header size="medium">{ingredient.name}</Header>
         <List>
-            <List.Item><strong>Type:</strong> {ingredient.type ? ingredient.type : "n/a"}</List.Item>
-            <List.Item><strong>Function:</strong> {ingredient.function ? ingredient.function : "n/a"}</List.Item>
-            <List.Item><strong>Season:</strong> {ingredient.season ? ingredient.season : "n/a"}</List.Item>
-            <List.Item><strong>Taste:</strong> {ingredient.taste ? ingredient.taste : "n/a"}</List.Item>
-            <List.Item><strong>Weight:</strong> {ingredient.weight ? ingredient.weight : "n/a"}</List.Item>
-            <List.Item><strong>Volume:</strong> {ingredient.volume ? ingredient.volume : "n/a"}</List.Item>
-            <List.Item><strong>Techniques:</strong> {ingredient.techniques ? ingredient.techniques : "n/a"}</List.Item>
+            {ingredient.aka ? <List.Item><strong>AKA:</strong> {ingredient.aka}</List.Item> : ""}
+            {ingredient.type ? <List.Item><strong>Type:</strong> {ingredient.type}</List.Item> : ""}
+            {ingredient.season ? <List.Item><strong>Season:</strong> {ingredient.season}</List.Item> : ""}
+            {ingredient.taste ? <List.Item><strong>Taste:</strong> {ingredient.taste}</List.Item> : ""}
+            {ingredient.botanical_relatives ? <List.Item><strong>Botanical relatives:</strong> {ingredient.botanical_relatives}</List.Item> : ""}
+            {ingredient.function ? <List.Item><strong>Function:</strong> {ingredient.function}</List.Item> : ""}
+            {ingredient.weight ? <List.Item><strong>Weight:</strong> {ingredient.weight}</List.Item> : ""}
+            {ingredient.volume ? <List.Item><strong>Volume:</strong> {ingredient.volume}</List.Item> : ""}
+            {ingredient.tips ? <List.Item><strong>Tips:</strong> {ingredient.tips}</List.Item> : ""}
+            {ingredient.techniques ? <List.Item><strong>Techniques:</strong> {ingredient.techniques}</List.Item> : ""}
         </List>
 
     </div>

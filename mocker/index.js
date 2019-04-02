@@ -3,11 +3,14 @@ const uuid = require("uuid/v4");
 
 // Some random values
 const type = ["vegetable", "fruit", "grain", "dairy", "fat", "nut", "meat", "herb", "spice"];
-const functions = ["test"];
 const seasons = ["spring", "summer", "autumn", "winter"];
 const tastes = ["salty", "savory", "sweet", "sour"];
+const botanical_relatives = ["test"];
+const functions = ["test"];
 const weights = ["heavy", "medium", "light"];
 const volumes = ["quiet", "loud", "moderate-loud", "moderate"];
+const tips = ["test"];
+const techniques = ["test"];
 
 // Make random ingredients nodes
 // const randomNumberOfIngredients = Math.ceil(Math.random() * 500);
