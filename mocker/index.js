@@ -22,7 +22,11 @@ const randomNumberOfIngredients = 100;
 const randomNumberOfPairings = 150;
 const randomNumberOfCuisines = 30;
 
-const ingredients = new Array(randomNumberOfIngredients)
+const ingredients = require('../data-v1/ingredients.json');
+const pairings = require('../data-v1/pairings.json');
+const cuisines = require('../data-v1/cuisines.json');
+
+const old_ingredients = new Array(randomNumberOfIngredients)
     .fill(undefined)
     .map(nothing => ({
         id: uuid(),
@@ -36,7 +40,7 @@ const ingredients = new Array(randomNumberOfIngredients)
         techniques: faker.fake("{{random.word}} {{random.word}} {{random.word}}")
     }));
 
-const pairings = new Array(randomNumberOfPairings)
+const old_pairings = new Array(randomNumberOfPairings)
     .fill(undefined)
     .map(nothing => ({
         source: ingredients[Math.floor(Math.random() * ingredients.length)].id,
@@ -46,7 +50,7 @@ const pairings = new Array(randomNumberOfPairings)
         pairing.source != pairing.target
     );
 
-const cuisines = new Array(randomNumberOfCuisines)
+const old_cuisines = new Array(randomNumberOfCuisines)
     .fill(undefined)
     .map(nothing => ({
         id: uuid(),

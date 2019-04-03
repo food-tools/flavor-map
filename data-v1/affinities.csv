@@ -34,11 +34,11 @@ apples,apples + ginger + lemon + quince + sugar
 apples,apples + honey + lemon thyme
 apples,apples + raisins + rum
 apples,apples + red cabbage + cinnamon
-apricots — in general,apricots + almonds + cream + sugar
-apricots — in general,apricots + almonds + meringue + moscato d’asti
-apricots — in general,apricots + apples + pine nuts + rosemary
-apricots — in general,apricots + cranberries + white chocolate
-apricots — in general,apricots + oranges + sugar + vanilla + walnuts
+apricots,apricots + almonds + cream + sugar
+apricots,apricots + almonds + meringue + moscato d'asti
+apricots,apricots + apples + pine nuts + rosemary
+apricots,apricots + cranberries + white chocolate
+apricots,apricots + oranges + sugar + vanilla + walnuts
 "apricots, dried",dried apricots + dried cherries + ginger + orange + pistachios
 artichokes,artichokes + butter + garlic + lemon + parsley
 artichokes,artichokes + cream + parmesan cheese + thyme
@@ -134,7 +134,7 @@ basil,basil + olive oil + parmesan cheese
 "beans, fava",fava beans + lamb + thyme
 "beans, fava",fava beans + olive oil + pecorino cheese + prosciutto
 "beans, fava",fava beans + olive oil + thyme
-"beans, fava",fava beans + sheep’s milk cheese + olive oil
+"beans, fava",fava beans + sheep's milk cheese + olive oil
 "beans, flageolet",flageolet beans + garlic + thyme
 "beans, green",green beans + anchovies + garlic + parmesan cheese + walnuts
 "beans, green",green beans + mustard + prosciutto + vinaigrette + walnuts
@@ -142,28 +142,28 @@ basil,basil + olive oil + parmesan cheese
 "beans, white",white beans + olive oil + pecorino cheese
 "beans, white",white beans + olive oil + rosemary + balsamic vinegar
 "beans, white",white beans + broccoli rabe + wild mushrooms
-beef — in general,beef + beer + onions
-beef — in general,beef + garlic + ginger
-beef — in general,beef + garlic + tomatoes
-beef — in general,beef + mushrooms + potatoes
-beef — in general,beef + mushrooms + red wine
-beef — in general,beef + porcini mushrooms + red wine
-beef — oxtails,oxtails + parsnips + red wine
-beef — oxtails,oxtails + red wine + thyme + tomatoes
-beef — short ribs,short ribs + bay leaf + beer + mushrooms + mustard
-beef — short ribs,short ribs + beer + garlic + horseradish + onions + potatoes + tomatoes
-beef — short ribs,short ribs + carrots + mushrooms + parsnips
-beef — short ribs,short ribs + celery root + horseradish
-beef — short ribs,short ribs + cinnamon + tomatoes + red wine
-beef — short ribs,short ribs + horseradish + lemon + parsley
-beef — short ribs,short ribs + onions + potatoes + red wine
-beef — short ribs,short ribs + potatoes + root vegetables
-beef — steak: in general,steak + arugula + parmesan cheese + balsamic vinegar
-beef — steak: in general,steak + bacon + potatoes + red wine
-beef — steak: in general,steak + chianti + lemon + salt
-beef — steak: in general,steak + cremini mushrooms + watercress
-beef — steak: in general,steak + horseradish + mustard + potatoes
-beef — steak: in general,steak + shallots + red wine
+beef,beef + beer + onions
+beef,beef + garlic + ginger
+beef,beef + garlic + tomatoes
+beef,beef + mushrooms + potatoes
+beef,beef + mushrooms + red wine
+beef,beef + porcini mushrooms + red wine
+"beef, oxtails",oxtails + parsnips + red wine
+"beef, oxtails",oxtails + red wine + thyme + tomatoes
+"beef, short ribs",short ribs + bay leaf + beer + mushrooms + mustard
+"beef, short ribs",short ribs + beer + garlic + horseradish + onions + potatoes + tomatoes
+"beef, short ribs",short ribs + carrots + mushrooms + parsnips
+"beef, short ribs",short ribs + celery root + horseradish
+"beef, short ribs",short ribs + cinnamon + tomatoes + red wine
+"beef, short ribs",short ribs + horseradish + lemon + parsley
+"beef, short ribs",short ribs + onions + potatoes + red wine
+"beef, short ribs",short ribs + potatoes + root vegetables
+"beef, steak",steak + arugula + parmesan cheese + balsamic vinegar
+"beef, steak",steak + bacon + potatoes + red wine
+"beef, steak",steak + chianti + lemon + salt
+"beef, steak",steak + cremini mushrooms + watercress
+"beef, steak",steak + horseradish + mustard + potatoes
+"beef, steak",steak + shallots + red wine
 beets,beets + chives + orange + tarragon
 beets,beets + citrus + goat cheese + olive oil + shallots
 beets,beets + crème fraîche + orange + tarragon
@@ -223,9 +223,9 @@ brussels sprouts,brussels sprouts + pancetta + thyme
 "cabbage, red",red cabbage + duck fat + goat cheese + red wine vinegar
 "cabbage, red",red cabbage + pancetta + ricotta salata cheese
 capers,capers + lemon + marjoram
-caribbean cuisines,cilantro + garlic + onions
-caribbean cuisines,fish + allspice + oil + onions + vinegar
-carrots,carrots + celery + onions
+caribbean cuisines,cilantro + garlic + onions (aka sofrito)
+caribbean cuisines,fish + allspice + oil + onions + vinegar (aka escabèche)
+carrots,carrots + celery + onions (aka mirepoix)
 carrots,carrots + cilantro + lime
 carrots,carrots + cinnamon + raisins + sugar + walnuts
 carrots,carrots + cumin + orange
@@ -244,7 +244,7 @@ cauliflower,cauliflower + curry + vinegar
 cauliflower,cauliflower + garlic + mint + pasta
 cauliflower,cauliflower + pine nuts + lime
 "cayenne, ground",cayenne + coriander + cumin + garlic
-celery,celery + carrots + onions
+celery,celery + carrots + onions (aka mirepoix)
 celery,celery + tarragon + vinegar
 celery root,celery root + cream + potatoes + vinegar
 celery root,celery root + lemon + mayonnaise + mustard
@@ -253,26 +253,26 @@ chard,chard + red pepper flakes + lemon juice
 "cheese, feta",feta cheese + chicken + mint
 "cheese, feta",feta cheese + roasted red bell peppers + mint
 "cheese, feta",feta cheese + salad greens + mint
-"cheese, goat — fresh",goat cheese + almonds + honey + pears
-"cheese, goat — fresh",goat cheese + cherries + thyme
-"cheese, goat — fresh",goat cheese + fennel seeds + orange zest + pasta
-"cheese, goat — fresh",goat cheese + honey + persimmons
-"cheese, goat — fresh",goat cheese + pancetta + shallots
+"cheese, goat",goat cheese + almonds + honey + pears
+"cheese, goat",goat cheese + cherries + thyme
+"cheese, goat",goat cheese + fennel seeds + orange zest + pasta
+"cheese, goat",goat cheese + honey + persimmons
+"cheese, goat",goat cheese + pancetta + shallots
 "cheese, gorgonzola",gorgonzola + mint + walnuts
 "cheese, manchego",manchego cheese + almonds + quince paste
 "cheese, mozzarella",mozzarella cheese + basil + olive oil + tomatoes
 "cheese, mozzarella",mozzarella cheese + olives + prosciutto
 "cheese, ricotta",ricotta + bread + honey + prosecco
 "cheese, roquefort",roquefort cheese + figs + pears
-cherries — in general,cherries + almonds + cream + kirsch + vanilla
-cherries — in general,cherries + chocolate + walnuts
-cherries — in general,cherries + coconut + custard
-cherries — in general,cherries + coffee + cream
-cherries — in general,cherries + goat cheese + ice wine vinegar + black pepper + thyme
-cherries — in general,cherries + honey + pistachios + yogurt
-cherries — in general,cherries + mint + vanilla
-cherries — in general,cherries + orange + sugar + dry red wine
-cherries — in general,cherries + sweet vermouth + vanilla
+cherries,cherries + almonds + cream + kirsch + vanilla
+cherries,cherries + chocolate + walnuts
+cherries,cherries + coconut + custard
+cherries,cherries + coffee + cream
+cherries,cherries + goat cheese + ice wine vinegar + black pepper + thyme
+cherries,cherries + honey + pistachios + yogurt
+cherries,cherries + mint + vanilla
+cherries,cherries + orange + sugar + dry red wine
+cherries,cherries + sweet vermouth + vanilla
 chervil,chervil + chives + fish + parsley
 chervil,chervil + chives + parsley + tarragon (fines herbes)
 chestnuts,chestnuts + apples + cream
@@ -301,32 +301,32 @@ chickpeas,chickpeas + cilantro + cumin
 chickpeas,chickpeas + garlic + lemon juice + olive oil + thyme
 chickpeas,chickpeas + garlic + mint
 chickpeas,chickpeas + garlic + olive oil + parsley
-chile peppers — in general,chile peppers + cilantro + lime
+chile peppers,chile peppers + cilantro + lime
 "chile peppers, habanero",volume: very loud+
 "chile peppers, serrano",volume: very loud+
 chinese cuisine,cabbage + chicken stock
 chinese cuisine,garlic + ginger + pork
 chinese cuisine,ginger + rice wine + soy sauce
 chinese cuisine,soy sauce + sugar
-chocolate / cocoa — in general,chocolate + almonds + cinnamon + sugar
-chocolate / cocoa — in general,chocolate + almonds + cream
-chocolate / cocoa — in general,chocolate + banana + butterscotch + macadamia nuts
-chocolate / cocoa — in general,chocolate + banana + caramel + cream + vanilla
-chocolate / cocoa — in general,chocolate + butterscotch + caramel + coffee
-chocolate / cocoa — in general,chocolate + caramel + coffee + malt
-chocolate / cocoa — in general,chocolate + caramel + coffee + praline
-chocolate / cocoa — in general,chocolate + caramel + cream + hazelnuts + vanilla
-chocolate / cocoa — in general,chocolate + cherries + mint
-chocolate / cocoa — in general,chocolate + cinnamon + chiles + nuts + seeds
-chocolate / cocoa — in general,chocolate + coffee + hazelnuts
-chocolate / cocoa — in general,chocolate + coffee + walnuts
-chocolate / cocoa — in general,chocolate + cream + raspberries
-chocolate / cocoa — in general,chocolate + custard + pistachios
-chocolate / cocoa — in general,chocolate + ginger + orange
-chocolate / cocoa — in general,chocolate + graham crackers + marshmallows
-chocolate / cocoa — in general,chocolate + hazelnuts + orange
-chocolate / cocoa — in general,chocolate + lavender + vanilla
-chocolate / cocoa — in general,chocolate + rum + vanilla
+chocolate and cocoa,chocolate + almonds + cinnamon + sugar
+chocolate and cocoa,chocolate + almonds + cream
+chocolate and cocoa,chocolate + banana + butterscotch + macadamia nuts
+chocolate and cocoa,chocolate + banana + caramel + cream + vanilla
+chocolate and cocoa,chocolate + butterscotch + caramel + coffee
+chocolate and cocoa,chocolate + caramel + coffee + malt
+chocolate and cocoa,chocolate + caramel + coffee + praline
+chocolate and cocoa,chocolate + caramel + cream + hazelnuts + vanilla
+chocolate and cocoa,chocolate + cherries + mint
+chocolate and cocoa,chocolate + cinnamon + chiles + nuts + seeds
+chocolate and cocoa,chocolate + coffee + hazelnuts
+chocolate and cocoa,chocolate + coffee + walnuts
+chocolate and cocoa,chocolate + cream + raspberries
+chocolate and cocoa,chocolate + custard + pistachios
+chocolate and cocoa,chocolate + ginger + orange
+chocolate and cocoa,chocolate + graham crackers + marshmallows
+chocolate and cocoa,chocolate + hazelnuts + orange
+chocolate and cocoa,chocolate + lavender + vanilla
+chocolate and cocoa,chocolate + rum + vanilla
 "chocolate, white",white chocolate + basil + strawberries
 "chocolate, white",white chocolate + cream + lemon + orange
 "chocolate, white",white chocolate + dark chocolate + pistachios
@@ -357,11 +357,11 @@ coconut and coconut milk,coconut milk + beef + ginger
 cod,cod + capers + chives + lentils + potatoes
 cod,cod + cepes (mushrooms) + garlic + lemon + potatoes
 "cod, salt",salt cod + bay leaf + thyme + white wine vinegar
-coffee and espresso,coffee + bourbon + cream
-coffee and espresso,coffee + caramel + chocolate
-coffee and espresso,coffee + cinnamon + cloves + orange
-coffee and espresso,coffee + cinnamon + cream + lemon + sugar
-coffee and espresso,coffee + mascarpone + rum + sugar + vanilla
+coffee / espresso,coffee + bourbon + cream
+coffee / espresso,coffee + caramel + chocolate
+coffee / espresso,coffee + cinnamon + cloves + orange
+coffee / espresso,coffee + cinnamon + cream + lemon + sugar
+coffee / espresso,coffee + mascarpone + rum + sugar + vanilla
 cooling,cucumbers + mint + yogurt
 coriander,coriander + cardamom + cinnamon + clove
 coriander,coriander + cayenne + cumin + garlic
@@ -395,9 +395,9 @@ cream cheese,cream cheese + crème fraîche + orange + sugar + vanilla
 cream cheese,cream cheese + maple syrup + mascarpone
 cuban cuisine,allspice + cumin + garlic + orange juice + pork
 cuban cuisine,avocado + onions + pineapple + watercress
-cuban cuisine,bay leaf + green bell peppers + garlic + onions + oregano
+cuban cuisine,bay leaf + green bell peppers + garlic + onions + oregano (aka safrito)
 cuban cuisine,chocolate + garlic + olive oil
-cuban cuisine,citrus juice + garlic + olive oil
+cuban cuisine,citrus juice + garlic + olive oil (aka adobo)
 cucumbers,cucumber + chervil + salt + vinegar
 cucumbers,cucumber + chile peppers + mint + yogurt
 cucumbers,cucumber + cilantro + ginger + sugar + rice vinegar
@@ -498,9 +498,9 @@ fiddlehead ferns,fiddlehead ferns + sesame oil and/or seeds + soy sauce
 "figs, fresh",figs + olive oil + rosemary
 "figs, fresh",figs + pernod + walnuts
 fines herbes,chervil + chives + parsley + tarragon
-fish — in general (see individual fish; seafood),fish + ginger + lemongrass
-fish — in general (see individual fish; seafood),fish + herbs + white wine
-fish — in general (see individual fish; seafood),fish + onions + tomatoes
+fish,fish + ginger + lemongrass
+fish,fish + herbs + white wine
+fish,fish + onions + tomatoes
 five-spice powder,cinnamon + cloves + fennel seeds + star anise + szechuan peppercorns
 flounder,flounder + capers + lemon
 flounder,flounder + shiso + ume
@@ -508,25 +508,25 @@ flounder,flounder + konbu seaweed + shiso
 foie gras,foie gras + cherries + balsamic vinegar
 foie gras,foie gras + cherries + pistachios
 foie gras,foie gras + strawberries + black pepper
-french cuisine — in general,butter + cheese + stock
-french cuisine — in general,butter + cheese + wine
-french cuisine — in general,butter + herbs
-french cuisine — in general,cream + herbs
-french cuisine — in general,herbs + stock
-french cuisine — in general,herbs + wine
+french cuisine,butter + cheese + stock
+french cuisine,butter + cheese + wine
+french cuisine,butter + herbs
+french cuisine,cream + herbs
+french cuisine,herbs + stock
+french cuisine,herbs + wine
 "french cuisine, northern",bacon + cheese + cream
 "french cuisine, southern",basil + garlic + olive oil + parmesan cheese
 "french cuisine, southern",basil + olive oil + tomatoes
 "french cuisine, southern",bell peppers + eggplant + garlic + onions + tomatoes + zucchini
 "french cuisine, southern",chicken + garlic + olives + onions + tomatoes
 "french cuisine, southern",garlic + egg yolk + lemon + olive oil + saffron
-"french cuisine, southern",marjoram + rosemary + sage + thyme
-"french cuisine, southern",olives + basil + capers + garlic + olive oil
+"french cuisine, southern",marjoram + rosemary + sage + thyme (aka herbes de provence)
+"french cuisine, southern",olives + basil + capers + garlic + olive oil (aka tapenade)
 "french cuisine, southern",pork + anise + marjoram + thyme
 "french cuisine, southern",seafood + garlic + olive oil + tomatoes
-frisée (a fine-leaved variety of curly endive),frisée + anchovies + garlic + parmesan cheese
-frisée (a fine-leaved variety of curly endive),frisée + bacon + poached egg
-frisée (a fine-leaved variety of curly endive),frisée + bacon + roquefort cheese + garlic + shallots + sherry vinegar
+frisée,frisée + anchovies + garlic + parmesan cheese
+frisée,frisée + bacon + poached egg
+frisée,frisée + bacon + roquefort cheese + garlic + shallots + sherry vinegar
 "fruit, tropical",tropical fruit + coconut + honey + lime
 "fruit, tropical",tropical fruit + ginger + mint + orange + sugar
 garam masala,cardamom + black pepper + cinnamon + cloves + coriander + cumin + dried chiles + fennel +
@@ -629,16 +629,16 @@ indonesian cuisine,garlic + peanuts + soy sauce
 indonesian cuisine,garlic + soy sauce + brown sugar
 iranian cuisine,cardamom + cinnamon + cloves + cumin + ginger + rose
 iranian cuisine,duck + pomegranates + walnuts
-italian cuisine — in general,anchovies + capers + lemon juice
-italian cuisine — in general,anchovies + garlic + wine vinegar
-italian cuisine — in general,basil + garlic + olive oil
-italian cuisine — in general,basil + garlic + tomatoes
-italian cuisine — in general,bell peppers + olive oil + tomatoes
-italian cuisine — in general,capers + garlic + wine vinegar
-italian cuisine — in general,garlic + olive oil + parsley
-italian cuisine — in general,garlic + oregano + tomatoes
-italian cuisine — in general,garlic + saffron + shellfish
-italian cuisine — in general,red pepper flakes + fennel + sausage
+italian cuisine,anchovies + capers + lemon juice
+italian cuisine,anchovies + garlic + wine vinegar
+italian cuisine,basil + garlic + olive oil
+italian cuisine,basil + garlic + tomatoes
+italian cuisine,bell peppers + olive oil + tomatoes
+italian cuisine,capers + garlic + wine vinegar
+italian cuisine,garlic + olive oil + parsley
+italian cuisine,garlic + oregano + tomatoes
+italian cuisine,garlic + saffron + shellfish
+italian cuisine,red pepper flakes + fennel + sausage
 japanese cuisine,bonito flakes + kelp
 japanese cuisine,garlic + ginger + soy sauce
 japanese cuisine,ginger + scallions + soy sauce
@@ -657,32 +657,32 @@ korean cuisine,chile peppers + sesame seeds + soy sauce
 korean cuisine,chile peppers + soy sauce
 korean cuisine,garlic + sesame seeds + soy sauce
 korean cuisine,garlic + soy sauce
-lamb — in general,lamb + broccoli rabe + parmesan cheese
-lamb — in general,lamb + cardamom + yogurt
-lamb — in general,lamb + carrots + ginger + pistachios
-lamb — in general,lamb + carrots + lentils + parsley
-lamb — in general,lamb + chickpeas + garlic
-lamb — in general,lamb + chocolate + cinnamon + cloves
-lamb — in general,lamb + cilantro + dill + garlic + mint
-lamb — in general,lamb + cinnamon + dried apricots + preserved lemons + walnuts
-lamb — in general,lamb + cinnamon + garlic + lemon + mint + onion + oregano
-lamb — in general,lamb + cinnamon + prunes
-lamb — in general,lamb + clove + red wine
-lamb — in general,lamb + cream + fenugreek + garlic
-lamb — in general,lamb + cucumber + mint + tomatoes
-lamb — in general,lamb + escarole + lemon
-lamb — in general,lamb + fava beans + thyme
-lamb — in general,lamb + fennel + onions + turnips
-lamb — in general,lamb + flageolet beans + thyme
-lamb — in general,lamb + garlic + flageolet beans
-lamb — in general,lamb + garlic + olives
-lamb — in general,lamb + garlic + rosemary
-lamb — in general,lamb + mint + mustard
-lamb — in general,lamb + mint + olives
-lamb — in general,lamb + mint + parsley
-lamb — in general,lamb + mint + peas + risotto
-lamb — in general,lamb + mint + ricotta cheese
-lamb — in general,lamb + mint + tomatoes
+lamb,lamb + broccoli rabe + parmesan cheese
+lamb,lamb + cardamom + yogurt
+lamb,lamb + carrots + ginger + pistachios
+lamb,lamb + carrots + lentils + parsley
+lamb,lamb + chickpeas + garlic
+lamb,lamb + chocolate + cinnamon + cloves
+lamb,lamb + cilantro + dill + garlic + mint
+lamb,lamb + cinnamon + dried apricots + preserved lemons + walnuts
+lamb,lamb + cinnamon + garlic + lemon + mint + onion + oregano
+lamb,lamb + cinnamon + prunes
+lamb,lamb + clove + red wine
+lamb,lamb + cream + fenugreek + garlic
+lamb,lamb + cucumber + mint + tomatoes
+lamb,lamb + escarole + lemon
+lamb,lamb + fava beans + thyme
+lamb,lamb + fennel + onions + turnips
+lamb,lamb + flageolet beans + thyme
+lamb,lamb + garlic + flageolet beans
+lamb,lamb + garlic + olives
+lamb,lamb + garlic + rosemary
+lamb,lamb + mint + mustard
+lamb,lamb + mint + olives
+lamb,lamb + mint + parsley
+lamb,lamb + mint + peas + risotto
+lamb,lamb + mint + ricotta cheese
+lamb,lamb + mint + tomatoes
 "lamb, chops",lamb chop + lemon + mint
 latin american cuisine,beef + corn + sweet potatoes
 latin american cuisine,garlic + onions + peppers
@@ -705,14 +705,14 @@ lentils,lentils + bacon + garlic + sherry vinegar
 lentils,lentils + bay leaf + onions + thyme
 lentils,lentils + cumin + turmeric
 lentils,lentils + olive oil + parsley + sorrel
-"lettuces — mesclun greens (i.e., mixed baby lettuces)",mesclun greens + goat cheese + hazelnuts
+"lettuces, mesclun greens",mesclun greens + goat cheese + hazelnuts
 "lettuce, romaine",romaine + anchovies + parmesan cheese
 "lettuce, romaine",romaine + capers + garlic + parmesan cheese + red onions
 limes,lime + blueberries + burnt honey + crème fraîche
 limes,lime + caramel + cream cheese + macadamia nuts
 limes,lime + strawberries + tequila
-"liver, calf’s",calf’s liver + arugula + onions + pancetta
-"liver, calf’s",calf’s liver + figs + onions + red wine vinegar
+"liver, calf's",calf's liver + arugula + onions + pancetta
+"liver, calf's",calf's liver + figs + onions + red wine vinegar
 "liver, chicken",chicken livers + apples + sage
 "liver, chicken",chicken livers + bacon + balsamic vinegar + onions + rosemary
 "liver, chicken",chicken livers + kale + lemon
@@ -796,12 +796,12 @@ middle eastern cuisine,salads + goat cheese + pomegranate seeds
 middle eastern cuisine,yogurt + garlic + mint
 middle eastern cuisine,yogurt + mint
 middle eastern cuisine,yogurt + parsley
-mint — in general,mint + chocolate + cream
-mint — in general,mint + cilantro + dill
-mint — in general,mint + cucumber + lime
-mint — in general,mint + cucumber + vinegar
-mint — in general,mint + cucumber + yogurt
-mint — in general,mint + lamb + yogurt
+mint,mint + chocolate + cream
+mint,mint + cilantro + dill
+mint,mint + cucumber + lime
+mint,mint + cucumber + vinegar
+mint,mint + cucumber + yogurt
+mint,mint + lamb + yogurt
 mirepoix,carrots + celery + onions
 monkfish,monkfish + aioli + new potatoes
 monkfish,monkfish + apples + sausage
@@ -811,7 +811,7 @@ monkfish,monkfish + curry + mussels + saffron
 monkfish,monkfish + leeks + mussels
 monkfish,monkfish + red cabbage + pancetta
 monkfish,monkfish + white beans + fennel + garlic + saffron + tomatoes
-moroccan cuisine,chile peppers + garlic + olive oil + salt
+moroccan cuisine,chile peppers + garlic + olive oil + salt (aka harissa)
 moroccan cuisine,cinnamon + coriander + cumin
 moroccan cuisine,eggplant + cinnamon + mint
 moroccan cuisine,green tea + dried spearmint + sugar
@@ -820,24 +820,24 @@ moroccan cuisine,oranges + cinnamon + honey
 moroccan cuisine,parsley + lemon juice + olive oil
 moroccan cuisine,phyllo dough + almonds + cinnamon + honey
 moroccan cuisine,phyllo dough + honey + sesame seeds
-mushrooms — in general,mushrooms + garlic + lemon + olive oil
-mushrooms — in general,mushrooms + garlic + parsley
-mushrooms — in general,mushrooms + garlic + shallots
-mushrooms — chanterelles,chanterelles + butter + cream + garlic + parsley
-mushrooms — chanterelles,chanterelles + cream + garlic + thyme
-mushrooms — morels,morels + asparagus + ramps
-mushrooms — morels,morels + garlic + lemon + olive oil + parsley
-mushrooms — porcini / cepes / king bolete,porcini + almonds + balsamic vinegar
-mushrooms — porcini / cepes / king bolete,porcini + arugula + lemon + parmesan cheese
-mushrooms — porcini / cepes / king bolete,porcini + balsamic vinegar + radicchio
-mushrooms — porcini / cepes / king bolete,porcini + carrots + sage
-mushrooms — porcini / cepes / king bolete,porcini + coffee + veal
-mushrooms — porcini / cepes / king bolete,porcini + lemon juice + olive oil
-mushrooms — porcini / cepes / king bolete,porcini + parsley + tomatoes
-mushrooms — porcini / cepes / king bolete,porcini + prosciutto + spinach
-mushrooms — portobello,portobello mushrooms + lemon + mint + olive oil
-mushrooms — portobello,portobello mushrooms + polenta + spinach
-mushrooms — shiitake,shiitake mushrooms + basil + onions
+mushrooms,mushrooms + garlic + lemon + olive oil
+mushrooms,mushrooms + garlic + parsley
+mushrooms,mushrooms + garlic + shallots
+"mushrooms, chanterelles",chanterelles + butter + cream + garlic + parsley
+"mushrooms, chanterelles",chanterelles + cream + garlic + thyme
+"mushrooms, morels",morels + asparagus + ramps
+"mushrooms, morels",morels + garlic + lemon + olive oil + parsley
+"mushrooms, porcini",porcini + almonds + balsamic vinegar
+"mushrooms, porcini",porcini + arugula + lemon + parmesan cheese
+"mushrooms, porcini",porcini + balsamic vinegar + radicchio
+"mushrooms, porcini",porcini + carrots + sage
+"mushrooms, porcini",porcini + coffee + veal
+"mushrooms, porcini",porcini + lemon juice + olive oil
+"mushrooms, porcini",porcini + parsley + tomatoes
+"mushrooms, porcini",porcini + prosciutto + spinach
+"mushrooms, portobello",portobello mushrooms + lemon + mint + olive oil
+"mushrooms, portobello",portobello mushrooms + polenta + spinach
+"mushrooms, shiitake",shiitake mushrooms + basil + onions
 mussels,mussels + clams + garlic + onion + thyme + white wine
 mussels,mussels + cream + curry + saffron
 mussels,mussels + fennel + saffron + white wine
@@ -854,25 +854,25 @@ nutmeg,nutmeg + allspice + cinnamon
 nutmeg,nutmeg + cloves + cream
 nutmeg,nutmeg + cloves + ginger + white pepper (quatre épices)
 nutmeg,nutmeg + cream + spinach
-oatmeal / oats,oatmeal + currants + maple syrup
-oatmeal / oats,oatmeal + pears + vanilla + yogurt
+oatmeal,oatmeal + currants + maple syrup
+oatmeal,oatmeal + pears + vanilla + yogurt
 octopus,octopus + chorizo + lemon
 octopus,octopus + jalapeño peppers + mint
 octopus,octopus + orange + potatoes
 octopus,octopus + sake + sea salt
 "oil, avocado",avocado oil + chardonnay vinegar + tomato water
 "oil, sesame",sesame oil + ginger + mustard + rice wine vinegar
-onions — in general,taste: pungent (+ sweet with cooking via caramelization)
-onions — in general,onions + balsamic vinegar + brown sugar
-onions — in general,onions + beer + cheese + nutmeg
-onions — in general,onions + garlic + thyme
+onions,taste: pungent (+ sweet with cooking via caramelization)
+onions,onions + balsamic vinegar + brown sugar
+onions,onions + beer + cheese + nutmeg
+onions,onions + garlic + thyme
 "onions, sweet",vidalia onions + goat cheese + tomatoes + sherry vinegar
-oranges — in general,orange + anise + chocolate
-oranges — in general,orange + anise + dried figs + walnuts
-oranges — in general,orange + basil + sugar
-oranges — in general,orange + chocolate + pistachios
-oranges — in general,orange + cinnamon + honey + saffron
-oranges — in general,orange + seafood + tarragon
+oranges,orange + anise + chocolate
+oranges,orange + anise + dried figs + walnuts
+oranges,orange + basil + sugar
+oranges,orange + chocolate + pistachios
+oranges,orange + cinnamon + honey + saffron
+oranges,orange + seafood + tarragon
 oregano,oregano + basil + tomato
 oregano,oregano + lemon juice + marjoram
 oysters,oysters + caviar + leeks
@@ -883,7 +883,7 @@ oysters,oysters + ginger + horseradish + sherry vinegar
 oysters,oysters + horseradish + champagne vinegar
 oysters,oysters + muscadet + shallots + vinegar
 oysters,oysters + shallots + vinegar
-paprika — in general,paprika + beef + sour cream
+paprika,paprika + beef + sour cream
 "paprika, smoked",smoked paprika + mayonnaise + seafood
 parsley,parsley + bulgur wheat + garlic + lemon + mint + olive oil + scallions
 parsley,parsley + butter + garlic
@@ -960,15 +960,15 @@ pears,pears + pecorino cheese + balsamic vinegar
 pears,pears + roquefort cheese + sugar + vanilla + red wine
 pears,pears + roquefort cheese + walnuts
 pears,pears + stilton cheese + hazelnuts + balsamic vinegar
-peas — in general,peas + bacon + cream + shallots
-peas — in general,peas + basil + potatoes
-peas — in general,peas + celery + olive oil + onions + chicken stock + sugar
-peas — in general,peas + custard + parmesan cheese
-peas — in general,peas + lobster + pasta
-peas — in general,peas + marjoram + mascarpone + parmesan cheese
-peas — in general,peas + mint + morel mushrooms
-peas — in general,peas + mushrooms + ricotta cheese
-peas — in general,peas + onions + pancetta + sage
+peas,peas + bacon + cream + shallots
+peas,peas + basil + potatoes
+peas,peas + celery + olive oil + onions + chicken stock + sugar
+peas,peas + custard + parmesan cheese
+peas,peas + lobster + pasta
+peas,peas + marjoram + mascarpone + parmesan cheese
+peas,peas + mint + morel mushrooms
+peas,peas + mushrooms + ricotta cheese
+peas,peas + onions + pancetta + sage
 persimmons,persimmons + allspice + cinnamon + ginger
 pheasant,pheasant + apples + potatoes
 pineapples,pineapple + avocado + watercress
@@ -989,13 +989,13 @@ plums,plums + cinnamon + orange
 plums,plums + cream + sugar + vanilla
 plums,plums + ginger + raspberries
 plums,plums + ginger + yogurt
-"plums, dried",prunes + allspice + bay leaf + cinnamon + black pepper
-"plums, dried",prunes + apples + brandy + vanilla + yogurt
-"plums, dried",prunes + armagnac + chocolate
-"plums, dried",prunes + armagnac + crème fraîche
-"plums, dried",prunes + brandy + cream + vanilla
-"plums, dried",prunes + cheese + cumin + walnuts
-"plums, dried",prunes + cognac + honey + sauternes
+prunes,prunes + allspice + bay leaf + cinnamon + black pepper
+prunes,prunes + apples + brandy + vanilla + yogurt
+prunes,prunes + armagnac + chocolate
+prunes,prunes + armagnac + crème fraîche
+prunes,prunes + brandy + cream + vanilla
+prunes,prunes + cheese + cumin + walnuts
+prunes,prunes + cognac + honey + sauternes
 polenta,polenta + chanterelle mushrooms + white truffle oil
 polenta,polenta + gorgonzola cheese + mascarpone + walnuts
 polenta,polenta + parmesan cheese + rosemary
@@ -1018,15 +1018,15 @@ arizona),pork + garlic + ginger + molasses
 arizona),pork + ginger + honey + soy sauce
 arizona),pork + mustard + sauerkraut
 arizona),pork + port + rosemary
-pork — chops,pork chop + apples + ginger + sage
-pork — chops,pork chop + arugula + tomatoes
-pork — chops,pork chop + greens + sweet potatoes
-pork — chops,pork chop + peaches + balsamic vinegar
-pork — loin,pork loin + figs + onions
-pork — loin,pork loin + red cabbage + port wine
-pork — shoulder,pork shoulder + bay leaves + wild mushrooms
-pork — shoulder,pork shoulder + chipotle peppers + cumin + tomatoes
-pork — shoulder,pork shoulder + plantains + rice + rum
+pork chops,pork chop + apples + ginger + sage
+pork chops,pork chop + arugula + tomatoes
+pork chops,pork chop + greens + sweet potatoes
+pork chops,pork chop + peaches + balsamic vinegar
+pork loin,pork loin + figs + onions
+pork loin,pork loin + red cabbage + port wine
+pork shoulder,pork shoulder + bay leaves + wild mushrooms
+pork shoulder,pork shoulder + chipotle peppers + cumin + tomatoes
+pork shoulder,pork shoulder + plantains + rice + rum
 portuguese cuisine,clams + garlic + paprika + pork
 portuguese cuisine,cod + eggs + onions + potatoes
 portuguese cuisine,garlic + kale + onions + potatoes
@@ -1100,19 +1100,19 @@ rhubarb,rhubarb + mint + orange
 rhubarb,rhubarb + mint + sugar + vanilla
 rhubarb,rhubarb + stilton cheese + port wine
 rhubarb,rhubarb + strawberry + vanilla
-"rice, arborio or carnaroli",risotto + artichokes + lemon + prosciutto
-"rice, arborio or carnaroli",risotto + asparagus + chervil + morel mushrooms
-"rice, arborio or carnaroli",risotto + asparagus + saffron + scallops
-"rice, arborio or carnaroli",risotto + bacon + butternut squash + maple syrup + sage
-"rice, arborio or carnaroli",risotto + chanterelle mushrooms + zucchini blossoms
-"rice, arborio or carnaroli",risotto + chorizo + clams + saffron
-"rice, arborio or carnaroli",risotto + corn + parmesan cheese + scallions
-"rice, arborio or carnaroli",risotto + corn + parmesan cheese + shrimp
-"rice, arborio or carnaroli",risotto + mussels + parsley + peas
-"rice, arborio or carnaroli",risotto + pancetta + parmesan cheese + pumpkin
-"rice, arborio or carnaroli",risotto + peas + prosciutto
-"rice, arborio or carnaroli",risotto + sweet onions + parmesan cheese
-"rice, arborio or carnaroli",risotto + veal + black truffles
+"rice, arborio",risotto + artichokes + lemon + prosciutto
+"rice, arborio",risotto + asparagus + chervil + morel mushrooms
+"rice, arborio",risotto + asparagus + saffron + scallops
+"rice, arborio",risotto + bacon + butternut squash + maple syrup + sage
+"rice, arborio",risotto + chanterelle mushrooms + zucchini blossoms
+"rice, arborio",risotto + chorizo + clams + saffron
+"rice, arborio",risotto + corn + parmesan cheese + scallions
+"rice, arborio",risotto + corn + parmesan cheese + shrimp
+"rice, arborio",risotto + mussels + parsley + peas
+"rice, arborio",risotto + pancetta + parmesan cheese + pumpkin
+"rice, arborio",risotto + peas + prosciutto
+"rice, arborio",risotto + sweet onions + parmesan cheese
+"rice, arborio",risotto + veal + black truffles
 "rose (hips, petals, water)",rose + almonds + cream/milk
 "rose (hips, petals, water)",rose + honey + yogurt
 "rose (hips, petals, water)",rose + lemon + pistachios
@@ -1206,9 +1206,9 @@ scandinavian cuisine,cardamom + ginger + cinnamon + nutmeg + cloves
 scandinavian cuisine,cucumbers + dill + onions + sugar + vinegar
 scotch,scotch + earl grey tea + tamarind syrup
 scotch,scotch + ginger + lemon juice
-seafood — in general,seafood + brandy + sherry
-seafood — in general,seafood + fennel + lemon + mint
-seafood — in general,seafood + green apple + ginger
+seafood,seafood + brandy + sherry
+seafood,seafood + fennel + lemon + mint
+seafood,seafood + green apple + ginger
 "sesame seeds, white",sesame seeds + honey + tahini paste + vanilla
 "sesame seeds, white",sesame seeds + garlic + soy sauce + spinach
 shellfish,shellfish + almonds + vanilla
@@ -1292,11 +1292,11 @@ strawberries,strawberries + black pepper + ricotta cheese + red wine
 strawberries,strawberries + champagne +
 strawberries,strawberries + rhubarb + sugar
 sumac,sumac + lamb + black pepper
-sumac,sumac + salt + sesame seeds + thyme
-"sunchokes (see artichokes, jerusalem) swedish cuisine",beef + bay leaf + dill + nutmeg + onions
-"sunchokes (see artichokes, jerusalem) swedish cuisine",herring + sour cream + vinegar
-"sunchokes (see artichokes, jerusalem) swedish cuisine",red wine + allspice + cinnamon + cloves + raisins + sugar
-"sunchokes (see artichokes, jerusalem) swedish cuisine",veal + allspice + onions
+sumac,sumac + salt + sesame seeds + thyme (aka middle eastern za'atar)
+swedish cuisine,beef + bay leaf + dill + nutmeg + onions
+swedish cuisine,herring + sour cream + vinegar
+swedish cuisine,red wine + allspice + cinnamon + cloves + raisins + sugar
+swedish cuisine,veal + allspice + onions
 sweetbreads,sweetbreads + asparagus + morels
 sweetbreads,sweetbreads + bacon + capers
 sweetbreads,sweetbreads + bacon + garlic
@@ -1316,20 +1316,20 @@ sweet potatoes,sweet potatoes + kale + prosciutto
 sweet potatoes,sweet potatoes + maple syrup + pecans
 szechuan pepper,szechuan pepper + ginger + star anise
 tamarind,tamarind + chicken + yogurt
-"tangerines (see oranges, mandarin) tarragon",tarragon + anise + celery seeds
-"tangerines (see oranges, mandarin) tarragon",tarragon + chicken + lemon
-"tangerines (see oranges, mandarin) tarragon",tarragon + orange + seafood
+"tarragon""",tarragon + anise + celery seeds
+"tarragon""",tarragon + chicken + lemon
+"tarragon""",tarragon + orange + seafood
 tequila,tequila + cilantro + lime
 tequila,tequila + cointreau + lime juice + pomegranate juice
 tequila,tequila + cointreau + lime juice + sage
 tequila,tequila + lime juice + salt
-"tex-mex cuisine (see mexican cuisine, southwestern",chile peppers + cilantro + coconut milk
-"tex-mex cuisine (see mexican cuisine, southwestern",chile peppers + curry
-"tex-mex cuisine (see mexican cuisine, southwestern",chile peppers + curry + fish sauce
-"tex-mex cuisine (see mexican cuisine, southwestern",chile peppers + curry + peanuts
-"tex-mex cuisine (see mexican cuisine, southwestern",chile peppers + fish sauce
-"tex-mex cuisine (see mexican cuisine, southwestern",chile peppers + garlic
-"tex-mex cuisine (see mexican cuisine, southwestern",chile peppers + peanuts
+thai cuisine,chile peppers + cilantro + coconut milk
+thai cuisine,chile peppers + curry
+thai cuisine,chile peppers + curry + fish sauce
+thai cuisine,chile peppers + curry + peanuts
+thai cuisine,chile peppers + fish sauce
+thai cuisine,chile peppers + garlic
+thai cuisine,chile peppers + peanuts
 thyme,thyme + goat cheese + olive oil
 thyme,thyme + savory
 tomatoes,tomatoes + avocado + basil + crab
@@ -1382,29 +1382,29 @@ umami,taste: savory or savory + salty
 vanilla,vanilla + almonds + cream + whiskey
 vanilla,vanilla + bay leaf + brown butter
 vanilla,vanilla + chicken + cream
-veal — in general,veal + asparagus + morels
-veal — in general,veal + basil + lemon
-veal — in general,veal + capers + lemon
-veal — in general,veal + cream + mushrooms
-veal — in general,veal + cucumber + mustard
-veal — in general,veal + garlic + parmesan cheese + tomatoes
-veal — in general,veal + gremolata + orange
-veal — in general,veal + marsala wine + mushrooms
-veal — in general,veal + orange + polenta
-veal — in general,veal + prosciutto + sage
-veal — chop,veal chop + artichokes + basil
-veal — chop,veal chop + celery root + cream + dijon mustard
-veal — chop,veal chop + garlic + chanterelle mushrooms
-veal — chop,veal chop + leeks + peas
-veal — chop,veal chop + leeks + polenta
-veal — chop,veal chop + mushrooms + watercress
-veal — shanks,veal shanks + capers + gremolata + olives
-veal — shanks,veal shanks + lemon + olives
-veal — shanks,veal shanks + onions + tomatoes
-veal — shanks,veal shanks + tomatoes + thyme
-veal — tenderloin,veal tenderloin + asparagus + morel mushrooms
-veal — tenderloin,veal tenderloin + cream + morel mushrooms
-veal — tenderloin,veal tenderloin + garlic + pancetta
+veal,veal + asparagus + morels
+veal,veal + basil + lemon
+veal,veal + capers + lemon
+veal,veal + cream + mushrooms
+veal,veal + cucumber + mustard
+veal,veal + garlic + parmesan cheese + tomatoes
+veal,veal + gremolata + orange
+veal,veal + marsala wine + mushrooms
+veal,veal + orange + polenta
+veal,veal + prosciutto + sage
+"veal, chop",veal chop + artichokes + basil
+"veal, chop",veal chop + celery root + cream + dijon mustard
+"veal, chop",veal chop + garlic + chanterelle mushrooms
+"veal, chop",veal chop + leeks + peas
+"veal, chop",veal chop + leeks + polenta
+"veal, chop",veal chop + mushrooms + watercress
+"veal, shanks",veal shanks + capers + gremolata + olives
+"veal, shanks",veal shanks + lemon + olives
+"veal, shanks",veal shanks + onions + tomatoes
+"veal, shanks",veal shanks + tomatoes + thyme
+"veal, tenderloin",veal tenderloin + asparagus + morel mushrooms
+"veal, tenderloin",veal tenderloin + cream + morel mushrooms
+"veal, tenderloin",veal tenderloin + garlic + pancetta
 venison,venison + curry + pomegranate seeds
 venison,venison + garlic + juniper berries + rosemary
 venison,venison + garlic + peppercorns
@@ -1434,11 +1434,11 @@ vodka,vodka + grapefruit + maraschino liqueur
 vodka,vodka + honey + oats
 vodka,vodka + lemon + lemon verbena
 vodka,vodka + lime + pineapple
-"walnut oil (see oil, walnut) walnuts",walnuts + anise + dried figs + orange
-"walnut oil (see oil, walnut) walnuts",walnuts + apples + honey
-"walnut oil (see oil, walnut) walnuts",walnuts + caramel + prunes
-"walnut oil (see oil, walnut) walnuts",walnuts + coffee + cream
-"walnut oil (see oil, walnut) walnuts",walnuts + cumin + prunes
+walnuts,walnuts + anise + dried figs + orange
+walnuts,walnuts + apples + honey
+walnuts,walnuts + caramel + prunes
+walnuts,walnuts + coffee + cream
+walnuts,walnuts + cumin + prunes
 watercress,watercress + almonds + green apple + pecorino cheese
 watercress,watercress + bacon + cream
 watercress,watercress + endive + roquefort cheese + walnuts
@@ -1449,10 +1449,10 @@ watermelon,watermelon + feta cheese + red onions
 watermelon,watermelon + kaffir lime + vanilla
 whiskey,whiskey + cinnamon + dried fruits + ginger + lemon + star anise
 whiskey,whiskey + lemon + orange curaçao
-yams (see sweet potatoes) yogurt,yogurt + apricots + pistachios
-yams (see sweet potatoes) yogurt,yogurt + caramel + pine nuts + balsamic vinegar
-yams (see sweet potatoes) yogurt,yogurt + cilantro + garlic
-yams (see sweet potatoes) yogurt,yogurt + garlic + lemon + salt
+yogurt,yogurt + apricots + pistachios
+yogurt,yogurt + caramel + pine nuts + balsamic vinegar
+yogurt,yogurt + cilantro + garlic
+yogurt,yogurt + garlic + lemon + salt
 yuzu fruit,yuzu + caramel + grapefruit + green tea
 zucchini,zucchini + basil + garlic
 zucchini,zucchini + cream + parmesan cheese
