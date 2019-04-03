@@ -7,7 +7,7 @@ export const IngredientInfo = ({ ingredient, name }) => (
         <List>
             {ingredient.aka ? <List.Item><strong>AKA:</strong> {ingredient.aka}</List.Item> : ""}
             {ingredient.type ? <List.Item><strong>Type:</strong> {ingredient.type}</List.Item> : ""}
-            {ingredient.season ? <List.Item><strong>Season:</strong> {ingredient.season}</List.Item> : ""}
+            {ingredient.season_text ? <List.Item><strong>Season:</strong> {ingredient.season_text}</List.Item> : ""}
             {ingredient.taste ? <List.Item><strong>Taste:</strong> {ingredient.taste}</List.Item> : ""}
             {ingredient.botanical_relatives ? <List.Item><strong>Botanical relatives:</strong> {ingredient.botanical_relatives}</List.Item> : ""}
             {ingredient.function ? <List.Item><strong>Function:</strong> {ingredient.function}</List.Item> : ""}
