@@ -50,7 +50,7 @@ arugula,season: spring–summer
 arugula,taste: bitter
 arugula,weight: light–medium
 arugula,volume: moderate–loud
-arugula,"techniques: braise, raw (salads), sauté, soups, wilt"
+arugula,"techniques: braise, raw, sauté, soups, wilt"
 asparagus,season: spring
 asparagus,weight: light–medium
 asparagus,volume: moderate
@@ -102,8 +102,8 @@ bass,"techniques: bake, broil, deep-fry, poach, roast, sauté, steam"
 "bass, striped","techniques: bake, braise, broil, deep-fry, grill, pan roast, poach, raw, roast, sauté, sear, steam"
 bay leaf,"taste: sweet, bitter"
 bay leaf,"weight: light, tough-leaved"
-bay leaf,"volume: quiet–loud, depending on quantity used"
-bay leaf,techniques: can stand up to cooking
+bay leaf,volume: quiet–loud (depending on quantity used)
+bay leaf,"techniques: simmer, stew"
 "beans, black",weight: medium–heavy
 "beans, black",volume: moderate
 "beans, black",techniques: simmer
@@ -154,7 +154,7 @@ beef,tips: clove adds richness to beef.
 "beef, cheeks",techniques: braise
 "beef, loin","techniques: pan roast, roast"
 "beef, oxtails","techniques: braise, stew"
-"beef, ribs","techniques: barbecue, braise, (dry) roast"
+"beef, ribs","techniques: barbecue, braise, dry roast"
 "beef, roast",techniques: roast
 "beef, round","techniques: grill, sauté, stir-fry"
 "beef, shank",techniques: braise
@@ -165,7 +165,7 @@ beef,tips: clove adds richness to beef.
 "beef, steak: hanger","techniques: broil, grill, sauté"
 "beef, steak: rib eye","techniques: broil, grill, sauté, stir-fry"
 "beef, steak: skirt","techniques: broil, grill, sauté"
-beer,"taste: varies, from bitter to sweet"
+beer,taste: bitter–sweet
 beer,weight: medium–heavy
 beer,volume: quiet–loud
 beets,season: year-round
@@ -175,7 +175,7 @@ beets,weight: medium
 beets,volume: moderate
 beets,"techniques: bake, boil, carpaccio, chips, roast, soup, steam"
 bell peppers,season: summer–autumn
-bell peppers,"taste: bitter to sweet, from unripe (green) to ripe (yellow to red)"
+bell peppers,taste: bitter–sweet (from unripe (green) to ripe (yellow to red))
 bell peppers,weight: light–medium
 bell peppers,volume: moderate–loud
 bell peppers,"techniques: bake, broil, grill, roast, sauté, steam, stew, stir-fry, stuff"
@@ -184,7 +184,7 @@ berries,weight: light
 berries,volume: quiet–moderate
 berries,"techniques: poach, raw"
 bitterness,taste: bitter
-bitterness,function: cooling; stimulates appetite; promotes other tastes
+bitterness,"function: cooling, stimulates appetite, promotes other tastes"
 bitterness,"tips: bitterness relieves thirst. the hotter the food or drink, the less the perception of bitterness."
 blackberries,season: summer
 blackberries,taste: sour
@@ -234,7 +234,7 @@ broccolini,season: year-round
 broccolini,weight: light–medium
 broccolini,volume: quiet–moderate
 broccolini,"techniques: blanch, raw, sauté, steam, stir-fry"
-broccoli rabe,season: late fall–spring
+broccoli rabe,season: late autumn–spring
 broccoli rabe,taste: bitter
 broccoli rabe,weight: medium–heavy
 broccoli rabe,volume: moderate–loud
@@ -265,7 +265,7 @@ cabbage,"techniques: boil, braise, raw, sauté, steam, stir-fry"
 "cabbage, red","techniques: braise, marinate, raw"
 "cabbage, savoy",season: autumn–winter
 "cabbage, savoy","techniques: boil, braise, raw, roast, steam"
-cabernet sauvignon,weight: heavy red wine
+cabernet sauvignon,weight: heavy
 cabernet sauvignon,volume: loud
 calvados,season: winter
 calvados,weight: medium–heavy
@@ -416,7 +416,7 @@ chives,"weight: light, soft-leaved"
 chives,volume: quiet–moderate
 chives,"tips: always use fresh, not cooked. use in stir-fries."
 chocolate and cocoa,taste: bitter–sweet (depending on sugar content)
-chorizo,taste: salty; spicy
+chorizo,"taste: salty, spicy"
 chorizo,weight: medium–heavy
 chorizo,volume: moderate–loud
 chorizo,"techniques: sauté, stew"
@@ -460,7 +460,7 @@ cod,"techniques: bake, boil, broil, cakes, deep-fry, fry, grill, poach, roast, s
 coffee / espresso,taste: bitter
 coffee / espresso,weight: medium
 coffee / espresso,volume: moderate–loud
-cooling,function: ingredients believed to have cooling properties; useful in hot weather.
+cooling,function: cooling
 coriander,"taste: sour, pungent, astringent"
 coriander,function: cooling
 coriander,weight: light–medium
@@ -552,7 +552,7 @@ eggplant,"taste: sweet, astringent"
 eggplant,function: heating
 eggplant,weight: light–medium
 eggplant,volume: quiet
-eggplant,"techniques: bake (frittata, quiche, etc.), boil (soft or hard), fry, poach, scramble"
+eggplant,"techniques: bake, boil, fry, poach, scramble"
 "eggs, hard-boiled","techniques: chop, devil, halve, sieve, slice"
 endive,season: winter–spring
 endive,"taste: bitter, sweet"
@@ -687,7 +687,7 @@ greens,"techniques: blanch, raw, sauté, steam"
 "greens, mustard",volume: moderate–loud
 "greens, mustard","techniques: boil, braise, grill, stew, wilt"
 "greens, salad",season: late spring
-"greens, turnip",season: fall–winter
+"greens, turnip",season: autumn–winter
 "greens, turnip","techniques: boil, braise"
 grits,techniques: simmer
 grouper,season: spring
@@ -1108,7 +1108,7 @@ papayas,taste: sweet
 papayas,weight: medium
 papayas,volume: moderate
 papayas,"techniques: bake, grill, raw, sauté"
-paprika,"taste: sweet–hot, depending on variety"
+paprika,taste: sweet–hot (depending on variety
 paprika,weight: light
 paprika,volume: quiet–loud
 paprika,tips: add at the beginning of the cooking process.
@@ -1265,7 +1265,7 @@ potatoes,season: year-round
 potatoes,function: cooling
 potatoes,weight: medium–heavy
 potatoes,volume: quiet
-potatoes,"techniques: bake, boil, deep-fry, gratin, grill, mash (use older, starchier potatoes), puree, roast,"
+potatoes,"techniques: bake, boil, deep-fry, gratin, grill, mash, puree, roast,"
 "potatoes, new",season: spring–summer
 "potatoes, new",weight: medium
 "potatoes, new",volume: quiet
@@ -1337,7 +1337,7 @@ rhubarb,"techniques: bake, puree, sauté, stew"
 "rice, white","techniques: boil, steam"
 "rice, arborio",weight: medium–heavy
 "rice, arborio",volume: quiet
-"rice, arborio","techniques: sauté, then simmer"
+"rice, arborio",techniques: sauté then simmer
 "rice, basmati",function: cooling
 "rice, basmati",weight: light
 "rice, basmati",volume: quiet–moderate
@@ -1392,7 +1392,7 @@ salsify,"techniques: bake, braise, pan roast, stew"
 salt,taste: salty
 salt,function: warming
 saltiness,taste: salty
-saltiness,function: heating; stimulates salivation; enhances the flavors of ingredients
+saltiness,"function: heating, stimulates salivation, enhances the flavors of ingredients"
 saltiness,"tips: adding salt to a dish diminishes the effects of bitter, sour, and sweet."
 sardines,season: spring–summer
 sardines,taste: salty
@@ -1421,7 +1421,7 @@ sausages,"techniques: bake, grill, poach, sauté, stew"
 sauvignon blanc,weight: medium
 sauvignon blanc,volume: moderate
 savory,"weight: medium, tough-leaved"
-savory,"volume: moderate–loud (summer savory is quieter, winter savory is louder.)"
+savory,volume: moderate–loud (summer savory is quieter while winter savory is louder.)
 savory,"tips: can stand up to cooking. use summer savory with summer vegetables, and winter savory with winter vegetables."
 scallions,season: summer
 scallions,weight: light
@@ -1455,7 +1455,7 @@ shellfish,season: summer
 shiso leaf,weight: light
 shiso leaf,volume: moderate–loud
 shiso leaf,techniques: raw
-shrimp,season: year–round
+shrimp,season: year-round
 shrimp,weight: light–medium (depending on size)
 shrimp,volume: quiet
 shrimp,"techniques: bake, barbecue, boil, broil, deep-fry, grill, poach, roast, sauté, steam, stir-fry"
@@ -1488,7 +1488,7 @@ sour cream,weight: medium–heavy
 sour cream,volume: moderate–loud
 sour cream,"tips: use fresh, or cook at low temperatures only."
 sourness,taste: sour
-sourness,function: heating; stimulates appetite; increases thirst
+sourness,"function: heating, stimulates appetite, increases thirst"
 sourness,tips: sourness tends to sharpen other flavors.
 soy sauce,taste: salty
 soy sauce,weight: light
@@ -1522,7 +1522,7 @@ squab,"techniques: braise, broil, grill, roast, sauté"
 "squash, spaghetti",season: early autumn–winter
 "squash, spaghetti",weight: medium
 "squash, spaghetti",volume: moderate
-"squash, spaghetti","techniques: bake, boil, or steam; then sauté"
+"squash, spaghetti","techniques: bake, boil, steam, sauté"
 "squash, summer",season: summer
 "squash, summer",weight: light–medium
 "squash, summer",volume: quiet–moderate
@@ -1555,7 +1555,7 @@ sweetbreads,weight: medium
 sweetbreads,volume: moderate
 sweetbreads,"techniques: braise, deep-fry, grill, pan roast, sauté"
 sweetness,taste: sweet
-sweetness,function: cooling; sweetness satiates the appetite
+sweetness,"function: cooling, satiates the appetite"
 sweetness,"tips: the colder the food or drink, the less the perception of sweetness. sweetness tends to round out flavors, while acidity sharpens them."
 sweet potatoes,season: autumn–winter
 sweet potatoes,taste: sweet
@@ -1630,7 +1630,7 @@ turkey,weight: medium
 turkey,volume: quiet
 turkey,"techniques: braise, grill, poach, roast, sauté, stir-fry"
 turmeric,season: year-round
-turmeric,taste: bittersweet; pungent
+turmeric,"taste: bittersweet, pungent"
 turmeric,function: heating
 turmeric,weight: light–medium
 turmeric,volume: medium
@@ -1645,7 +1645,7 @@ vanilla,volume: quiet
 veal,season: spring
 veal,weight: light–medium
 veal,volume: quiet
-veal,"techniques: braise (shanks), pan roast (chops), roast, stew (breast, shoulder)"
+veal,"techniques: braise, pan roast, roast, stew"
 "veal, breast","techniques: braise, grill, roast"
 "veal, chop","techniques: braise, grill, pan roast, sauté, stuff"
 "veal, loin","techniques: braise, grill, pan roast, roast, sauté"
@@ -1678,18 +1678,18 @@ verjus,"tips: use instead of vinegar or lemon juice, or as a seasoning."
 "vinegar, fruit",volume: quiet–moderate
 "vinegar, ice wine","taste: sour, sweet"
 "vinegar, ice wine",weight: light
-"vinegar, ice wine","volume: quiet–moderate, with 5 percent acidity"
+"vinegar, ice wine",volume: quiet–moderate (with 5 percent acidity)
 "vinegar, malt",taste: sour
 "vinegar, malt",weight: light
-"vinegar, malt","volume: loud, with moderate acidity"
+"vinegar, malt",volume: loud (with moderate acidity)
 "vinegar, malt",tips: sprinkle on foods judiciously.
 "vinegar, red wine",taste: sour
 "vinegar, red wine",weight: light–medium
-"vinegar, red wine","volume: loud, with high acidity"
+"vinegar, red wine",volume: loud (with high acidity)
 "vinegar, red wine",tips: red wine vinegar can stand up to spices and stronger herbs.
 "vinegar, rice wine","taste: sour, sweet"
 "vinegar, rice wine",weight: light
-"vinegar, rice wine","volume: quiet, with lower acidity"
+"vinegar, rice wine",volume: quiet (with lower acidity)
 "vinegar, sherry","taste: sour, sweet"
 "vinegar, sherry",weight: light
 "vinegar, sherry",volume: moderate
@@ -1710,11 +1710,11 @@ walnuts,"taste: bitter, sweet"
 walnuts,function: heating
 walnuts,weight: medium–heavy
 walnuts,volume: quiet–moderate
-warming,function: ingredients believed to have warming properties; useful in cold weather.
+warming,function: warming
 wasabi,taste: hot
 wasabi,weight: medium
 wasabi,volume: very loud
-water chestnuts,season: summer–fall
+water chestnuts,season: summer–autumn
 water chestnuts,taste: sweet
 water chestnuts,weight: light–medium
 water chestnuts,volume: quiet

@@ -14,7 +14,8 @@ export const IngredientSeasons = {
     SPRING: "SPRING",
     SUMMER: "SUMMER",
     AUTUMN: "AUTUMN",
-    WINTER: "WINTER"
+    WINTER: "WINTER",
+    YEAR_ROUND: "YEAR_ROUND"
 };
 
 export const IngredientFunctions = {

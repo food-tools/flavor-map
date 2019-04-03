@@ -1,7 +1,4 @@
-"""
-parsing flavor_bible_full.csv from https://github.com/areeves87/Flavor-Bible-App
-to fit our data model
-"""
+# parsing fork to test sesons specifier
 
 import csv
 import uuid
@@ -152,50 +149,9 @@ for row in ing_metadata_reader:
                 ingredients_data[item][str(attribute)] = data
 
 
-# add pairings data to a list
-ingredients_csv = open('ingredients.csv', mode='r')
-ing_reader = csv.reader(ingredients_csv, delimiter=',')
-pairings_data = []
-for row in ing_reader:
-    [main, pairing] = row
-    [source, target] = [ingredient_ids[main], ingredient_ids[pairing]]
-    if {"source":source, "target":target} not in pairings_data and {"source":target, "target":source} not in pairings_data:
-        pairings_data.append({"source":source, "target":target})
-
-
-# add cuisines data to a dictionary
-# add ingredients if we come across new ones
-cuisines_csv = open('cuisines.csv', mode='r')
-cuisines_reader = csv.reader(cuisines_csv, delimiter=',')
-cuisines_ids = {}
-cuisines_data = {}
-for row in cuisines_reader:
-    [first, second] = row
-    if "cuisine" in first:
-        [cuisine, ingredient] = [first, second]
-    else:
-        [ingredient, cuisine] = [first, second]
-    if cuisine not in cuisines_ids:
-        cuisines_ids[cuisine] = str(uuid.uuid4())
-    if ingredient not in ingredient_ids:
-        ingredient_ids[ingredient] = str(uuid.uuid4())
-        ingredients_data[ingredient] = {'name':str(ingredient), 'id':str(ingredient_ids[ingredient])}
-    if cuisine not in cuisines_data:
-        cuisines_data[cuisine] = {'name':str(cuisine), 'id':str(cuisines_ids[cuisine]), 'ingredients': [ingredient_ids[ingredient]]}
-    else:
-        cuisines_data[cuisine]['ingredients'].append(ingredient_ids[ingredient])
-
-
 # format data how app expects it
 ingredients_data_values_list = list(ingredients_data.values())
-cuisines_data_values_list = list(cuisines_data.values())
 
 # write all cleaned and formatted data to JSON files
 with open('ingredients.json', 'w') as outfile:
     json.dump(ingredients_data_values_list, outfile)
-
-with open('pairings.json', 'w') as outfile:
-    json.dump(pairings_data, outfile)
-
-with open('cuisines.json', 'w') as outfile:
-    json.dump(cuisines_data_values_list, outfile)
