@@ -6,7 +6,6 @@ import { GetColorScheme, GetColorKey } from "../assets/IngredientPropertyColors"
 const mapStateToProps = (state, ownProps) => {
     const colorScheme = GetColorScheme(state.options.nodeColorEncoding);
     const colorKey = GetColorKey(state.options.nodeColorEncoding);
-    console.log("colorscheme:",colorScheme);
     return {
         ingredients: state.results.ingredients.items.map(id => state.data.ingredients[id]),
         pairings: state.data.pairings.map(pairing => ({
