@@ -20,11 +20,13 @@ export const IngredientTypeColors = {
     [IngredientTypes.NUT]: ColorScheme.DARK_BLUE,
     [IngredientTypes.MEAT]: ColorScheme.DARK_RED,
     [IngredientTypes.HERB]: ColorScheme.LIGHT_GREEN,
-    [IngredientTypes.SPICE]: ColorScheme.ORANGE
+    [IngredientTypes.SPICE]: ColorScheme.ORANGE,
+    "DEFAULT": ColorScheme.DEFAULT
 };
 
 export const IngredientFunctionColors = {
-    [IngredientFunctions.TEST]: ColorScheme.DARK_GREEN
+    [IngredientFunctions.TEST]: ColorScheme.DARK_GREEN,
+    "DEFAULT": ColorScheme.DEFAULT
 };
 
 // changed for v1 data render
@@ -41,20 +43,23 @@ export const IngredientTasteColors = {
     [IngredientTastes.SALTY]: ColorScheme.LIGHT_BLUE,
     [IngredientTastes.SWEET]: ColorScheme.YELLOW,
     [IngredientTastes.SOUR]: ColorScheme.LIGHT_GREEN,
-    [IngredientTastes.SAVORY]: ColorScheme.DARK_RED
+    [IngredientTastes.SAVORY]: ColorScheme.DARK_RED,
+    "DEFAULT": ColorScheme.DEFAULT
 };
 
 export const IngredientWeightColors = {
     [IngredientWeights.HEAVY]: ColorScheme.DARK_RED,
     [IngredientWeights.MEDIUM]: ColorScheme.ORANGE,
-    [IngredientWeights.LIGHT]: ColorScheme.YELLOW
+    [IngredientWeights.LIGHT]: ColorScheme.YELLOW,
+    "DEFAULT": ColorScheme.DEFAULT
 };
 
 export const IngredientVolumeColors = {
     [IngredientVolumes.QUIET]: ColorScheme.LIGHT_BLUE,
     [IngredientVolumes.MODERATE]: ColorScheme.BEIGE,
     [IngredientVolumes.MODERATE_LOUD]: ColorScheme.YELLOW,
-    [IngredientVolumes.LOUD]: ColorScheme.DARK_RED
+    [IngredientVolumes.LOUD]: ColorScheme.DARK_RED,
+    "DEFAULT": ColorScheme.DEFAULT
 };
 
 export const GetColorScheme = (nodeColorEncoding=NodeColorEncodings.ENCODE_TYPE) => {
