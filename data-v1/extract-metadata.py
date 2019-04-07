@@ -71,7 +71,6 @@ new_props = {
     "function": None,
     "weight": None,
     "volume": None,
-    "tips": None,
     "techniques": None
 }
 for key in props.keys():
