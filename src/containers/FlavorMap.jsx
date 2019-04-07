@@ -45,7 +45,7 @@ const mapStateToProps = (state, ownProps) => {
                     ...result,
                     [id]: state.data.ingredients[id][colorKey] ?
                     colorScheme[state.data.ingredients[id][colorKey].toUpperCase()] :
-                    "DEFAULT"
+                    colorScheme["DEFAULT"]
                 }),
                 {}
             ),
