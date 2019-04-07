@@ -52,7 +52,7 @@ def split_props(key):
                         prop_ids[sub_item] = str(uuid.uuid4())
             elif item not in prop_ids:
                 prop_ids[item] = str(uuid.uuid4())
-    props[key] = prop_ids
+    return prop_ids
 
 
 # read in metadata and put all unique properties in a dict
@@ -64,17 +64,24 @@ for row in data_reader:
             props[key.strip(':')].add(value)
 
 # narrow down for uniqueness all categories except tips
+new_props = {
+    "season": None,
+    "taste": None,
+    "botanical relatives": None,
+    "function": None,
+    "weight": None,
+    "volume": None,
+    "tips": None,
+    "techniques": None
+}
 for key in props.keys():
     if key != "tips":
-        split_props(key)
-
-for key in props.keys():
-    props[key] = list(props[key])
+        new_props[key] = split_props(key)
 
 with open('metadata_unique_values.json', 'w') as metadata_json:
-    json.dump(props, metadata_json)
+    json.dump(new_props, metadata_json)
     metadata_json.close()
 
 with open("metadata_unique_values.txt", 'w') as metadata_txt:
-    pprint.pprint(props, metadata_txt)
+    pprint.pprint(new_props, metadata_txt)
     metadata_txt.close()
