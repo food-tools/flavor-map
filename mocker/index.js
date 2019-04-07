@@ -66,12 +66,10 @@ const old_cuisines = new Array(randomNumberOfCuisines)
 
 const proxy = {
     "GET /graph": (req, res) => {
-        setTimeout(function() {
-            return res.json({
-                nodes: ingredients,
-                links: pairings
-            });
-        }, Math.ceil(Math.random() * 10000));
+        return res.json({
+            nodes: ingredients,
+            links: pairings
+        });
     },
     "GET /ingredient/:id": (req, res) => {
         const { id } = req.params;
@@ -80,13 +78,11 @@ const proxy = {
         );
     },
     "GET /cuisines": (req, res) => {
-        setTimeout(function() {
-            return res.json(cuisines.map(cuisine => ({
-                id: cuisine.id,
-                name: cuisine.name,
-                ingredients: cuisine.ingredients
-            })));
-        }, Math.ceil(Math.random() * 10000));
+        return res.json(cuisines.map(cuisine => ({
+            id: cuisine.id,
+            name: cuisine.name,
+            ingredients: cuisine.ingredients
+        })));
     },
     "GET /cuisine/:id": (req, res) => {
         const { id } = req.params;
