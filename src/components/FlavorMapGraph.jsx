@@ -33,7 +33,6 @@ export class FlavorMapGraph extends React.Component {
             .scaleExtent([0.1, 7])
             .on("zoom", this.zoomed.bind(this));
 
-
         // define background as a rectangle starting at the top left corner
         // add listener on background to de-select nodes
         this.background
