@@ -59,7 +59,7 @@ export class FlavorMapGraph extends React.Component {
                 enter => {
                     enter.append("circle")
                         .attr("class", "node")
-                        .attr("r", 10)
+                        .attr("r", 5) // node radius
                         .attr("id", d => d.id)
                         .style("cursor", "pointer")
                         .on("mouseover", d => this.props.onNodeMouseOver(d))
@@ -204,6 +204,7 @@ export class FlavorMapGraph extends React.Component {
             .attr("width", w)
             .attr("height", h);
 
+        console.log("Node colors:", this.props.nodeColors)
         this.nodes
             .selectAll(".node")
             .transition(ease)

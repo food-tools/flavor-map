@@ -5,6 +5,7 @@ import { GetColorScheme, GetColorKey } from "../assets/IngredientPropertyColors"
 
 const mapStateToProps = (state, ownProps) => {
     const colorScheme = GetColorScheme(state.options.nodeColorEncoding);
+    console.log("season colors:", colorScheme)
     const colorKey = GetColorKey(state.options.nodeColorEncoding);
     return {
         ingredients: state.results.ingredients.items.map(id => state.data.ingredients[id]),
@@ -17,7 +18,7 @@ const mapStateToProps = (state, ownProps) => {
                 ...result,
                 [id]: state.data.ingredients[id][colorKey] ? 
                 colorScheme[state.data.ingredients[id][colorKey].toUpperCase()] :
-                "DEFAULT"
+                colorScheme["DEFAULT"]
             }),
             {}
         ),

@@ -32,7 +32,9 @@ export const IngredientSeasonColors = {
     [IngredientSeasons.SPRING]: ColorScheme.SPRING,
     [IngredientSeasons.SUMMER]: ColorScheme.SUMMER,
     [IngredientSeasons.AUTUMN]: ColorScheme.AUTUMN,
-    [IngredientSeasons.WINTER]: ColorScheme.WINTER
+    [IngredientSeasons.WINTER]: ColorScheme.WINTER,
+    [IngredientSeasons.YEAR_ROUND]: ColorScheme.YEAR_ROUND,
+    "DEFAULT": ColorScheme.DEFAULT
 };
 
 export const IngredientTasteColors = {
