@@ -2,6 +2,7 @@ const faker = require("faker");
 const uuid = require("uuid/v4");
 
 // Some random values
+/*
 const type = ["vegetable", "fruit", "grain", "dairy", "fat", "nut", "meat", "herb", "spice"];
 const seasons = ["spring", "summer", "autumn", "winter"];
 const tastes = ["salty", "savory", "sweet", "sour"];
@@ -11,6 +12,7 @@ const weights = ["heavy", "medium", "light"];
 const volumes = ["quiet", "loud", "moderate-loud", "moderate"];
 const tips = ["test"];
 const techniques = ["test"];
+*/
 
 // Make random ingredients nodes
 // const randomNumberOfIngredients = Math.ceil(Math.random() * 500);
@@ -18,14 +20,17 @@ const techniques = ["test"];
 // const randomNumberOfCuisines = Math.ceil(Math.random() * 30);
 
 // concrete amounts of nodes and links for graph testing
+/*
 const randomNumberOfIngredients = 100;
 const randomNumberOfPairings = 150;
 const randomNumberOfCuisines = 30;
+*/
 
 const ingredients = require('../data-v1/ingredients.json');
 const pairings = require('../data-v1/pairings.json');
 const cuisines = require('../data-v1/cuisines.json');
 
+/*
 const old_ingredients = new Array(randomNumberOfIngredients)
     .fill(undefined)
     .map(nothing => ({
@@ -63,6 +68,7 @@ const old_cuisines = new Array(randomNumberOfCuisines)
                 )
             )
     }));
+*/
 
 const proxy = {
     "GET /graph": (req, res) => {
