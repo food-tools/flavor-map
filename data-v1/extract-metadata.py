@@ -3,6 +3,7 @@
 import csv
 import pprint
 import uuid
+import json
 
 METADATA = ["season:", "taste:", "botanical relatives:", "function:", "weight:",
             "volume:", "tips:", "techniques:"]
@@ -13,6 +14,7 @@ data_reader = csv.reader(metadata_csv, delimiter=',')
 # seasons = open('seasons.csv', mode='w')
 # seasons_writer = csv.writer(seasons, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
+# initialize property collections as sets to ensure uniqueness
 props = {
     "season": set(),
     "taste": set(),
@@ -66,5 +68,13 @@ for key in props.keys():
     if key != "tips":
         split_props(key)
 
+for key in props.keys():
+    props[key] = list(props[key])
 
-pprint.pprint(props)
+with open('metadata_unique_values.json', 'w') as metadata_json:
+    json.dump(props, metadata_json)
+    metadata_json.close()
+
+with open("metadata_unique_values.txt", 'w') as metadata_txt:
+    pprint.pprint(props, metadata_txt)
+    metadata_txt.close()
