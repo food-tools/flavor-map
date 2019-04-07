@@ -35,7 +35,7 @@ export const LinkStrengthEncodings = {
 export function getGraph() {
     return dispatch => {
         dispatch(fetchGraphRequest());
-        fetch("/graph")
+        fetch("/graph.json")
             .then(response =>
                 response.json()
             )
@@ -51,7 +51,7 @@ export function getGraph() {
 export function getCuisines() {
     return dispatch => {
         dispatch(fetchCuisinesRequest());
-        fetch("/cuisines")
+        fetch("/cuisines.json")
             .then(response =>
                 response.json()
             )

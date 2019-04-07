@@ -203,7 +203,6 @@ export class FlavorMapGraph extends React.Component {
             .attr("width", w)
             .attr("height", h);
 
-        console.log("Node colors:", this.props.nodeColors)
         this.nodes
             .selectAll(".node")
             .transition(ease)

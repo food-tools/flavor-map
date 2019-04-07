@@ -71,7 +71,7 @@ const old_cuisines = new Array(randomNumberOfCuisines)
 */
 
 const proxy = {
-    "GET /graph": (req, res) => {
+    "GET /graph.json": (req, res) => {
         return res.json({
             nodes: ingredients,
             links: pairings
@@ -83,7 +83,7 @@ const proxy = {
             ingredients[ingredients.map(ingredient => ingredient.id).indexOf(id)]
         );
     },
-    "GET /cuisines": (req, res) => {
+    "GET /cuisines.json": (req, res) => {
         return res.json(cuisines.map(cuisine => ({
             id: cuisine.id,
             name: cuisine.name,

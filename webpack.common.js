@@ -1,15 +1,12 @@
-const path = require('path');
-const apiMocker = require("mocker-api");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
+const path = require('path')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
     entry: path.resolve(__dirname, "src", "index.jsx"),
-    mode: "development",
     output: {
         filename: "bundle.js",
         path: path.resolve(__dirname, "dist")
     },
-    devtool: "source-map",
     resolve: {
         extensions: [
             ".js",
@@ -19,27 +16,8 @@ module.exports = {
             ".css"
         ]
     },
-    plugins: [
-        new CopyWebpackPlugin([
-            {
-                from: "node_modules/semantic-ui-css/semantic.min.css",
-                to: "semantic.min.css",
-                toType: "file"
-            },
-            {
-                from: "node_modules/semantic-ui-css/themes/default/assets/fonts",
-                to: "themes/default/assets/fonts",
-                toType: "dir"
-            }
-        ])
-    ],
     module: {
         rules: [
-            {
-                enforce: "pre",
-                test: /\.(js|jsx)$/,
-                loader: "source-map-loader"
-            },
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
@@ -66,17 +44,7 @@ module.exports = {
             }
         ]
     },
-    devServer: {
-        contentBase: path.resolve(__dirname, "src"),
-        publicPath: "/dist",
-        inline: true,
-        historyApiFallback: {
-            index: "index.html"
-        },
-        before(app) {
-            apiMocker(app, path.resolve('./mocker/index.js'), {
-                changeHost: true
-            })
-        }
-    }
+    plugins: [
+        new CleanWebpackPlugin()
+    ]
 };
