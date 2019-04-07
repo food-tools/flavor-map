@@ -12,7 +12,7 @@ export const FETCH_CUISINE_INGREDIENTS_FAILURE = "FETCH_CUISINE_INGREDIENTS_FAIL
 export const SET_SEARCH_TERM = "SET_SEARCH_TERM";
 export const SET_SELECTED_NODE = "SET_SELECTED_NODE";
 export const SET_HOVERED_NODE = "SET_HOVERED_NODE";
-export const SET_SELECTED_CUISINES = "SET_SELECTED_CUISINES";
+export const SET_SELECTED_CUISINE = "SET_SELECTED_CUISINE";
 export const SET_ZOOM_TRANSFORM = "SET_ZOOM_TRANSFORM";
 export const SET_NODE_COLOR_ENCODING = "SET_NODE_COLOR_ENCODING";
 export const SET_LINK_STRENGTH_ENCODING = "SET_LINK_STRENGTH_ENCODING";
@@ -148,10 +148,10 @@ export function setHoveredNode(id) {
     }
 }
 
-export function setSelectedCuisines(ids) {
+export function setSelectedCuisine(id) {
     return {
-        type: SET_SELECTED_CUISINES,
-        ids
+        type: SET_SELECTED_CUISINE,
+        id
     }
 }
 

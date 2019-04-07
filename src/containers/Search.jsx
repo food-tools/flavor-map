@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { SearchBar } from "../components/SearchBar";
-import { setSearchTerm, setSelectedCuisines, setSelectedNode } from "../actions/actions";
+import { setSearchTerm, setSelectedCuisine, setSelectedNode } from "../actions/actions";
 
 const mapStateToProps = (state, ownProps) => {
     const filteredIngredients = state.results.ingredients.items
@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             dispatch(setSelectedNode(value));
         },
         onSelectCuisine: (value) => {
-            dispatch(setSelectedCuisines([value]));
+            dispatch(setSelectedCuisine(value));
         },
     };
 }

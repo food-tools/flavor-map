@@ -2,7 +2,7 @@ import {
     SET_SEARCH_TERM,
     SET_SELECTED_NODE,
     SET_HOVERED_NODE,
-    SET_SELECTED_CUISINES,
+    SET_SELECTED_CUISINE,
     SET_NODE_COLOR_ENCODING,
     SET_LINK_STRENGTH_ENCODING,
     NodeColorEncodings,
@@ -14,7 +14,7 @@ const initialState = {
     searchTerm: "",
     selectedNode: null,
     hoveredNode: null,
-    selectedCuisines: [],
+    selectedCuisine: null,
     nodeColorEncoding: NodeColorEncodings.ENCODE_SEASON, // changed this from ENCODE_TYPE for v1 data render
     linkStrengthEncoding: LinkStrengthEncodings.ALL_EQUAL,
     zoomTransform: {k: 1, x: 0, y: 0}
@@ -37,10 +37,10 @@ export const options = (state=initialState, action) => {
                 ...state,
                 hoveredNode: action.id
             }
-        case SET_SELECTED_CUISINES:
+        case SET_SELECTED_CUISINE:
             return {
                 ...state,
-                selectedCuisines: action.ids
+                selectedCuisine: action.id
             };
         case SET_NODE_COLOR_ENCODING:
             return {
