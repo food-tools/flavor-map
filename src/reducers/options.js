@@ -15,7 +15,7 @@ const initialState = {
     selectedNode: null,
     hoveredNode: null,
     selectedCuisines: [],
-    nodeColorEncoding: NodeColorEncodings.ENCODE_TYPE,
+    nodeColorEncoding: NodeColorEncodings.ENCODE_SEASON, // changed this from ENCODE_TYPE for v1 data render
     linkStrengthEncoding: LinkStrengthEncodings.ALL_EQUAL,
     zoomTransform: {k: 1, x: 0, y: 0}
 };

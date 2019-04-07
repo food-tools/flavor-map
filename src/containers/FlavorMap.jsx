@@ -15,7 +15,9 @@ const mapStateToProps = (state, ownProps) => {
         nodeColors: state.results.ingredients.items.reduce(
             (result, id) => ({
                 ...result,
-                [id]: colorScheme[state.data.ingredients[id][colorKey].toUpperCase()]
+                [id]: state.data.ingredients[id][colorKey] ? 
+                colorScheme[state.data.ingredients[id][colorKey].toUpperCase()] :
+                "DEFAULT"
             }),
             {}
         ),

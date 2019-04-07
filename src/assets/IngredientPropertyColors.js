@@ -27,11 +27,12 @@ export const IngredientFunctionColors = {
     [IngredientFunctions.TEST]: ColorScheme.DARK_GREEN
 };
 
+// changed for v1 data render
 export const IngredientSeasonColors = {
-    [IngredientSeasons.SPRING]: ColorScheme.LIGHT_GREEN,
-    [IngredientSeasons.SUMMER]: ColorScheme.YELLOW,
-    [IngredientSeasons.AUTUMN]: ColorScheme.ORANGE,
-    [IngredientSeasons.WINTER]: ColorScheme.DARK_BLUE
+    [IngredientSeasons.SPRING]: ColorScheme.SPRING,
+    [IngredientSeasons.SUMMER]: ColorScheme.SUMMER,
+    [IngredientSeasons.AUTUMN]: ColorScheme.AUTUMN,
+    [IngredientSeasons.WINTER]: ColorScheme.WINTER
 };
 
 export const IngredientTasteColors = {
