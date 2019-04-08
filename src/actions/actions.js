@@ -35,32 +35,42 @@ export const LinkStrengthEncodings = {
 export function getGraph() {
     return dispatch => {
         dispatch(fetchGraphRequest());
-        fetch("/graph.json")
-            .then(response =>
-                response.json()
-            )
-            .then(json =>
-                dispatch(fetchGraphSuccess(json))
-            )
-            .catch(error =>
-                dispatch(fetchGraphFailure(error))
-            )
+        if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
+            fetch("/graph.json")
+                .then(response =>
+                    response.json()
+                )
+                .then(json =>
+                    dispatch(fetchGraphSuccess(json))
+                )
+                .catch(error =>
+                    dispatch(fetchGraphFailure(error))
+                )
+        } else {
+            const json = require("../../data-v1/graph.json");
+            dispatch(fetchGraphSuccess(json));
+        }
     }
 }
 
 export function getCuisines() {
     return dispatch => {
         dispatch(fetchCuisinesRequest());
-        fetch("/cuisines.json")
-            .then(response =>
-                response.json()
-            )
-            .then(json =>
-                dispatch(fetchCuisinesSuccess(json))
-            )
-            .catch(error =>
-                dispatch(fetchCuisinesFailure(error))
-            )
+        if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
+            fetch("/cuisines.json")
+                .then(response =>
+                    response.json()
+                )
+                .then(json =>
+                    dispatch(fetchCuisinesSuccess(json))
+                )
+                .catch(error =>
+                    dispatch(fetchCuisinesFailure(error))
+                )
+        } else {
+            const json = require("../../data-v1/cuisines.json");
+            dispatch(fetchCuisinesSuccess(json));
+        }
     }
 }
 

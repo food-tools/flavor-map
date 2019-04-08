@@ -24,13 +24,8 @@ module.exports = merge(
                     toType: "file"
                 },
                 {
-                    from: "data-v1/graph.json",
-                    to: "graph.json",
-                    toType: "file"
-                },
-                {
-                    from: "data-v1/cuisines.json",
-                    to: "cuisines.json",
+                    from: "CNAME",
+                    to: "CNAME",
                     toType: "file"
                 }
             ])
