@@ -17,6 +17,9 @@ export class FlavorMapGraph extends React.Component {
 
     componentDidMount() {
 
+        const w = this.container.current.getBoundingClientRect().width;
+        const h = this.container.current.getBoundingClientRect().height;
+
         // set up selections
         this.svg = d3.select(this.container.current);
         this.tip = d3.select(this.tooltip.current)
@@ -59,7 +62,7 @@ export class FlavorMapGraph extends React.Component {
                 enter => {
                     enter.append("circle")
                         .attr("class", "node")
-                        .attr("r", 5) // node radius
+                        .attr("r", 7) // node radius
                         .attr("id", d => d.id)
                         .style("cursor", "pointer")
                         .on("mouseover", d => this.props.onNodeMouseOver(d))
@@ -85,13 +88,23 @@ export class FlavorMapGraph extends React.Component {
                 }
             );
 
+        // initialize the force simulation
         this.simulation = d3.forceSimulation()
             .nodes(this.graph.nodes)
             .force("link", d3.forceLink(this.graph.links).id(d => d.id))
             .force("charge", d3.forceManyBody())
             .force("collide", d3.forceCollide(12))
+            .force("center", d3.forceCenter(w/2, h/2))
             .on("tick", () => this.handleTick());
 
+        // edit the link forces to depend on the value field in each link
+        // this assumes a value set of [1, 2, 3, 4] where higher value => higher link force
+        // link strength must be <= 1, so change this computation if values will be >4
+        let defaultStrength = this.simulation.force("link").links(this.graph.links).strength()
+        this.simulation
+            .force("link", d3.forceLink(this.graph.links).strength(d => (d.value / 4) * defaultStrength(d)))
+
+        // invoke the zoom transform capabilities on the whole svg
         this.svg.call(this.zoom);
 
         // draw with the initial state
@@ -204,7 +217,6 @@ export class FlavorMapGraph extends React.Component {
             .attr("width", w)
             .attr("height", h);
 
-        console.log("Node colors:", this.props.nodeColors)
         this.nodes
             .selectAll(".node")
             .transition(ease)
@@ -264,9 +276,6 @@ export class FlavorMapGraph extends React.Component {
                 .attr("opacity", 1.0);
 
         }
-
-        this.simulation.force("center", d3.forceCenter(w/2, h/2));
-
     }
 
     render() {

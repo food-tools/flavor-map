@@ -5,13 +5,13 @@ import { GetColorScheme, GetColorKey } from "../assets/IngredientPropertyColors"
 
 const mapStateToProps = (state, ownProps) => {
     const colorScheme = GetColorScheme(state.options.nodeColorEncoding);
-    console.log("season colors:", colorScheme)
     const colorKey = GetColorKey(state.options.nodeColorEncoding);
     return {
         ingredients: state.results.ingredients.items.map(id => state.data.ingredients[id]),
         pairings: state.data.pairings.map(pairing => ({
             source: state.data.ingredients[pairing.source],
             target: state.data.ingredients[pairing.target],
+            value: pairing.value,
         })),
         nodeColors: state.results.ingredients.items.reduce(
             (result, id) => ({
