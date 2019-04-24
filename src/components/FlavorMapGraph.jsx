@@ -63,7 +63,27 @@ export class FlavorMapGraph extends React.Component {
                         .style("cursor", "pointer")
                         .on("mouseover", d => this.props.onNodeMouseOver(d))
                         .on("mouseout", d => this.props.onNodeMouseOut(d))
-                        .on("click", d => this.props.onNodeClick(d));
+                        .on("click", d => {
+
+                            // this sets a bool in the state that allows us to define a transition for
+                            // the zoom transform only on node selection for smooth node centering
+                            this.props.nodeSelectionTransition(true);
+
+                            const w = this.container.current.getBoundingClientRect().width;
+                            const h = this.container.current.getBoundingClientRect().height;
+                            const midpoint = {x: w/2, y: h/2};
+
+                            // determine zoomTransform x, y, k
+                            const zoomTransform = {
+                                k: 1,
+                                x: midpoint.x - d.x,
+                                y: midpoint.y - d.y
+                            }
+
+                            this.zoomed(zoomTransform);
+                            this.props.onNodeClick(d);
+                            this.props.nodeSelectionTransition(false);
+                        });
                 },
                 update => {},
                 exit => {
@@ -132,7 +152,9 @@ export class FlavorMapGraph extends React.Component {
         const w = this.container.current.getBoundingClientRect().width;
         const h = this.container.current.getBoundingClientRect().height;
 
-        const ease = d3.transition().duration(100).ease(d3.easeLinear);
+        const ease1 = d3.transition().duration(100).ease(d3.easeLinear);
+        const ease2 = d3.transition().duration(200).ease(d3.easeLinear);
+
 
         // helper function to check if a node is a neighbor of another
         const areNeighborNodes = (node1, node2) => this.graph.links.filter(pairing =>
@@ -162,7 +184,7 @@ export class FlavorMapGraph extends React.Component {
                     0.1
                 );
         }
-        
+
         // helper function to highlight selected cuisine nodes and links
         const highlightCuisine = () => {
             this.nodes
@@ -195,9 +217,24 @@ export class FlavorMapGraph extends React.Component {
         this.g
             .attr("width", w)
             .attr("height", h)
-            .attr("transform", `translate(${zoomTransform.x}, ${zoomTransform.y}) scale(${zoomTransform.k})`);
 
-        // set the background to cover the same height and width
+        if (zoomTransform) {
+
+            // smooth the transform that centers the selected node
+            if (isNodeSelectionTransition) {
+
+                this.g
+                    .transition(ease2)
+                    .attr("transform", () => `translate(${zoomTransform.x}, ${zoomTransform.y}) scale(${zoomTransform.k})`);
+
+            } else {
+
+                this.g.attr("transform", () => `translate(${zoomTransform.x}, ${zoomTransform.y}) scale(${zoomTransform.k})`);
+
+            }
+        }
+
+        // set the background to cover the same height and width as g
         this.background
             .select("rect")
             .attr("width", w)
@@ -205,7 +242,7 @@ export class FlavorMapGraph extends React.Component {
 
         this.nodes
             .selectAll(".node")
-            .transition(ease)
+            .transition(ease1)
             .attr("fill", d => this.props.nodeColors[d.id]);
 
 
@@ -226,7 +263,7 @@ export class FlavorMapGraph extends React.Component {
                     .style("color", "black");
 
         } else {
-            
+
             this.tip.style("opacity", 0);
         }
 
@@ -241,7 +278,7 @@ export class FlavorMapGraph extends React.Component {
             // }
 
         } else if (selectedCuisine) {
-            
+
             highlightCuisine();
 
             // make sure node highlight happens even if a cuisine is selected
@@ -253,12 +290,12 @@ export class FlavorMapGraph extends React.Component {
 
             this.nodes
                 .selectAll(".node")
-                .transition(ease)
+                .transition(ease1)
                 .attr("opacity", 1.0);
 
             this.links
                 .selectAll(".link")
-                .transition(ease)
+                .transition(ease1)
                 .attr("opacity", 1.0);
 
         }
