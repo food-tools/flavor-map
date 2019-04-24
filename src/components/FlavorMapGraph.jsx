@@ -152,9 +152,7 @@ export class FlavorMapGraph extends React.Component {
         const w = this.container.current.getBoundingClientRect().width;
         const h = this.container.current.getBoundingClientRect().height;
 
-        const ease1 = d3.transition().duration(100).ease(d3.easeLinear);
-        const ease2 = d3.transition().duration(200).ease(d3.easeLinear);
-
+        const ease = d3.transition().duration(100).ease(d3.easeLinear);
 
         // helper function to check if a node is a neighbor of another
         const areNeighborNodes = (node1, node2) => this.graph.links.filter(pairing =>
@@ -211,7 +209,7 @@ export class FlavorMapGraph extends React.Component {
                 );
         }
 
-        const { hoveredNode, selectedNode, selectedCuisine, zoomTransform } = this.props;
+        const { hoveredNode, selectedNode, isNodeSelectionTransition, selectedCuisine, zoomTransform } = this.props;
 
         // adjust height and width and apply the zoom transform
         this.g
@@ -224,7 +222,7 @@ export class FlavorMapGraph extends React.Component {
             if (isNodeSelectionTransition) {
 
                 this.g
-                    .transition(ease2)
+                    .transition(ease)
                     .attr("transform", () => `translate(${zoomTransform.x}, ${zoomTransform.y}) scale(${zoomTransform.k})`);
 
             } else {
@@ -242,9 +240,8 @@ export class FlavorMapGraph extends React.Component {
 
         this.nodes
             .selectAll(".node")
-            .transition(ease1)
+            .transition(ease)
             .attr("fill", d => this.props.nodeColors[d.id]);
-
 
         // if hovering on a node add a tooltip with that node's ingredient name
         if (hoveredNode) {
@@ -290,12 +287,12 @@ export class FlavorMapGraph extends React.Component {
 
             this.nodes
                 .selectAll(".node")
-                .transition(ease1)
+                .transition(ease)
                 .attr("opacity", 1.0);
 
             this.links
                 .selectAll(".link")
-                .transition(ease1)
+                .transition(ease)
                 .attr("opacity", 1.0);
 
         }
