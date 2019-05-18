@@ -222,7 +222,6 @@ bay leaf,turkish cuisine
 "beans, red",southwestern cuisine
 "beans, white",italian cuisine
 "beef, kobe",japanese cuisine
-"beef, short ribs",garam masala (indian cuisine)
 beets,french cuisine
 beets,russian cuisine
 belgian cuisine,almonds
@@ -387,7 +386,7 @@ chervil,french cuisine
 chervil,provençal cuisine
 chestnuts,italian cuisine
 chickpeas,indian cuisine
-chickpeas,italian cuisine (as garbanzo beans)
+chickpeas,italian cuisine
 chickpeas,mediterranean cuisine
 chickpeas,mexican cuisine
 chickpeas,middle eastern cuisine
@@ -468,7 +467,7 @@ cinnamon,mexican cuisine
 cinnamon,middle eastern cuisine
 cinnamon,moroccan cuisine
 cinnamon,south american cuisine
-cinnamon,southeast asian cuisine (as cassia)
+cinnamon,southeast asian cuisine
 cinnamon,spanish cuisine
 citrus,greek cuisine
 citrus,mediterranean cuisine
@@ -1360,7 +1359,7 @@ mussels,italian cuisine
 mussels,mediterranean cuisine
 mustard,french cuisine
 mustard,german cuisine
-mustard,"indian cuisine, as mustard seeds"
+mustard,indian cuisine
 mustard,irish cuisine
 mustard,italian cuisine
 mustard,mediterranean cuisine
@@ -1540,7 +1539,7 @@ pumpkin,italian cuisine
 pumpkin seeds,mexican cuisine
 quail,italian cuisine
 quatre épices,french cuisine
-quince,spanish cuisine (quince paste)
+quince,spanish cuisine
 rabbit,french cuisine
 rabbit,italian cuisine
 rabbit,mediterranean cuisine
