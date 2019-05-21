@@ -22,7 +22,7 @@ const initialState = {
     zoomTransform: null
 };
 
-export const options = (state=initialState, action) => {
+const options = (state=initialState, action) => {
     switch (action.type) {
         case SET_SEARCH_TERM:
             return {
@@ -33,7 +33,7 @@ export const options = (state=initialState, action) => {
             return {
                 ...state,
                 selectedNode: action.id
-            };    
+            };
         case SET_NODE_SELECTION_TRANSITION:
             return {
                 ...state,
@@ -67,4 +67,6 @@ export const options = (state=initialState, action) => {
         default:
             return state;
     }
-}
+};
+
+export default options;

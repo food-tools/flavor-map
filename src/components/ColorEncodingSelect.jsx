@@ -16,7 +16,7 @@ export const ColorEncodingSelect = ({ colorEncodings, onSelectColorEncoding }) =
                 }))
             }
             onChange={
-                (event, { value }) => onSelectColorEncoding(value)
+                (e, { value }) => onSelectColorEncoding(value)
             }
             value={ colorEncodings.filter(colorEncoding => colorEncoding.selected)[0].name }
         />

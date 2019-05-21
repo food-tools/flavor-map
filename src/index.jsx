@@ -3,9 +3,9 @@ import { render } from "react-dom";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
-import { flavorMap } from "./reducers/flavorMap";
+import flavorMap from "./reducers/flavorMap";
 import { getGraph, getCuisines } from "./actions/actions";
-import { App } from "./containers/App";
+import App from "./containers/App";
 
 const store = createStore(flavorMap, applyMiddleware(thunk));
 
