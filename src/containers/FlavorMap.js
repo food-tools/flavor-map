@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { FlavorMapGraph } from '../components/FlavorMapGraph';
+import FlavorMapGraph from '../components/FlavorMapGraph';
 import {
   setHoveredNode,
   setSelectedNode,

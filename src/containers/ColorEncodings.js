@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { ColorEncodingSelect } from '../components/ColorEncodingSelect';
+import ColorEncodingSelect from '../components/ColorEncodingSelect';
 import { setNodeColorEncoding, NodeColorEncodings } from '../actions/actions';
 
 export const NodeColorEncodingLabels = {

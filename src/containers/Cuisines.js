@@ -1,22 +1,22 @@
 import { connect } from 'react-redux';
-import { CuisineSelect } from '../components/CuisineSelect';
-import { setSelectedCuisines } from '../actions/actions';
+import CuisineSelect from '../components/CuisineSelect';
+import { setSelectedCuisine } from '../actions/actions';
 
 const mapStateToProps = state => ({
   cuisines: state.results.cuisines.items.map(
     id => ({
       ...state.data.cuisines[id],
-      selected: state.options.selectedCuisines.indexOf(id) >= 0,
+      selected: state.options.selectedCuisine,
     }),
   ),
 });
 
 const mapDispatchToProps = dispatch => ({
-  onSelectCuisines: (cuisines) => {
-    if (cuisines[0] === '') {
-      dispatch(setSelectedCuisines([]));
+  onSelectCuisines: (cuisine) => {
+    if (cuisine === '') {
+      dispatch(setSelectedCuisine(null));
     } else {
-      dispatch(setSelectedCuisines(cuisines));
+      dispatch(setSelectedCuisine(cuisine));
     }
   },
 });

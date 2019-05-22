@@ -2,10 +2,17 @@ import { connect } from 'react-redux';
 import FlavorMapForceLayout from '../components/FlavorMapForceLayout';
 
 const intersection = (a, b) => a.filter(elem => b.indexOf(elem) >= 0);
+const union = (a, b) => [...a, ...b.filter(elem => a.indexOf(elem) < 0)];
 
 const mapStateToProps = (state) => {
-  const ingredients = state.results.ingredients.items.map(id => state.data.ingredients[id]);
-  const cuisines = state.results.cuisines.items.map(id => state.data.cuisines[id]);
+  const cuisines = state.results.cuisines.items.map(
+    id => state.data.cuisines[id],
+  );
+
+  const ingredients = cuisines.reduce(
+    (result, cuisine) => union(result, cuisine.ingredients),
+    [],
+  );
 
   // record overlap between pairs of cuisines
   const pairs = cuisines
@@ -15,8 +22,14 @@ const mapStateToProps = (state) => {
           i >= j
             ? null
             : ({
-              source: cuisineA,
-              target: cuisineB,
+              source: {
+                id: cuisineA.id,
+                ingredients: cuisineA.ingredients,
+              },
+              target: {
+                id: cuisineB.id,
+                ingredients: cuisineB.ingredients,
+              },
             })
         ),
       ),
@@ -30,33 +43,32 @@ const mapStateToProps = (state) => {
     )
     .map(
       pair => ({
-        ...pair,
+        source: pair.source.id,
+        target: pair.target.id,
         intersection: intersection(pair.source.ingredients, pair.target.ingredients),
       }),
     )
     .filter(
       pair => pair.intersection.length > 0,
+    )
+    .filter(
+      pair => pair.intersection.length >= 10,
     );
 
   return {
     nodes: ingredients.map(
-      ingredient => ({
-        id: ingredient.id,
-        data: {
-          ...ingredient,
-        },
-      }),
+      id => state.data.ingredients[id],
     ),
     regions: cuisines.map(
-      cuisine => ({
-        name: cuisine.name,
-        members: cuisine.ingredients,
-        data: {
-          ...cuisine,
-        },
+      ({ id }) => state.data.cuisines[id],
+    ),
+    regionLinks: pairs.map(
+      ({ source, target }) => ({
+        source: state.data.cuisines[source],
+        target: state.data.cuisines[target],
       }),
     ),
-    regionLinks: pairs,
+    memberAccessor: 'ingredients',
   };
 };
 

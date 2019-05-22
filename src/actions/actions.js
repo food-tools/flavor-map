@@ -1,5 +1,8 @@
 import fetch from 'cross-fetch';
 
+const staticGraphData = require('../../data-v1/graph.json');
+const staticCuisineData = require('../../data-v1/cuisines.json');
+
 export const FETCH_GRAPH_REQUEST = 'FETCH_GRAPH_REQUEST';
 export const FETCH_GRAPH_SUCCESS = 'FETCH_GRAPH_SUCCESS';
 export const FETCH_GRAPH_FAILURE = 'FETCH_GRAPH_FAILURE';
@@ -13,7 +16,7 @@ export const SET_SEARCH_TERM = 'SET_SEARCH_TERM';
 export const SET_SELECTED_NODE = 'SET_SELECTED_NODE';
 export const SET_NODE_SELECTION_TRANSITION = 'SET_NODE_SELECTION_TRANSITION';
 export const SET_HOVERED_NODE = 'SET_HOVERED_NODE';
-export const SET_SELECTED_CUISINES = 'SET_SELECTED_CUISINES';
+export const SET_SELECTED_CUISINE = 'SET_SELECTED_CUISINE';
 export const SET_ZOOM_TRANSFORM = 'SET_ZOOM_TRANSFORM';
 export const SET_NODE_COLOR_ENCODING = 'SET_NODE_COLOR_ENCODING';
 export const SET_LINK_STRENGTH_ENCODING = 'SET_LINK_STRENGTH_ENCODING';
@@ -124,10 +127,10 @@ export function setHoveredNode(id) {
   };
 }
 
-export function setSelectedCuisines(ids) {
+export function setSelectedCuisine(id) {
   return {
-    type: SET_SELECTED_CUISINES,
-    ids,
+    type: SET_SELECTED_CUISINE,
+    id,
   };
 }
 
@@ -145,22 +148,43 @@ export function setZoomTransform(zoomTransform) {
   };
 }
 
+
 export function getGraph() {
   return (dispatch) => {
     dispatch(fetchGraphRequest());
-    fetch('/graph')
-      .then(response => response.json())
-      .then(json => dispatch(fetchGraphSuccess(json)))
-      .catch(error => dispatch(fetchGraphFailure(error)));
+    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+      fetch('/graph.json')
+        .then(
+          response => response.json(),
+        )
+        .then(
+          json => dispatch(fetchGraphSuccess(json)),
+        )
+        .catch(
+          error => dispatch(fetchGraphFailure(error)),
+        );
+    } else {
+      dispatch(fetchGraphSuccess(staticGraphData));
+    }
   };
 }
 
 export function getCuisines() {
   return (dispatch) => {
     dispatch(fetchCuisinesRequest());
-    fetch('/cuisines')
-      .then(response => response.json())
-      .then(json => dispatch(fetchCuisinesSuccess(json)))
-      .catch(error => dispatch(fetchCuisinesFailure(error)));
+    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+      fetch('/cuisines.json')
+        .then(
+          response => response.json(),
+        )
+        .then(
+          json => dispatch(fetchCuisinesSuccess(json)),
+        )
+        .catch(
+          error => dispatch(fetchCuisinesFailure(error)),
+        );
+    } else {
+      dispatch(fetchCuisinesSuccess(staticCuisineData));
+    }
   };
 }

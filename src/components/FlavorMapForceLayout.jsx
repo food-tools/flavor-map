@@ -3,12 +3,17 @@ import PropTypes from 'prop-types';
 import * as d3 from 'd3';
 import * as Styles from '../assets/CustomStyles.css';
 
+const sum = list => list.reduce((s, x) => s + x, 0);
+const average = list => sum(list) / list.length;
+
 class FlavorMapForceLayout extends React.Component {
   constructor(props) {
     super(props);
     this.container = React.createRef();
     this.tooltip = React.createRef();
     this.state = {
+      nodes: [],
+      regions: [],
       regionSimulation: d3.forceSimulation(),
       nodeSimulation: d3.forceSimulation(),
     };
@@ -42,34 +47,6 @@ class FlavorMapForceLayout extends React.Component {
       .attr('stroke', '#fff')
       .attr('stroke-width', 1);
 
-    /*
-    this.nodes
-      .selectAll('.node')
-      .data(this.graph.nodes, d => d.id)
-      .join(
-        (enter) => {
-          enter.append('circle')
-            .attr('class', 'node')
-            .attr('r', 10)
-            .attr('id', d => d.id)
-            .style('cursor', 'pointer');
-          // .on('mouseover', d => this.props.onNodeMouseOver(d))
-          // .on('mouseout', d => this.props.onNodeMouseOut(d))
-          // .on('click', d => this.props.onNodeClick(d));
-        },
-        null,
-        (exit) => {
-          exit.remove();
-        },
-      );
-    */
-
-    // this.simulation = d3.forceSimulation()
-    //    .nodes(this.graph.nodes)
-    //    .force("charge", d3.forceManyBody())
-    //    .force("collide", d3.forceCollide(12))
-    //    .on("tick", () => this.handleTick());
-
     // draw with the initial state
     this.draw();
   }
@@ -86,22 +63,22 @@ class FlavorMapForceLayout extends React.Component {
   }
 
   draw() {
+    const { regions, nodes, regionLinks, memberAccessor } = this.props;
     const { regionSimulation, nodeSimulation } = this.state;
-    const { regions, nodes, regionLinks } = this.props;
 
     const w = this.container.current.getBoundingClientRect().width;
     const h = this.container.current.getBoundingClientRect().height;
 
     const regionRadius = d3.scaleLinear()
       .domain([
-        d3.min(regions.map(({ members }) => members.length)),
-        d3.max(regions.map(({ members }) => members.length)),
+        d3.min(regions.map((region) => region[memberAccessor].length)),
+        d3.max(regions.map((region) => region[memberAccessor].length)),
       ])
-      .range([10, 200]);
+      .range([1, 100]);
 
     const regionOverlap = d3.forceCollide()
       .radius(
-        ({ members }) => regionRadius(members.length),
+        region => regionRadius(region[memberAccessor].length),
       );
 
     const clusterForce = (alpha) => {
@@ -111,7 +88,7 @@ class FlavorMapForceLayout extends React.Component {
           const { x, y } = nodeRef;
           const targetForceCenters = regions
             .filter(
-              region => region.members.indexOf(node.id) >= 0,
+              region => region[memberAccessor].indexOf(node.id) >= 0,
             );
           const vector = targetForceCenters
             .map(
@@ -133,8 +110,8 @@ class FlavorMapForceLayout extends React.Component {
           }
 
           const magnitude = Math.sqrt(vector.x * vector.x + vector.y * vector.y);
-          nodeRef.x += 50 * (vector.x / magnitude) * alpha;
-          nodeRef.y += 50 * (vector.y / magnitude) * alpha;
+          nodeRef.vx += 10 * (vector.x / magnitude) * alpha;
+          nodeRef.vy += 10 * (vector.y / magnitude) * alpha;
         },
       );
     };
@@ -148,42 +125,53 @@ class FlavorMapForceLayout extends React.Component {
       .nodes(regions)
       .force('x', d3.forceX(w / 2))
       .force('y', d3.forceY(h / 2))
-      .force('manyBody', d3.forceManyBody())
-      .force('collide', regionOverlap)
+      .force('manyBody', d3.forceManyBody().strength(-5000))
+      .force('link', d3.forceLink(regionLinks).id(d => d.id))
       .on('tick', () => {
+        this.background
+          .selectAll('.region')
+          .attr('cx', node => node.x)
+          .attr('cy', node => node.y);
+        this.background
+            .selectAll(".region-link")
+            .attr("x1", d => d.source.x)
+            .attr("y1", d => d.source.y)
+            .attr("x2", d => d.target.x)
+            .attr("y2", d => d.target.y);
         nodeSimulation
           .force('x', d3.forceX((node) => {
-            const targetForceCenters = regions
+            const xs = regions
               .filter(
-                region => region.members.indexOf(node.id) >= 0,
+                region => region[memberAccessor].indexOf(node.id) >= 0,
+              )
+              .map(
+                forceCenter => forceCenter.x,
               );
-            if (targetForceCenters.length === 0) {
-              return w / 2;
-            };
-            return targetForceCenters.reduce(
-              (sum, forceCenter) => sum + forceCenter.x,
-              0,
-            ) / targetForceCenters.length;
+            return (
+              xs.length === 0
+              ? w / 2
+              : average(xs)
+            );
           }))
           .force('y', d3.forceY((node) => {
-            const targetForceCenters = regions
+            const ys = regions
               .filter(
-                region => region.members.indexOf(node.id) >= 0,
+                region => region[memberAccessor].indexOf(node.id) >= 0,
+              )
+              .map(
+                forceCenter => forceCenter.y,
               );
-            if (targetForceCenters.length === 0) {
-              return h / 2;
-            };
-            return targetForceCenters.reduce(
-              (sum, forceCenter) => sum + forceCenter.y,
-              0,
-            ) / targetForceCenters.length;
+            return (
+              ys.length === 0
+              ? w / 2
+              : average(ys)
+            );
           }));
       });
 
     nodeSimulation
       .nodes(nodes)
       .force('manyBody', d3.forceManyBody())
-      //.force('cluster', clusterForce)
       .on('tick', () => this.handleTick());
 
     this.nodes
@@ -203,7 +191,39 @@ class FlavorMapForceLayout extends React.Component {
         },
       );
 
-    console.log(regions, nodes, regionLinks);
+    this.background
+      .selectAll(".region-link")
+      .data(regionLinks, d => `${d.source.id}_${d.target.id}`)
+      .join(
+        enter => {
+          enter
+            .append("line")
+            .attr("class", "region-link")
+            .attr('stroke', 'lightgrey')
+            .attr('stroke-width', 3);
+        },
+        update => {},
+        exit => {
+          exit.remove();
+        }
+      );
+
+    this.background
+      .selectAll('.region')
+      .data(regions, d => d.id)
+      .join(
+        (enter) => {
+          enter.append('circle')
+            .attr('class', 'region')
+            .attr('r', 5)
+            .attr('fill', 'red')
+            .attr('id', d => d.id);
+        },
+        null,
+        (exit) => {
+          exit.remove();
+        },
+      );
 
     regionSimulation.restart();
     nodeSimulation.restart();
@@ -212,7 +232,6 @@ class FlavorMapForceLayout extends React.Component {
   render() {
     return (
       <span>
-        <div ref={this.tooltip} className={Styles.tooltip} />
         <svg ref={this.container} className={Styles.FlavorMap} />
       </span>
     );

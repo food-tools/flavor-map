@@ -1,4 +1,4 @@
-export const ClassyJack = {
+const ClassyJack = {
   DARK_GREEN: '#14453d',
   LIGHT_RED: '#a3333d',
   BEIGE: '#c4a69d',
@@ -8,4 +8,12 @@ export const ClassyJack = {
   DARK_RED: '#6d3b47',
   LIGHT_GREEN: '#98a886',
   ORANGE: '#ba5734',
+  SPRING: '#8FA874',
+  SUMMER: '#D3C465',
+  AUTUMN: '#D3C465',
+  WINTER: '#363457',
+  YEAR_ROUND: '#C4B2B2',
+  DEFAULT: '#B0AEC4',
 };
+
+export default ClassyJack;

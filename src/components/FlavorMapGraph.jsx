@@ -9,10 +9,7 @@ export class FlavorMapGraph extends React.Component {
         super(props);
         this.container = React.createRef();
         this.tooltip = React.createRef();
-        this.graph = {
-            nodes: this.props.ingredients,
-            links: this.props.pairings
-        };
+        this.selectedCuisine = null;
     }
 
     componentDidMount() {
@@ -51,65 +48,7 @@ export class FlavorMapGraph extends React.Component {
             .attr("stroke", "#fff")
             .attr("stroke-width", 1);
 
-        this.nodes
-            .selectAll(".node")
-            .data(this.graph.nodes, d => d.id)
-            .join(
-                enter => {
-                    enter.append("circle")
-                        .attr("class", "node")
-                        .attr("r", 10)
-                        .attr("id", d => d.id)
-                        .style("cursor", "pointer")
-                        .on("mouseover", d => this.props.onNodeMouseOver(d))
-                        .on("mouseout", d => this.props.onNodeMouseOut(d))
-                        .on("click", d => {
-
-                            // this sets a bool in the state that allows us to define a transition for
-                            // the zoom transform only on node selection for smooth node centering
-                            this.props.nodeSelectionTransition(true);
-
-                            const w = this.container.current.getBoundingClientRect().width;
-                            const h = this.container.current.getBoundingClientRect().height;
-                            const midpoint = {x: w/2, y: h/2};
-
-                            // determine zoomTransform x, y, k
-                            const zoomTransform = {
-                                k: 1,
-                                x: midpoint.x - d.x,
-                                y: midpoint.y - d.y
-                            }
-
-                            this.zoomed(zoomTransform);
-                            this.props.onNodeClick(d);
-                            this.props.nodeSelectionTransition(false);
-                        });
-                },
-                update => {},
-                exit => {
-                    exit.remove();
-                }
-            );
-
-        this.links
-            .selectAll(".link")
-            .data(this.graph.links, d => `${d.source.id}_${d.target.id}`)
-            .join(
-                enter => {
-                    enter.append("line").attr("class", "link")
-                },
-                update => {},
-                exit => {
-                    exit.remove();
-                }
-            );
-
-        this.simulation = d3.forceSimulation()
-            .nodes(this.graph.nodes)
-            .force("link", d3.forceLink(this.graph.links).id(d => d.id))
-            .force("charge", d3.forceManyBody())
-            .force("collide", d3.forceCollide(12))
-            .on("tick", () => this.handleTick());
+        this.simulation = d3.forceSimulation().on("tick", () => this.handleTick());
 
         this.svg.call(this.zoom);
 
@@ -149,16 +88,57 @@ export class FlavorMapGraph extends React.Component {
     // state is internal (we don't use state because we don't need to)
     draw() {
 
+        const didChangeCuisines = this.props.selectedCuisine != this.selectedCuisine;
+        this.selectedCuisine = this.props.selectedCuisine;
+
+        const graph = {
+            nodes: this.props.ingredients,
+            links: this.props.pairings
+        };
+
         const w = this.container.current.getBoundingClientRect().width;
         const h = this.container.current.getBoundingClientRect().height;
 
         const ease = d3.transition().duration(100).ease(d3.easeLinear);
 
         // helper function to check if a node is a neighbor of another
-        const areNeighborNodes = (node1, node2) => this.graph.links.filter(pairing =>
+        const areNeighborNodes = (node1, node2) => graph.links.filter(pairing =>
             (pairing.source.id === node1.id && pairing.target.id === node2.id) ||
             (pairing.source.id === node2.id && pairing.target.id === node1.id)
         ).length > 0;
+
+        this.nodes
+            .selectAll(".node")
+            .data(graph.nodes, d => d.id)
+            .join(
+                enter => {
+                    enter.append("circle")
+                        .attr("class", "node")
+                        .attr("r", 10)
+                        .attr("id", d => d.id)
+                        .style("cursor", "pointer")
+                        .on("mouseover", d => this.props.onNodeMouseOver(d))
+                        .on("mouseout", d => this.props.onNodeMouseOut(d))
+                        .on("click", d => this.props.onNodeClick(d));
+                },
+                update => {},
+                exit => {
+                    exit.remove();
+                }
+            );
+
+        this.links
+            .selectAll(".link")
+            .data(graph.links, d => `${d.source.id}_${d.target.id}`)
+            .join(
+                enter => {
+                    enter.append("line").attr("class", "link")
+                },
+                update => {},
+                exit => {
+                    exit.remove();
+                }
+            );
 
         // helper function to highlight selected node and neighboring nodes and links
         const runSelectedNodeResponse = () => {
@@ -260,7 +240,6 @@ export class FlavorMapGraph extends React.Component {
                     .style("color", "black");
 
         } else {
-
             this.tip.style("opacity", 0);
         }
 
@@ -268,20 +247,6 @@ export class FlavorMapGraph extends React.Component {
         if (selectedNode) {
 
             runSelectedNodeResponse();
-
-            // make sure cuisine highlight happens even if an ingredient is selected
-            // if (selectedCuisine) {
-            //     highlightCuisine();
-            // }
-
-        } else if (selectedCuisine) {
-
-            highlightCuisine();
-
-            // make sure node highlight happens even if a cuisine is selected
-            // if (selectedNode) {
-            //     runSelectedNodeResponse();
-            // }
 
         } else {
 
@@ -297,7 +262,19 @@ export class FlavorMapGraph extends React.Component {
 
         }
 
-        this.simulation.force("center", d3.forceCenter(w/2, h/2));
+        this.simulation
+            .nodes(graph.nodes)
+            .force("link", d3.forceLink(graph.links).id(d => d.id))
+            .force("charge", d3.forceManyBody())
+            //.force("collide", d3.forceCollide(12))
+            .force("x", d3.forceX(w/2).strength(1))
+            .force("y", d3.forceY(h/2).strength(1));
+
+        if (didChangeCuisines) {
+            this.simulation.alpha(1);
+        }
+
+        this.simulation.restart();
 
     }
 
