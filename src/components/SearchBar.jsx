@@ -1,6 +1,27 @@
 import * as React from 'react';
-import { Grid, Search } from 'semantic-ui-react';
-import * as Styles from '../assets/CustomStyles.css';
+import styled from 'styled-components';
+
+const Search = styled.input`
+  width: ${props => props.fluid && '100%'};
+  height: 3em;
+  border-radius: 3em;
+  padding: 0.25em 2em 0.25em;
+  background-color: #f6f6f6;
+  border: 1px solid #f6f6f6;
+  color: #fc6076;
+  text-transform: uppercase;
+  font-weight: bold;
+
+  :focus {
+    outline: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  }
+
+  ::placeholder {
+    color: #d0d0d0;
+  }
+`;
 
 class SearchBar extends React.Component {
   constructor(props) {
@@ -10,75 +31,30 @@ class SearchBar extends React.Component {
   }
 
   handleSearchChange(e, { value }) {
-    this.props.onSearchKeyUp(value);
+    const { onSearchKeyUp } = this.props;
+    onSearchKeyUp(value);
   }
 
   handleResultSelect(e, { result }) {
+    const {
+      onSearchKeyUp,
+      onSelectIngredient,
+      onSelectCuisine,
+      stateIngredients,
+    } = this.props;
     if (result.type === 'ingredient') {
-      this.props.onSearchKeyUp(result.title);
-      const ingredient = this.props.stateIngredients[result.id]
-      this.props.onSelectIngredient(ingredient);
+      onSearchKeyUp(result.title);
+      const ingredient = stateIngredients[result.id];
+      onSelectIngredient(ingredient);
     } else {
-      this.props.onSearchKeyUp(result.title);
+      onSearchKeyUp(result.title);
       console.log('cuisine:', result);
-      this.props.onSelectCuisine(result.id);
+      onSelectCuisine(result.id);
     }
   }
 
   render() {
-    let results = {};
-
-    if (this.props.ingredients.length > 0) {
-      results = {
-        ...results,
-        ingredients: {
-          name: "Ingredients",
-          results: this.props.ingredients.map(ingredient => ({
-            title: ingredient.name,
-            type: "ingredient",
-            id: ingredient.id
-          }))
-        }
-      }
-    }
-
-    if (this.props.cuisines.length > 0) {
-      results = {
-        ...results,
-        cuisines: {
-          name: "Cuisines",
-          results: this.props.cuisines.map(cuisine => ({
-              title: cuisine.name,
-              type: "cuisine",
-              id: cuisine.id
-          }))
-        }
-      };
-    }
-
-    return (
-      <Grid className={Styles.SearchBar}>
-        <Grid.Row>
-          <Grid.Column width={3}>
-          </Grid.Column>
-          <Grid.Column width={10}>
-            <Search
-              category
-              fluid
-              className={Styles.SearchBar}
-              onSearchChange={this.handleSearchChange}
-              onResultSelect={this.handleResultSelect}
-              value={this.props.searchTerm}
-              results={results}
-              size="large"
-              input={{ fluid: true }}
-            />
-          </Grid.Column>
-          <Grid.Column width={3}>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-    );
+    return <Search fluid placeholder="Search..." />;
   }
 }
 

@@ -26,7 +26,8 @@ module.exports = {
                     plugins: [
                         "@babel/plugin-proposal-object-rest-spread",
                         "@babel/plugin-transform-regenerator",
-                        "@babel/plugin-transform-runtime"
+                        "@babel/plugin-transform-runtime",
+                        "babel-plugin-styled-components",
                     ],
                     presets: [
                         "@babel/env",

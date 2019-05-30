@@ -1,10 +1,13 @@
 import { connect } from 'react-redux';
+import { setSelectedNode } from '../actions/actions';
 import FlavorMapForceLayout from '../components/FlavorMapForceLayout';
 
 const intersection = (a, b) => a.filter(elem => b.indexOf(elem) >= 0);
 const union = (a, b) => [...a, ...b.filter(elem => a.indexOf(elem) < 0)];
 
 const mapStateToProps = (state) => {
+  const { selectedNode } = state.options;
+
   const cuisines = state.results.cuisines.items.map(
     id => state.data.cuisines[id],
   );
@@ -52,10 +55,24 @@ const mapStateToProps = (state) => {
       pair => pair.intersection.length > 0,
     )
     .filter(
-      pair => pair.intersection.length >= 10,
+      pair => pair.intersection.length >= 50,
     );
 
+  const links = selectedNode
+    ? state.data.pairings
+      .filter(
+        ({ source, target }) => source === selectedNode || target === selectedNode,
+      )
+      .map(
+        ({ source, target }) => ({
+          source: state.data.ingredients[source],
+          target: state.data.ingredients[target],
+        }),
+      )
+    : [];
+
   return {
+    links,
     nodes: ingredients.map(
       id => state.data.ingredients[id],
     ),
@@ -69,12 +86,18 @@ const mapStateToProps = (state) => {
       }),
     ),
     memberAccessor: 'ingredients',
+    selectedNode: selectedNode ? state.data.ingredients[selectedNode] : null,
   };
 };
 
+const mapDispatchToProps = dispatch => ({
+  onClickNode: id => dispatch(setSelectedNode(id)),
+  onClickBackground: () => dispatch(setSelectedNode(null)),
+});
+
 const FlavorMap = connect(
   mapStateToProps,
-  null,
+  mapDispatchToProps,
 )(FlavorMapForceLayout);
 
 export default FlavorMap;
