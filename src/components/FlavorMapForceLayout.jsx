@@ -1,7 +1,43 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import * as d3 from 'd3';
-import * as Styles from '../assets/CustomStyles.css';
+import styled from 'styled-components';
+
+const FullScreenSvg = styled.svg`
+  height: 100%;
+  width: 100%;
+  position: absolute;
+`;
+
+const Tooltip = styled.div`
+  position: absolute;
+  padding: 1em;
+  background: #fff;
+  border: 0.25em solid #000;
+
+  ::before {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 0px;
+    left: 50%;
+    bottom: 0;
+    border: 0.75em solid transparent;
+    border-bottom: 0;
+    border-top: 0.75em solid #000;
+    transform: translate(-50%, calc(100%));
+  }
+`;
+
+const NiceHeader = styled.h3`
+  margin: 0px;
+`;
+
+const GradientLine = styled.div`
+  width: 100%;
+  height: 0.25em;
+  background-image: linear-gradient(-20deg, #fc6076 0%, #ff9a44 100%);
+`;
 
 const sum = list => list.reduce((s, x) => s + x, 0);
 const average = list => sum(list) / list.length;
@@ -23,7 +59,6 @@ class FlavorMapForceLayout extends React.Component {
   componentDidMount() {
     // set up selections
     this.svg = d3.select(this.container.current);
-    this.tip = d3.select(this.tooltip.current).attr('opacity', 0);
 
     // create layers for nodes and links
     this.background = this.svg.append('g').attr('class', 'background');
@@ -45,6 +80,7 @@ class FlavorMapForceLayout extends React.Component {
       .on('zoom', () => {
         const { transform } = d3.event;
         this.g.attr('transform', `translate(${transform.x}, ${transform.y}) scale(${transform.k})`);
+        this.moveTooltip();
       });
 
     this.svg
@@ -78,6 +114,8 @@ class FlavorMapForceLayout extends React.Component {
       .selectAll('.node')
       .attr('cx', d => d.x)
       .attr('cy', d => d.y);
+
+    this.moveTooltip();
   }
 
   draw() {
@@ -191,7 +229,7 @@ class FlavorMapForceLayout extends React.Component {
       .join(
         (enter) => {
           enter.append('circle')
-            .attr('class', 'node')
+            .attr('class', d => `node node-${d.id}`)
             .attr('r', 10)
             .attr('id', d => d.id)
             .style('cursor', 'pointer')
@@ -218,6 +256,7 @@ class FlavorMapForceLayout extends React.Component {
         .selectAll('.node')
         .transition(ease)
         .attr('opacity', d => (neighbors.indexOf(d.id) >= 0 ? 1.0 : 0.1));
+      this.moveTooltip();
     } else {
       this.nodes
         .selectAll('.node')
@@ -252,11 +291,63 @@ class FlavorMapForceLayout extends React.Component {
     nodeSimulation.restart();
   }
 
+  moveTooltip() {
+    const { selectedNode } = this.props;
+
+    if (selectedNode === null || selectedNode === undefined) {
+      return;
+    }
+
+    const { x, y, width } = d3.select(`.node-${selectedNode.id}`).node().getBoundingClientRect();
+    const t = d3.select(this.tooltip.current).node().getBoundingClientRect();
+
+    const radius = width / 2;
+
+    d3.select(this.tooltip.current)
+      .style('transform', `translate(${x + radius - (t.width / 2)}px,${y - radius - 5 - t.height}px)`);
+  }
+
   render() {
+    const { selectedNode } = this.props;
     return (
-      <span>
-        <svg ref={this.container} className={Styles.FlavorMap} />
-      </span>
+      <>
+        <FullScreenSvg ref={this.container} />
+        {
+          selectedNode && (
+            <Tooltip ref={this.tooltip}>
+              <NiceHeader>
+                { selectedNode.name }
+              </NiceHeader>
+              <table>
+                {
+                  selectedNode.taste && (
+                    <tr>
+                      <td>
+                        taste
+                      </td>
+                      <td style={{ textAlign: 'right' }}>
+                        { selectedNode.taste }
+                      </td>
+                    </tr>
+                  )
+                }
+                {
+                  selectedNode.volume && (
+                    <tr>
+                      <td>
+                        volume
+                      </td>
+                      <td style={{ textAlign: 'right' }}>
+                        { selectedNode.volume }
+                      </td>
+                    </tr>
+                  )
+                }
+              </table>
+            </Tooltip>
+          )
+        }
+      </>
     );
   }
 }
