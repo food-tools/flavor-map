@@ -14,6 +14,7 @@ const Tooltip = styled.div`
   padding: 1em;
   background: #fff;
   border: 0.25em solid #000;
+  z-index: 1000;
 
   ::before {
     content: '';
@@ -31,12 +32,6 @@ const Tooltip = styled.div`
 
 const NiceHeader = styled.h3`
   margin: 0px;
-`;
-
-const GradientLine = styled.div`
-  width: 100%;
-  height: 0.25em;
-  background-image: linear-gradient(-20deg, #fc6076 0%, #ff9a44 100%);
 `;
 
 const sum = list => list.reduce((s, x) => s + x, 0);
@@ -130,6 +125,8 @@ class FlavorMapForceLayout extends React.Component {
       onClickNode,
       onClickBackground,
     } = this.props;
+
+    console.log(links);
 
     const w = this.container.current.getBoundingClientRect().width;
     const h = this.container.current.getBoundingClientRect().height;
