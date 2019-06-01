@@ -126,8 +126,6 @@ class FlavorMapForceLayout extends React.Component {
       onClickBackground,
     } = this.props;
 
-    console.log(links);
-
     const w = this.container.current.getBoundingClientRect().width;
     const h = this.container.current.getBoundingClientRect().height;
 
@@ -315,32 +313,6 @@ class FlavorMapForceLayout extends React.Component {
               <NiceHeader>
                 { selectedNode.name }
               </NiceHeader>
-              <table>
-                {
-                  selectedNode.taste && (
-                    <tr>
-                      <td>
-                        taste
-                      </td>
-                      <td style={{ textAlign: 'right' }}>
-                        { selectedNode.taste }
-                      </td>
-                    </tr>
-                  )
-                }
-                {
-                  selectedNode.volume && (
-                    <tr>
-                      <td>
-                        volume
-                      </td>
-                      <td style={{ textAlign: 'right' }}>
-                        { selectedNode.volume }
-                      </td>
-                    </tr>
-                  )
-                }
-              </table>
             </Tooltip>
           )
         }

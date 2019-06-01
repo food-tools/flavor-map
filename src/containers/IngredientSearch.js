@@ -19,6 +19,7 @@ const mapStateToProps = state => ({
             }
             return (name !== searchTerm && selectedNode.name !== searchTerm);
           })
+          .filter((d, i) => i < 10)
       )
       : []
     ),

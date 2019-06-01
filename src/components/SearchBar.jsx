@@ -101,7 +101,7 @@ class SearchBar extends React.Component {
     this.handleInputBlur = this.handleInputBlur.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleResultSelect = this.handleResultSelect.bind(this);
-    this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
   handleInputFocus() {
@@ -148,36 +148,74 @@ class SearchBar extends React.Component {
     const { onSearchKeyUp, onSelectResult } = this.props;
     onSearchKeyUp(result.name);
     onSelectResult(result.id);
+    this.setState(prev => ({
+      ...prev,
+      hovered: null,
+    }));
   }
 
-  handleKeyPress(event) {
-    console.log(event.charCode);
+  handleKeyDown(event) {
+    const { focused, hovered } = this.state;
+    const { results } = this.props;
+    if (!focused) {
+      return;
+    }
+    if (event.keyCode === 38) { // up arrow
+      if (hovered === null) {
+        this.setState(prev => ({
+          ...prev,
+          hovered: results.length - 1,
+        }));
+      } else if (hovered > 0) {
+        this.setState(prev => ({
+          ...prev,
+          hovered: hovered - 1,
+        }));
+      }
+    } else if (event.keyCode === 40) { // down arrow
+      if (hovered === null) {
+        this.setState(prev => ({
+          ...prev,
+          hovered: 0,
+        }));
+      } else if (hovered < results.length - 1) {
+        this.setState(prev => ({
+          ...prev,
+          hovered: hovered + 1,
+        }));
+      }
+    } else if (event.keyCode === 13 && hovered !== null) {
+      this.handleResultSelect(results[hovered]);
+    } else if (event.keyCode === 13 && hovered === null && results.length > 0) {
+      this.handleResultSelect(results[0]);
+    }
   }
 
   render() {
     const { focused, hovered } = this.state;
     const { searchTerm, results } = this.props;
-    const truncated = results.slice(0, results.length < 10 ? results.length : 10);
-    console.log('hovered', hovered);
+    
     return (
       <>
         <SearchWrapper
-          focused={focused || truncated.length > 0}
+          focused={focused || results.length > 0}
           onMouseOut={() => this.handleMouseOutContainer()}
         >
           <Search
             value={searchTerm ? searchTerm : ''}
             placeholder="Search..."
             onChange={this.handleSearchChange}
-            onKeyPress={this.handleKeyPress}
-            roundBottom={truncated.length > 0}
+            onKeyDown={this.handleKeyDown}
+            onFocus={this.handleInputFocus}
+            onBlur={this.handleInputBlur}
+            roundBottom={results.length > 0}
             fluid
           />
           {
-            truncated.length > 0 && (
+            results.length > 0 && (
               <ResultsList>
                 {
-                  truncated
+                  results
                     .map(
                       (result, index) => (
                         <ResultsItem
