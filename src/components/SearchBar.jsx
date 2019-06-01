@@ -11,6 +11,7 @@ const Search = styled.input`
   color: #fc6076;
   text-transform: uppercase;
   font-weight: bold;
+  pointer-events: all;
 
   :focus {
     outline: none;
