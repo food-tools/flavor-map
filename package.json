@@ -14,7 +14,6 @@
     "copy-webpack-plugin": "^5.0.3",
     "cross-fetch": "^3.0.2",
     "d3": "^5.9.2",
-    "d3-tip": "^0.9.1",
     "d3-zoom": "^1.7.3",
     "mocker-api": "^1.7.6",
     "prop-types": "^15.7.2",
@@ -23,12 +22,9 @@
     "react-redux": "^6.0.1",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
-    "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.85.0",
     "styled-components": "^4.2.0",
     "styled-system": "^4.2.2",
     "typeface-alegreya": "0.0.69",
-    "uuid": "^3.3.2",
     "webpack-merge": "^4.2.1"
   },
   "devDependencies": {
@@ -52,7 +48,6 @@
     "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.13.0",
-    "faker": "^4.1.0",
     "file-loader": "^3.0.1",
     "html-webpack-plugin": "next",
     "source-map-loader": "^0.2.4",
