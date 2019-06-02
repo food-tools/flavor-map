@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const SearchWrapper = styled.div`
@@ -134,13 +134,13 @@ class SearchBar extends React.Component {
   }
 
   handleSearchChange(event) {
-    const { onSearchKeyUp } = this.props;
-    onSearchKeyUp(event.target.value);
+    const { onSearchChange } = this.props;
+    onSearchChange(event.target.value);
   }
 
   handleResultSelect(result) {
-    const { onSearchKeyUp, onSelectResult } = this.props;
-    onSearchKeyUp(result.name);
+    const { onSearchChange, onSelectResult } = this.props;
+    onSearchChange(result.name);
     onSelectResult(result.id);
     this.setState(prev => ({
       ...prev,
@@ -151,7 +151,7 @@ class SearchBar extends React.Component {
 
   handleKeyDown(event) {
     const { focused, hovered } = this.state;
-    const { results, onSearchKeyUp } = this.props;
+    const { results, onSearchChange } = this.props;
     if (!focused) {
       return;
     }
@@ -184,7 +184,7 @@ class SearchBar extends React.Component {
     } else if (event.keyCode === 13 && hovered === null && results.length > 0) {
       this.handleResultSelect(results[0]);
     } else if (event.keyCode === 27) {
-      onSearchKeyUp('');
+      onSearchChange('');
     }
   }
 

@@ -1,6 +1,5 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable global-require */
-/* eslint-disable no-unresolved */
+const graphData = require('../../data-v1/graph-no-null-cuisines.json');
+const cuisineData = require('../../data-v1/cuisines.json');
 
 export const FETCH_GRAPH_REQUEST = 'FETCH_GRAPH_REQUEST';
 export const FETCH_GRAPH_SUCCESS = 'FETCH_GRAPH_SUCCESS';
@@ -19,21 +18,6 @@ export const SET_SELECTED_CUISINE = 'SET_SELECTED_CUISINE';
 export const SET_ZOOM_TRANSFORM = 'SET_ZOOM_TRANSFORM';
 export const SET_NODE_COLOR_ENCODING = 'SET_NODE_COLOR_ENCODING';
 export const SET_LINK_STRENGTH_ENCODING = 'SET_LINK_STRENGTH_ENCODING';
-
-let graphData;
-let cuisineData;
-
-if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-  graphData = require('../../data-v1/graph-no-null-cuisines.json');
-} else {
-  graphData = require('./graph.json');
-}
-
-if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-  cuisineData = require('../../data-v1/cuisines.json');
-} else {
-  cuisineData = require('./cuisines.json');
-}
 
 export const NodeColorEncodings = {
   ENCODE_TYPE: 'ENCODE_TYPE',

@@ -6,7 +6,9 @@ const mapStateToProps = state => ({
   searchTerm: state.options.searchTerm,
   results: state.results.ingredients.items
     .map(id => state.data.ingredients[id])
-    .filter(({ name }) => name.toLowerCase().indexOf(state.options.searchTerm.toLowerCase().trim()) >= 0)
+    .filter(
+      ({ name }) => name.toLowerCase().indexOf(state.options.searchTerm.toLowerCase().trim()) >= 0,
+    )
     .sort((a, b) => (a.name < b.name ? -1 : 1))
     .filter(({ name }) => {
       const { selectedNode, searchTerm } = state.options;
@@ -16,7 +18,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onSearchKeyUp: term => dispatch(setSearchTerm(term)),
+  onSearchChange: term => dispatch(setSearchTerm(term)),
   onSelectResult: id => dispatch(setSelectedNode(id)),
 });
 
