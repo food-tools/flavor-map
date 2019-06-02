@@ -11,7 +11,7 @@ const FullScreenSvg = styled.svg`
 
 const Tooltip = styled.div`
   position: absolute;
-  padding: 1em;
+  padding: 0.25em;
   background: #fff;
   border: 0.25em solid #000;
   z-index: 1000;
@@ -110,6 +110,7 @@ class FlavorMapForceLayout extends React.Component {
       .attr('cx', d => d.x)
       .attr('cy', d => d.y);
 
+    // @TODO: do we need this here?
     this.moveTooltip();
   }
 
@@ -122,6 +123,9 @@ class FlavorMapForceLayout extends React.Component {
       regionLinks,
       memberAccessor,
       selectedNode,
+      hoveredNode,
+      onNodeMouseOver,
+      onNodeMouseOut,
       onClickNode,
       onClickBackground,
     } = this.props;
@@ -230,6 +234,8 @@ class FlavorMapForceLayout extends React.Component {
             .attr('r', 10)
             .attr('id', d => d.id)
             .style('cursor', 'pointer')
+            .on('mouseover', d => onNodeMouseOver(d.id))
+            .on('mouseout', d => onNodeMouseOut(d.id))
             .on('click', d => onClickNode(d.id));
         },
         null,
@@ -238,6 +244,12 @@ class FlavorMapForceLayout extends React.Component {
         },
       );
 
+    if (hoveredNode) {
+      this.moveTooltip();
+    }
+
+    // @TODO is the invisible 0,0 node that all ingredients are linked to being
+    // created here?
     if (selectedNode) {
       const neighbors = (
         concat(
@@ -253,7 +265,6 @@ class FlavorMapForceLayout extends React.Component {
         .selectAll('.node')
         .transition(ease)
         .attr('opacity', d => (neighbors.indexOf(d.id) >= 0 ? 1.0 : 0.1));
-      this.moveTooltip();
     } else {
       this.nodes
         .selectAll('.node')
@@ -289,13 +300,13 @@ class FlavorMapForceLayout extends React.Component {
   }
 
   moveTooltip() {
-    const { selectedNode } = this.props;
+    const { hoveredNode } = this.props;
 
-    if (selectedNode === null || selectedNode === undefined) {
+    if (hoveredNode === null || hoveredNode === undefined) {
       return;
     }
 
-    const { x, y, width } = d3.select(`.node-${selectedNode.id}`).node().getBoundingClientRect();
+    const { x, y, width } = d3.select(`.node-${hoveredNode.id}`).node().getBoundingClientRect();
     const t = d3.select(this.tooltip.current).node().getBoundingClientRect();
 
     const radius = width / 2;
@@ -305,16 +316,17 @@ class FlavorMapForceLayout extends React.Component {
   }
 
   render() {
-    const { selectedNode } = this.props;
+    const { selectedNode, hoveredNode } = this.props;
     return (
       <>
         <FullScreenSvg ref={this.container} />
         {
-          selectedNode && (
+          hoveredNode && (
             <Tooltip ref={this.tooltip}>
               <NiceHeader>
-                { selectedNode.name }
+                { hoveredNode.name }
               </NiceHeader>
+              {/*
               <table>
                 {
                   selectedNode.taste && (
@@ -341,6 +353,7 @@ class FlavorMapForceLayout extends React.Component {
                   )
                 }
               </table>
+               */}
             </Tooltip>
           )
         }
