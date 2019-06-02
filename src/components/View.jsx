@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import FlavorMapLayout from '../containers/FlavorMapLayout';
 import Cuisines from '../containers/Cuisines';
 import ColorEncodings from '../containers/ColorEncodings';
-import Search from '../containers/Search';
+import IngredientSearch from '../containers/IngredientSearch';
 import Ingredient from '../containers/Ingredient';
 import * as Styles from '../assets/CustomStyles.css';
 
@@ -64,7 +64,7 @@ const View = ({ isFetchingGraph, isFetchingCuisines, selectedNode }) => (
         <ColumnOne />
         <ColumnTwo>
           <br />
-          <Search />
+          <IngredientSearch />
         </ColumnTwo>
         <ColumnOne>
           <StickyFooter>
