@@ -14,8 +14,8 @@ module.exports = merge(
           toType: 'file',
         },
         {
-          from: 'CNAME',
-          to: 'CNAME',
+          from: 'now.json',
+          to: 'now.json',
           toType: 'file',
         },
       ]),
