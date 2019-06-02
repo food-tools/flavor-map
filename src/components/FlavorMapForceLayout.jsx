@@ -121,6 +121,7 @@ class FlavorMapForceLayout extends React.Component {
       regions,
       regionLinks,
       memberAccessor,
+      encodeNodeColor,
       selectedNode,
       onClickNode,
       onClickBackground,
@@ -227,6 +228,7 @@ class FlavorMapForceLayout extends React.Component {
             .attr('class', d => `node node-${d.id}`)
             .attr('r', 10)
             .attr('id', d => d.id)
+            .attr('fill', d => encodeNodeColor(d))
             .style('cursor', 'pointer')
             .on('click', d => onClickNode(d.id));
         },
