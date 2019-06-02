@@ -1,11 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import FlavorMapLayout from '../containers/FlavorMapLayout';
-import Cuisines from '../containers/Cuisines';
-import ColorEncodings from '../containers/ColorEncodings';
 import IngredientSearch from '../containers/IngredientSearch';
-import Ingredient from '../containers/Ingredient';
-import * as Styles from '../assets/CustomStyles.css';
 
 const Viewport = styled.div`
   position: absolute;

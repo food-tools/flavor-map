@@ -14,6 +14,16 @@ module.exports = merge(
           toType: 'file',
         },
         {
+          from: 'data-v1/graph-no-null-cuisines.json',
+          to: 'graph.json',
+          toType: 'file',
+        },
+        {
+          from: 'data-v1/cuisines.json',
+          to: 'cuisines.json',
+          toType: 'file',
+        },
+        {
           from: 'CNAME',
           to: 'CNAME',
           toType: 'file',

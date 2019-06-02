@@ -1,7 +1,5 @@
 const path = require('path');
 const merge = require('webpack-merge');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const apiMocker = require('mocker-api');
 const common = require('./webpack.common.js');
 
 module.exports = merge(
@@ -9,20 +7,6 @@ module.exports = merge(
   {
     mode: 'development',
     devtool: 'source-map',
-    plugins: [
-      new CopyWebpackPlugin([
-        {
-          from: 'node_modules/semantic-ui-css/semantic.min.css',
-          to: 'semantic.min.css',
-          toType: 'file',
-        },
-        {
-          from: 'node_modules/semantic-ui-css/themes/default/assets/fonts',
-          to: 'themes/default/assets/fonts',
-          toType: 'dir',
-        },
-      ]),
-    ],
     module: {
       rules: [
         {
@@ -38,11 +22,6 @@ module.exports = merge(
       inline: true,
       historyApiFallback: {
         index: 'index.html',
-      },
-      before(app) {
-        apiMocker(app, path.resolve('./mocker/index.js'), {
-          changeHost: true,
-        });
       },
     },
   },
