@@ -1,88 +1,250 @@
-import * as React from "react";
-import * as Styles from "../assets/CustomStyles.css";
-import { Grid, Search, Input } from "semantic-ui-react";
+import React from 'react';
+import styled from 'styled-components';
 
-export class SearchBar extends React.Component {
+const SearchWrapper = styled.div`
+  background-color: #f6f6f6;
+  border: 1px solid #f6f6f6;
+  width: ${props => props.fluid && '100%'};
+  ${props => (
+    props.focused
+     && (`
+      outline: none;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    `)
+  )}
+  ${props => (
+    props.roundBottom
+      ? 'border-radius: 1.5em 1.5em 0em 0em;'
+      : 'border-radius: 1.5em;'
+  )}
+`;
 
-    constructor(props) {
-        super(props);
-        this.handleSearchChange = this.handleSearchChange.bind(this);
-        this.handleResultSelect = this.handleResultSelect.bind(this);
+const SearchInput = styled.input`
+  box-sizing: border-box;
+  height: 3em;
+  width: 100%;
+  padding: 0.5em 2em 0.5em;
+  color: #fc6076;
+  text-transform: uppercase;
+  font-weight: bold;
+  pointer-events: all;
+  background-color: transparent;
+  border: none;
+
+  ${props => (
+    props.roundBottom
+      ? 'border-radius: 1.5em 1.5em 0em 0em;'
+      : 'border-radius: 1.5em;'
+  )}
+
+  :focus {
+    outline: none;
+  }
+
+  ::placeholder {
+    color: #d0d0d0;
+  }
+`;
+
+const ResultsList = styled.div`
+  padding: 0em 0em 1em 0em;
+  border-top: 0.5px solid #E0E0E0;
+`;
+
+const ResultsItem = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0.5em 1.5em 0.5em 1.5em;
+  cursor: pointer;
+  pointer-events: all;
+
+  ${props => props.hovered && 'background-color: #fc6076;'}
+
+  ${props => (
+    props.shouldShowEnterPrompt && (`
+      ::after {
+        content: 'ENTER';
+        float: right;
+        padding: 0em 0.5em 0em;
+        font-family: monospace;
+        border: 1.5px solid #BDBDBD;
+        border-radius: 6px;
+        font-size: 12px;
+        background-color: #EEEEEE;
+        color: #BDBDBD;
+        vertical-align: top !important;
+      }
+    `)
+  )}
+`;
+
+class SearchBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      focused: false,
+      hovered: null,
+    };
+    this.handleMouseOverItem = this.handleMouseOverItem.bind(this);
+    this.handleMouseOutItem = this.handleMouseOutItem.bind(this);
+    this.handleMouseOutContainer = this.handleMouseOutContainer.bind(this);
+    this.handleInputFocus = this.handleInputFocus.bind(this);
+    this.handleInputBlur = this.handleInputBlur.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleResultSelect = this.handleResultSelect.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+  }
+
+  handleInputFocus() {
+    this.setState(prev => ({
+      ...prev,
+      focused: true,
+    }));
+  }
+
+  handleMouseOverItem(index) {
+    this.setState(prev => ({
+      ...prev,
+      hovered: index,
+    }));
+  }
+
+  handleMouseOutItem() {
+    this.setState(prev => ({
+      ...prev,
+      hovered: null,
+    }));
+  }
+
+  handleMouseOutContainer() {
+    this.setState(prev => ({
+      ...prev,
+      hovered: null,
+    }));
+  }
+
+  handleInputBlur() {
+    this.setState(prev => ({
+      ...prev,
+      focused: false,
+    }));
+  }
+
+  handleSearchChange(event) {
+    const { onSearchChange } = this.props;
+    onSearchChange(event.target.value);
+  }
+
+  handleResultSelect(result) {
+    const { onSearchChange, onSelectResult } = this.props;
+    onSearchChange(result.name);
+    onSelectResult(result.id);
+    this.setState(prev => ({
+      ...prev,
+      focused: false,
+      hovered: null,
+    }));
+  }
+
+  handleKeyDown(event) {
+    const { focused, hovered } = this.state;
+    const { results, onSearchChange } = this.props;
+    if (!focused) {
+      return;
     }
-
-    handleSearchChange(e, { value }) {
-        this.props.onSearchKeyUp(value);
+    if (event.keyCode === 38) { // up arrow
+      if (hovered === null) {
+        this.setState(prev => ({
+          ...prev,
+          hovered: results.length - 1,
+        }));
+      } else if (hovered > 0) {
+        this.setState(prev => ({
+          ...prev,
+          hovered: hovered - 1,
+        }));
+      }
+    } else if (event.keyCode === 40) { // down arrow
+      if (hovered === null) {
+        this.setState(prev => ({
+          ...prev,
+          hovered: 0,
+        }));
+      } else if (hovered < results.length - 1) {
+        this.setState(prev => ({
+          ...prev,
+          hovered: hovered + 1,
+        }));
+      }
+    } else if (event.keyCode === 13 && hovered !== null) {
+      this.handleResultSelect(results[hovered]);
+    } else if (event.keyCode === 13 && hovered === null && results.length > 0) {
+      this.handleResultSelect(results[0]);
+    } else if (event.keyCode === 27) {
+      onSearchChange('');
     }
+  }
 
-    handleResultSelect(e, { result }) {
-        if (result.type === "ingredient") {
-            this.props.onSearchKeyUp(result.title);
+  render() {
+    const { focused, hovered } = this.state;
+    const { searchTerm, results } = this.props;
 
-            const ingredient = this.props.stateIngredients[result.id]
-            this.props.onSelectIngredient(ingredient);
-        } else {
-            this.props.onSearchKeyUp(result.title);
-
-            console.log("cuisine:", result);
-            this.props.onSelectCuisine(result.id);
-        }
-    }
-
-    render() {
-
-        let results = {};
-
-        if (this.props.ingredients.length > 0) {
-            results = {
-                ...results,
-                ingredients: {
-                    name: "Ingredients",
-                    results: this.props.ingredients.map(ingredient => ({
-                        title: ingredient.name,
-                        type: "ingredient",
-                        id: ingredient.id
-                    }))
+    return (
+      <>
+        <SearchWrapper
+          focused={focused}
+          onMouseOut={() => this.handleMouseOutContainer()}
+          onBlur={() => this.handleMouseOutContainer()}
+          fluid
+        >
+          <SearchInput
+            value={searchTerm ? searchTerm : ''}
+            placeholder="Search..."
+            onChange={this.handleSearchChange}
+            onKeyDown={this.handleKeyDown}
+            onFocus={this.handleInputFocus}
+            onBlur={this.handleInputBlur}
+            roundBottom={focused}
+          />
+          {
+            focused && (
+              <ResultsList>
+                {
+                  results
+                    .map(
+                      (result, index) => (
+                        <ResultsItem
+                          key={`result-${result.name}`}
+                          onMouseDown={() => this.handleResultSelect(result)}
+                          onMouseOver={() => this.handleMouseOverItem(index)}
+                          onMouseOut={() => this.handleMouseOutItem(index)}
+                          onFocus={() => this.handleMouseOverItem(index)}
+                          onBlur={() => this.handleMouseOutItem(index)}
+                          hovered={hovered === index}
+                          shouldShowEnterPrompt={hovered === null ? index === 0 : hovered === index}
+                        >
+                          {result.name}
+                        </ResultsItem>
+                      ),
+                    )
                 }
-            }
-        }
-
-        if (this.props.cuisines.length > 0) {
-            results = {
-                ...results,
-                cuisines: {
-                    name: "Cuisines",
-                    results: this.props.cuisines.map(cuisine => ({
-                        title: cuisine.name,
-                        type: "cuisine",
-                        id: cuisine.id
-                    }))
+                {
+                  results.length === 0 && (
+                    <ResultsItem>
+                      <em>No results</em>
+                    </ResultsItem>
+                  )
                 }
-            };
-        }
-
-        return (
-            <Grid className={Styles.SearchBar}>
-                <Grid.Row>
-                    <Grid.Column width={3}>
-                    </Grid.Column>
-                    <Grid.Column width={10}>
-                        <Search
-                            category
-                            fluid
-                            className={Styles.SearchBar}
-                            onSearchChange={this.handleSearchChange}
-                            onResultSelect={this.handleResultSelect}
-                            value={this.props.searchTerm}
-                            results={results}
-                            size="large"
-                            input={{ fluid: true }}
-                        />
-                    </Grid.Column>
-                    <Grid.Column width={3}>
-                    </Grid.Column>
-                </Grid.Row>
-            </Grid>
-        );
-    }
-
+              </ResultsList>
+            )
+          }
+        </SearchWrapper>
+      </>
+    );
+  }
 }
+
+export default SearchBar;

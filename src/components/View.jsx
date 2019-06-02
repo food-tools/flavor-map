@@ -1,74 +1,60 @@
-import * as React from "react";
-import { Grid, Segment, Dimmer, Loader, Divider } from "semantic-ui-react";
-import { FlavorMap } from "../containers/FlavorMap";
-import { Title } from "./Title";
-import { Cuisines } from "../containers/Cuisines";
-import { ColorEncodings } from "../containers/ColorEncodings";
-import { Search } from "../containers/Search";
-import { Ingredient } from "../containers/Ingredient"
-import * as Styles from "../assets/CustomStyles";
-import { setSelectedNode } from "../actions/actions";
+import React from 'react';
+import styled from 'styled-components';
+import Information from './Information';
+import FlavorMapLayout from '../containers/FlavorMapLayout';
+import IngredientSearch from '../containers/IngredientSearch';
 
-export const View = ({ isFetchingGraph, isFetchingCuisines, selectedNode }) => (
-    <Grid celled="internally" className={Styles.View}>
-        <Grid.Row>
-            <Grid.Column width={12} className={Styles.NoPadding}>
-                {
-                    isFetchingGraph ?
-                    (
-                        <Dimmer active inverted>
-                          <Loader size="large"></Loader>
-                        </Dimmer>
-                    )
-                    :
-                    (
-                        <FlavorMap />
-                    )
-                }
-                <Search />
-            </Grid.Column>
-            <Grid.Column width={4}>
-                <Grid.Row>
-                    <Title />
-                </Grid.Row>
-                <Grid.Row>
-                    <Segment basic>
-                        {
-                            isFetchingCuisines ?
-                            (
-                                  <Loader size="small" active inline="centered"></Loader>
-                            )
-                            :
-                            (
-                                <Cuisines />
-                            )
-                        }
-                        <br />
-                        {
-                            isFetchingGraph ?
-                            (
-                                  <Loader size="small" active inline="centered"></Loader>
-                            )
-                            :
-                            (
-                                <ColorEncodings />
-                            )
-                        }
-                        <br />
-                        <Divider />
-                        {
-                            selectedNode ?
-                            (
-                                <Ingredient />
-                            )
-                            :
-                            (
-                                <span></span>
-                            )
-                        }
-                    </Segment>
-                </Grid.Row>
-            </Grid.Column>
-        </Grid.Row>
-    </Grid>
+const Viewport = styled.div`
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+`;
+
+const Grid = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+`;
+
+const ColumnOne = styled.div`
+  flex-grow: 1;
+  width: 25vw;
+`;
+
+const ColumnTwo = styled.div`
+  flex-grow: 2;
+  width: 50vw;
+`;
+
+const StickyFooter = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+`;
+
+const View = ({ isFetchingGraph, isFetchingCuisines }) => (
+  <>
+    {
+      !isFetchingGraph && !isFetchingCuisines && <FlavorMapLayout />
+    }
+    <Viewport>
+      <Grid>
+        <ColumnOne />
+        <ColumnTwo>
+          <br />
+          <IngredientSearch />
+        </ColumnTwo>
+        <ColumnOne>
+          <StickyFooter>
+            <div />
+            <Information />
+          </StickyFooter>
+        </ColumnOne>
+      </Grid>
+    </Viewport>
+  </>
 );
+
+export default View;
