@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { setSelectedNode, setHoveredNode } from '../actions/actions';
+import { IngredientSeasonColors } from '../assets/IngredientPropertyColors';
 import FlavorMapForceLayout from '../components/FlavorMapForceLayout';
 
 const intersection = (a, b) => a.filter(elem => b.indexOf(elem) >= 0);
@@ -88,6 +89,11 @@ const mapStateToProps = (state) => {
     memberAccessor: 'ingredients',
     selectedNode: selectedNode ? state.data.ingredients[selectedNode] : null,
     hoveredNode: hoveredNode ? state.data.ingredients[hoveredNode] : null,
+    encodeNodeColor: ingredient => (
+      ingredient.season
+        ? IngredientSeasonColors[ingredient.season.toUpperCase()]
+        : IngredientSeasonColors.DEFAULT
+    ),
   };
 };
 

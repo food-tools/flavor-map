@@ -1,5 +1,4 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import * as d3 from 'd3';
 import styled from 'styled-components';
 
@@ -122,6 +121,7 @@ class FlavorMapForceLayout extends React.Component {
       regions,
       regionLinks,
       memberAccessor,
+      encodeNodeColor,
       selectedNode,
       hoveredNode,
       onNodeMouseOver,
@@ -231,6 +231,7 @@ class FlavorMapForceLayout extends React.Component {
             .attr('class', d => `node node-${d.id}`)
             .attr('r', 10)
             .attr('id', d => d.id)
+            .attr('fill', d => encodeNodeColor(d))
             .style('cursor', 'pointer')
             .on('mouseover', d => onNodeMouseOver(d.id))
             .on('mouseout', d => onNodeMouseOut(d.id))
@@ -246,8 +247,6 @@ class FlavorMapForceLayout extends React.Component {
       this.moveTooltip();
     }
 
-    // @TODO is the invisible 0,0 node that all ingredients are linked to being
-    // created here?
     if (selectedNode) {
       const neighbors = (
         concat(
@@ -314,7 +313,7 @@ class FlavorMapForceLayout extends React.Component {
   }
 
   render() {
-    const { selectedNode, hoveredNode } = this.props;
+    const { hoveredNode } = this.props;
     return (
       <>
         <FullScreenSvg ref={this.container} />

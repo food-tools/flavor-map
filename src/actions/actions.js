@@ -1,7 +1,5 @@
-import fetch from 'cross-fetch';
-
-const staticGraphData = require('../../data-v1/graph.json');
-const staticCuisineData = require('../../data-v1/cuisines.json');
+const graphData = require('../../data-v1/graph-no-null-cuisines.json');
+const cuisineData = require('../../data-v1/cuisines.json');
 
 export const FETCH_GRAPH_REQUEST = 'FETCH_GRAPH_REQUEST';
 export const FETCH_GRAPH_SUCCESS = 'FETCH_GRAPH_SUCCESS';
@@ -152,39 +150,13 @@ export function setZoomTransform(zoomTransform) {
 export function getGraph() {
   return (dispatch) => {
     dispatch(fetchGraphRequest());
-    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-      fetch('/graph.json')
-        .then(
-          response => response.json(),
-        )
-        .then(
-          json => dispatch(fetchGraphSuccess(json)),
-        )
-        .catch(
-          error => dispatch(fetchGraphFailure(error)),
-        );
-    } else {
-      dispatch(fetchGraphSuccess(staticGraphData));
-    }
+    dispatch(fetchGraphSuccess(graphData));
   };
 }
 
 export function getCuisines() {
   return (dispatch) => {
     dispatch(fetchCuisinesRequest());
-    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-      fetch('/cuisines.json')
-        .then(
-          response => response.json(),
-        )
-        .then(
-          json => dispatch(fetchCuisinesSuccess(json)),
-        )
-        .catch(
-          error => dispatch(fetchCuisinesFailure(error)),
-        );
-    } else {
-      dispatch(fetchCuisinesSuccess(staticCuisineData));
-    }
+    dispatch(fetchCuisinesSuccess(cuisineData));
   };
 }

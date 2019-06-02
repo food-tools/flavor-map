@@ -1,9 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const SearchWrapper = styled.div`
-  z-index: 10000;
   background-color: #f6f6f6;
+  border: 1px solid #f6f6f6;
+  width: ${props => props.fluid && '100%'};
   ${props => (
     props.focused
      && (`
@@ -14,30 +15,26 @@ const SearchWrapper = styled.div`
   )}
   ${props => (
     props.roundBottom
-      ? (
-        'border-radius: 1.5em 1.5em 0em 0em;'
-      )
+      ? 'border-radius: 1.5em 1.5em 0em 0em;'
       : 'border-radius: 1.5em;'
   )}
 `;
 
-const Search = styled.input`
-  width: ${props => props.fluid && '100%'};
+const SearchInput = styled.input`
+  box-sizing: border-box;
   height: 3em;
-  padding: 0.25em 2em 0.25em;
-  background-color: #f6f6f6;
-  border: 1px solid #f6f6f6;
+  width: 100%;
+  padding: 0.5em 2em 0.5em;
   color: #fc6076;
   text-transform: uppercase;
   font-weight: bold;
   pointer-events: all;
+  background-color: transparent;
+  border: none;
 
   ${props => (
     props.roundBottom
-      ? (`
-        border-radius: 1.5em 1.5em 0em 0em;
-        border-bottom: 0.5px solid #E0E0E0;
-      `)
+      ? 'border-radius: 1.5em 1.5em 0em 0em;'
       : 'border-radius: 1.5em;'
   )}
 
@@ -52,6 +49,7 @@ const Search = styled.input`
 
 const ResultsList = styled.div`
   padding: 0em 0em 1em 0em;
+  border-top: 0.5px solid #E0E0E0;
 `;
 
 const ResultsItem = styled.div`
@@ -59,32 +57,28 @@ const ResultsItem = styled.div`
   align-items: center;
   justify-content: space-between;
   margin: 0;
-  padding: 0.5em 2em 0.5em 2em;
+  padding: 0.5em 1.5em 0.5em 1.5em;
   cursor: pointer;
   pointer-events: all;
 
-  ${props => (
-    props.hovered
-      ? (`
-        background-color: #fc6076;
-      `)
-      : ''
-  )}
+  ${props => props.hovered && 'background-color: #fc6076;'}
 
-  :first-child {
-    ::after {
-      content: 'ENTER';
-      float: right;
-      padding: 0em 0.5em 0em;
-      font-family: monospace;
-      border: 1.5px solid #BDBDBD;
-      border-radius: 6px;
-      font-size: 12px;
-      background-color: #EEEEEE;
-      color: #BDBDBD;
-      vertical-align: top !important;
-    }
-  }
+  ${props => (
+    props.shouldShowEnterPrompt && (`
+      ::after {
+        content: 'ENTER';
+        float: right;
+        padding: 0em 0.5em 0em;
+        font-family: monospace;
+        border: 1.5px solid #BDBDBD;
+        border-radius: 6px;
+        font-size: 12px;
+        background-color: #EEEEEE;
+        color: #BDBDBD;
+        vertical-align: top !important;
+      }
+    `)
+  )}
 `;
 
 class SearchBar extends React.Component {
@@ -140,23 +134,24 @@ class SearchBar extends React.Component {
   }
 
   handleSearchChange(event) {
-    const { onSearchKeyUp } = this.props;
-    onSearchKeyUp(event.target.value);
+    const { onSearchChange } = this.props;
+    onSearchChange(event.target.value);
   }
 
   handleResultSelect(result) {
-    const { onSearchKeyUp, onSelectResult } = this.props;
-    onSearchKeyUp(result.name);
+    const { onSearchChange, onSelectResult } = this.props;
+    onSearchChange(result.name);
     onSelectResult(result.id);
     this.setState(prev => ({
       ...prev,
+      focused: false,
       hovered: null,
     }));
   }
 
   handleKeyDown(event) {
     const { focused, hovered } = this.state;
-    const { results } = this.props;
+    const { results, onSearchChange } = this.props;
     if (!focused) {
       return;
     }
@@ -188,31 +183,34 @@ class SearchBar extends React.Component {
       this.handleResultSelect(results[hovered]);
     } else if (event.keyCode === 13 && hovered === null && results.length > 0) {
       this.handleResultSelect(results[0]);
+    } else if (event.keyCode === 27) {
+      onSearchChange('');
     }
   }
 
   render() {
     const { focused, hovered } = this.state;
     const { searchTerm, results } = this.props;
-    
+
     return (
       <>
         <SearchWrapper
-          focused={focused || results.length > 0}
+          focused={focused}
           onMouseOut={() => this.handleMouseOutContainer()}
+          onBlur={() => this.handleMouseOutContainer()}
+          fluid
         >
-          <Search
+          <SearchInput
             value={searchTerm ? searchTerm : ''}
             placeholder="Search..."
             onChange={this.handleSearchChange}
             onKeyDown={this.handleKeyDown}
             onFocus={this.handleInputFocus}
             onBlur={this.handleInputBlur}
-            roundBottom={results.length > 0}
-            fluid
+            roundBottom={focused}
           />
           {
-            results.length > 0 && (
+            focused && (
               <ResultsList>
                 {
                   results
@@ -220,15 +218,25 @@ class SearchBar extends React.Component {
                       (result, index) => (
                         <ResultsItem
                           key={`result-${result.name}`}
-                          onClick={() => this.handleResultSelect(result)}
+                          onMouseDown={() => this.handleResultSelect(result)}
                           onMouseOver={() => this.handleMouseOverItem(index)}
                           onMouseOut={() => this.handleMouseOutItem(index)}
+                          onFocus={() => this.handleMouseOverItem(index)}
+                          onBlur={() => this.handleMouseOutItem(index)}
                           hovered={hovered === index}
+                          shouldShowEnterPrompt={hovered === null ? index === 0 : hovered === index}
                         >
                           {result.name}
                         </ResultsItem>
                       ),
                     )
+                }
+                {
+                  results.length === 0 && (
+                    <ResultsItem>
+                      <em>No results</em>
+                    </ResultsItem>
+                  )
                 }
               </ResultsList>
             )
