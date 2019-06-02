@@ -30,46 +30,6 @@ const ingredients = require('../data-v1/ingredients.clustered.json');
 const pairings = require('../data-v1/pairings.json');
 const cuisines = require('../data-v1/cuisines.json');
 
-/*
-const old_ingredients = new Array(randomNumberOfIngredients)
-    .fill(undefined)
-    .map(nothing => ({
-        id: uuid(),
-        name: faker.fake("{{random.word}} {{random.word}}"),
-        type: type[Math.floor(Math.random() * type.length)],
-        function: functions[Math.floor(Math.random() * functions.length)],
-        season: seasons[Math.floor(Math.random() * seasons.length)],
-        taste: tastes[Math.floor(Math.random() * tastes.length)],
-        weight: weights[Math.floor(Math.random() * weights.length)],
-        volume: volumes[Math.floor(Math.random() * volumes.length)],
-        techniques: faker.fake("{{random.word}} {{random.word}} {{random.word}}")
-    }));
-
-const old_pairings = new Array(randomNumberOfPairings)
-    .fill(undefined)
-    .map(nothing => ({
-        source: ingredients[Math.floor(Math.random() * ingredients.length)].id,
-        target: ingredients[Math.floor(Math.random() * ingredients.length)].id
-    }))
-    .filter(pairing =>
-        pairing.source != pairing.target
-    );
-
-const old_cuisines = new Array(randomNumberOfCuisines)
-    .fill(undefined)
-    .map(nothing => ({
-        id: uuid(),
-        name: faker.fake("{{random.word}} {{random.word}}"),
-        ingredients: Array.from(
-            new Set(
-                new Array(Math.ceil(Math.random() * 100))
-                    .fill(undefined)
-                    .map(nothing => ingredients[Math.floor(Math.random() * ingredients.length)].id)
-                )
-            )
-    }));
-*/
-
 const proxy = {
   'GET /graph.json': (req, res) => res.json({
     nodes: ingredients,
