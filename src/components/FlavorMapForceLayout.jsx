@@ -133,6 +133,8 @@ class FlavorMapForceLayout extends React.Component {
     const w = this.container.current.getBoundingClientRect().width;
     const h = this.container.current.getBoundingClientRect().height;
 
+    this.g.selectAll('*').interrupt();
+
     this.background
       .select('rect')
       .attr('width', w)
@@ -181,7 +183,6 @@ class FlavorMapForceLayout extends React.Component {
       );
     };
 
-    this.g.selectAll('*').interrupt();
     this.background.on('click', onClickBackground);
 
     regionSimulation

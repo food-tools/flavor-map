@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import Information from './Information';
+import Legend from './Legend';
 import FlavorMapLayout from '../containers/FlavorMapLayout';
 import IngredientSearch from '../containers/IngredientSearch';
+import IngredientInfo from '../containers/IngredientInfo';
 
 const Viewport = styled.div`
   position: absolute;
@@ -41,15 +43,21 @@ const View = ({ isFetchingGraph, isFetchingCuisines }) => (
     }
     <Viewport>
       <Grid>
-        <ColumnOne />
-        <ColumnTwo>
-          <br />
-          <IngredientSearch />
-        </ColumnTwo>
         <ColumnOne>
           <StickyFooter>
             <div />
             <Information />
+          </StickyFooter>
+        </ColumnOne>
+        <ColumnTwo>
+          <br />
+          <IngredientSearch />
+          <Legend />
+        </ColumnTwo>
+        <ColumnOne>
+          <StickyFooter>
+            <div />
+            <IngredientInfo />
           </StickyFooter>
         </ColumnOne>
       </Grid>
