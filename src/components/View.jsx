@@ -4,7 +4,7 @@ import Information from './Information';
 import Legend from './Legend';
 import FlavorMapLayout from '../containers/FlavorMapLayout';
 import IngredientSearch from '../containers/IngredientSearch';
-import IngredientInfo from '../containers/IngredientInfo';
+import IngredientDrilldown from '../containers/IngredientDrilldown';
 
 const Viewport = styled.div`
   position: absolute;
@@ -57,7 +57,7 @@ const View = ({ isFetchingGraph, isFetchingCuisines }) => (
         <ColumnOne>
           <StickyFooter>
             <div />
-            <IngredientInfo />
+            <IngredientDrilldown />
           </StickyFooter>
         </ColumnOne>
       </Grid>

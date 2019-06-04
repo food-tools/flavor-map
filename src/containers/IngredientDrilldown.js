@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import IngredientInfoBox from '../components/IngredientInfoBox';
+import Drilldown from '../components/Drilldown';
 
 const mapStateToProps = (state) => {
   const { selectedNode } = state.options;
@@ -24,6 +24,7 @@ const mapStateToProps = (state) => {
 
   return {
     ...ingredient,
+    func: ingredient.function,
     cuisines,
     pairings,
     id: selectedNode,
@@ -33,6 +34,6 @@ const mapStateToProps = (state) => {
 const IngredientInfo = connect(
   mapStateToProps,
   null,
-)(IngredientInfoBox);
+)(Drilldown);
 
 export default IngredientInfo;

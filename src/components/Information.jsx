@@ -15,6 +15,8 @@ const GradientBox = styled.div`
 const Legend = styled.div`
   padding: 0.5em;
   background-color: #fff;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 300;
 `;
 
 const Title = styled.h2`
