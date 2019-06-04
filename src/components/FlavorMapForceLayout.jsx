@@ -14,6 +14,8 @@ const Tooltip = styled.div`
   background: #fff;
   border: 0.25em solid #000;
   z-index: 1000;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 100;
 
   ::before {
     content: '';

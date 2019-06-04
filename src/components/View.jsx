@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Information from './Information';
 import FlavorMapLayout from '../containers/FlavorMapLayout';
 import IngredientSearch from '../containers/IngredientSearch';
+import Drilldown from '../containers/Drilldown';
 
 const Viewport = styled.div`
   position: absolute;
@@ -34,23 +35,30 @@ const StickyFooter = styled.div`
   height: 100vh;
 `;
 
-const View = ({ isFetchingGraph, isFetchingCuisines }) => (
+const View = ({ isFetchingGraph, isFetchingCuisines, selectedNode }) => (
   <>
     {
       !isFetchingGraph && !isFetchingCuisines && <FlavorMapLayout />
     }
     <Viewport>
       <Grid>
-        <ColumnOne />
-        <ColumnTwo>
-          <br />
-          <IngredientSearch />
-        </ColumnTwo>
         <ColumnOne>
           <StickyFooter>
             <div />
             <Information />
           </StickyFooter>
+        </ColumnOne>
+        <ColumnTwo>
+          <br />
+          <IngredientSearch />
+        </ColumnTwo>
+        <ColumnOne>
+          { selectedNode ? (
+            <StickyFooter>
+              <div />
+              <Drilldown />
+            </StickyFooter>
+          ) : null}
         </ColumnOne>
       </Grid>
     </Viewport>
