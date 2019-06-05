@@ -1,16 +1,5 @@
 {
   "name": "flavor-map",
   "version": 2,
-  "builds": [
-      {
-          "src": "index.html",
-          "use": "@now/static"
-      }
-  ],
-  "routes": [
-      {
-          "src": "/flavor-map",
-          "dest": "/index.html"
-      }
-  ]
+  "alias": "food.tools"
 }
