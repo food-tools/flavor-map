@@ -32,6 +32,14 @@ const Colored = styled.span`
   color: ${props => props.color};
 `;
 
+const SubtleLink = styled.a`
+  color: #000000;
+  text-decoration: none;
+  :hover {
+    text-decoration: underline;
+  }
+`;
+
 const Information = () => (
   <Wrapper>
     <Legend>
@@ -84,8 +92,9 @@ const Information = () => (
       Use the search bar to find ingredients quickly!
       <br />
       <br />
-      By Brett Fouss and Jack Vallerie 🍔
-      <a href="https://food.tools">food.tools</a>
+      By&nbsp;
+      <SubtleLink href='https://brettfouss.com'>Brett Fouss</SubtleLink>
+      &nbsp;and Jack Vallerie 🍔
     </Legend>
   </Wrapper>
 );
