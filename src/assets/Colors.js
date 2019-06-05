@@ -10,7 +10,7 @@ const ClassyJack = {
   ORANGE: '#ba5734',
   SPRING: '#8FA874',
   SUMMER: '#D3C465',
-  AUTUMN: '#D3C465',
+  AUTUMN: '#ba5734',
   WINTER: '#363457',
   YEAR_ROUND: '#C4B2B2',
   DEFAULT: '#B0AEC4',

@@ -4,7 +4,6 @@ import { IngredientSeasonColors } from '../assets/IngredientPropertyColors';
 import FlavorMapForceLayout from '../components/FlavorMapForceLayout';
 
 const intersection = (a, b) => a.filter(elem => b.indexOf(elem) >= 0);
-const union = (a, b) => [...a, ...b.filter(elem => a.indexOf(elem) < 0)];
 
 const mapStateToProps = (state) => {
   const { selectedNode, hoveredNode } = state.options;
@@ -13,9 +12,8 @@ const mapStateToProps = (state) => {
     id => state.data.cuisines[id],
   );
 
-  const ingredients = cuisines.reduce(
-    (result, cuisine) => union(result, cuisine.ingredients),
-    [],
+  const ingredients = state.results.ingredients.items.map(
+    id => state.data.ingredients[id],
   );
 
   // record overlap between pairs of cuisines
@@ -74,9 +72,7 @@ const mapStateToProps = (state) => {
 
   return {
     links,
-    nodes: ingredients.map(
-      id => state.data.ingredients[id],
-    ),
+    nodes: ingredients,
     regions: cuisines.map(
       ({ id }) => state.data.cuisines[id],
     ),

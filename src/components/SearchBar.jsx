@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const SearchWrapper = styled.div`
-  background-color: #f6f6f6;
-  border: 1px solid #f6f6f6;
+  background-color: #EEEEEE;
+  border: 1px solid #EEEEEE;
   width: ${props => props.fluid && '100%'};
   ${props => (
     props.focused
@@ -18,6 +18,7 @@ const SearchWrapper = styled.div`
       ? 'border-radius: 1.5em 1.5em 0em 0em;'
       : 'border-radius: 1.5em;'
   )}
+  font-family: 'IBM Plex Sans', sans-serif;
 `;
 
 const SearchInput = styled.input`
@@ -31,6 +32,7 @@ const SearchInput = styled.input`
   pointer-events: all;
   background-color: transparent;
   border: none;
+  font-size: 12px;
 
   ${props => (
     props.roundBottom
@@ -43,7 +45,7 @@ const SearchInput = styled.input`
   }
 
   ::placeholder {
-    color: #d0d0d0;
+    color: #9E9E9E;
   }
 `;
 
@@ -69,7 +71,7 @@ const ResultsItem = styled.div`
         content: 'ENTER';
         float: right;
         padding: 0em 0.5em 0em;
-        font-family: monospace;
+        font-weight: 700;
         border: 1.5px solid #BDBDBD;
         border-radius: 6px;
         font-size: 12px;

@@ -8,6 +8,8 @@ import thunk from 'redux-thunk';
 import flavorMap from './reducers/flavorMap';
 import { getGraph, getCuisines } from './actions/actions';
 import App from './containers/App';
+import 'typeface-alegreya';
+import 'typeface-ibm-plex-sans';
 
 const store = createStore(flavorMap, applyMiddleware(thunk));
 

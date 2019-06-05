@@ -40,6 +40,10 @@ module.exports = {
         loader: 'style-loader!css-loader?modules=true&localIdentName=[name]__[local]___[hash:base64:5',
       },
       {
+        test: /\.(woff|woff2)$/,
+        loader: 'url-loader?limit=100000',
+      },
+      {
         test: /\.(png|svg|jpg|gif|ico)$/,
         loader: 'file-loader',
       },

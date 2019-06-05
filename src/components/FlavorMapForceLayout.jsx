@@ -6,13 +6,17 @@ const FullScreenSvg = styled.svg`
   height: 100%;
   width: 100%;
   position: absolute;
+  cursor: grab;
+  :active {
+    cursor: grabbing;
+  }
 `;
 
 const Tooltip = styled.div`
   position: absolute;
   padding: 0.25em;
   background: #fff;
-  border: 0.25em solid #000;
+  border: 0.2em solid #000;
   z-index: 1000;
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 100;
@@ -39,13 +43,13 @@ const sum = list => list.reduce((s, x) => s + x, 0);
 const average = list => sum(list) / list.length;
 const concat = (a, b) => a.concat(b);
 const dedupe = list => list.reduce((r, x) => (r.indexOf(x) === -1 ? r.concat([x]) : r), []);
-const ease = d3.transition().duration(100).ease(d3.easeLinear);
 
 class FlavorMapForceLayout extends React.Component {
   constructor(props) {
     super(props);
     this.container = React.createRef();
-    this.tooltip = React.createRef();
+    this.selectedTooltip = React.createRef();
+    this.hoveredTooltip = React.createRef();
     this.state = {
       regionSimulation: d3.forceSimulation(),
       nodeSimulation: d3.forceSimulation(),
@@ -76,7 +80,8 @@ class FlavorMapForceLayout extends React.Component {
       .on('zoom', () => {
         const { transform } = d3.event;
         this.g.attr('transform', `translate(${transform.x}, ${transform.y}) scale(${transform.k})`);
-        this.moveTooltip();
+        this.moveHoveredTooltip();
+        this.moveSelectedTooltip();
       });
 
     this.svg
@@ -111,8 +116,8 @@ class FlavorMapForceLayout extends React.Component {
       .attr('cx', d => d.x)
       .attr('cy', d => d.y);
 
-    // @TODO: do we need this here?
-    this.moveTooltip();
+    this.moveSelectedTooltip();
+    this.moveHoveredTooltip();
   }
 
   draw() {
@@ -134,8 +139,6 @@ class FlavorMapForceLayout extends React.Component {
 
     const w = this.container.current.getBoundingClientRect().width;
     const h = this.container.current.getBoundingClientRect().height;
-
-    this.g.selectAll('*').interrupt();
 
     this.background
       .select('rect')
@@ -236,6 +239,7 @@ class FlavorMapForceLayout extends React.Component {
             .attr('id', d => d.id)
             .attr('fill', d => encodeNodeColor(d))
             .style('cursor', 'pointer')
+            // .on('mouseover', d => ((!hoveredNode || d.id !== hoveredNode.id) ? onNodeMouseOver(d.id) : null))
             .on('mouseover', d => onNodeMouseOver(d.id))
             .on('mouseout', d => onNodeMouseOut(d.id))
             .on('click', d => onClickNode(d.id));
@@ -245,10 +249,6 @@ class FlavorMapForceLayout extends React.Component {
           exit.remove();
         },
       );
-
-    if (hoveredNode) {
-      this.moveTooltip();
-    }
 
     if (selectedNode) {
       const neighbors = (
@@ -263,12 +263,10 @@ class FlavorMapForceLayout extends React.Component {
       );
       this.nodes
         .selectAll('.node')
-        .transition(ease)
         .attr('opacity', d => (neighbors.indexOf(d.id) >= 0 ? 1.0 : 0.1));
     } else {
       this.nodes
         .selectAll('.node')
-        .transition(ease)
         .attr('opacity', 1.0);
     }
 
@@ -285,8 +283,6 @@ class FlavorMapForceLayout extends React.Component {
             .attr('y1', d => d.source.y)
             .attr('x2', d => d.target.x)
             .attr('y2', d => d.target.y)
-            .attr('opacity', 0)
-            .transition(ease)
             .attr('opacity', 1.0);
         },
         null,
@@ -295,11 +291,14 @@ class FlavorMapForceLayout extends React.Component {
         },
       );
 
+    this.moveHoveredTooltip();
+    this.moveSelectedTooltip();
+
     regionSimulation.restart();
     nodeSimulation.restart();
   }
 
-  moveTooltip() {
+  moveHoveredTooltip() {
     const { hoveredNode } = this.props;
 
     if (hoveredNode === null || hoveredNode === undefined) {
@@ -307,22 +306,47 @@ class FlavorMapForceLayout extends React.Component {
     }
 
     const { x, y, width } = d3.select(`.node-${hoveredNode.id}`).node().getBoundingClientRect();
-    const t = d3.select(this.tooltip.current).node().getBoundingClientRect();
+    const t = d3.select(this.hoveredTooltip.current).node().getBoundingClientRect();
 
     const radius = width / 2;
 
-    d3.select(this.tooltip.current)
+    d3.select(this.hoveredTooltip.current)
+      .style('transform', `translate(${x + radius - (t.width / 2)}px,${y - radius - 5 - t.height}px)`);
+  }
+
+  moveSelectedTooltip() {
+    const { selectedNode } = this.props;
+
+    if (selectedNode === null || selectedNode === undefined) {
+      return;
+    }
+
+    const { x, y, width } = d3.select(`.node-${selectedNode.id}`).node().getBoundingClientRect();
+    const t = d3.select(this.selectedTooltip.current).node().getBoundingClientRect();
+
+    const radius = width / 2;
+
+    d3.select(this.selectedTooltip.current)
       .style('transform', `translate(${x + radius - (t.width / 2)}px,${y - radius - 5 - t.height}px)`);
   }
 
   render() {
-    const { hoveredNode } = this.props;
+    const { hoveredNode, selectedNode } = this.props;
     return (
       <>
-        <FullScreenSvg ref={this.container} />
+        <FullScreenSvg ref={this.container} fill="none" />
+        {
+          selectedNode && (
+            <Tooltip ref={this.selectedTooltip}>
+              <NiceHeader>
+                { selectedNode.name }
+              </NiceHeader>
+            </Tooltip>
+          )
+        }
         {
           hoveredNode && (
-            <Tooltip ref={this.tooltip}>
+            <Tooltip ref={this.hoveredTooltip}>
               <NiceHeader>
                 { hoveredNode.name }
               </NiceHeader>
