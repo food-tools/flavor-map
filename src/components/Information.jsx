@@ -94,7 +94,12 @@ const Information = () => (
       <br />
       🍔 By&nbsp;
       <SubtleLink href='https://brettfouss.com'>Brett Fouss</SubtleLink>
-      &nbsp;and Jack Vallerie
+      &nbsp;and&nbsp;
+      <SubtleLink href='https://github.com/jackvallerie'>Jack Vallerie</SubtleLink>
+      <br />
+      Fork me on&nbsp;
+      <SubtleLink href='https://github.com/food-tools/flavor-map'>Github</SubtleLink>
+      !
     </Legend>
   </Wrapper>
 );
