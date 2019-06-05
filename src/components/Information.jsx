@@ -92,9 +92,9 @@ const Information = () => (
       Use the search bar to find ingredients quickly!
       <br />
       <br />
-      By&nbsp;
+      🍔 By&nbsp;
       <SubtleLink href='https://brettfouss.com'>Brett Fouss</SubtleLink>
-      &nbsp;and Jack Vallerie 🍔
+      &nbsp;and Jack Vallerie
     </Legend>
   </Wrapper>
 );
