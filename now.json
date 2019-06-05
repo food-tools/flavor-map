@@ -1,6 +1,6 @@
 {
   "name": "flavor-map",
-  "version": 1,
+  "version": 2,
   "builds": [
       {
           "src": "index.html",
