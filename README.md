@@ -1,6 +1,6 @@
 # flavor-map
 
-Visualizing ingredient pairings and properties from [*The Flavor Bible*](https://www.amazon.com/Flavor-Bible-Essential-Creativity-Imaginative/dp/0316118400) using force layouts. Created with with React, Redux and D3 by [Brett Fouss](https://github.com/brettfouss) and [Jack Vallerie](https://github.com/jackvallerie).
+Visualizing ingredient pairings and properties from [*The Flavor Bible*](https://www.amazon.com/Flavor-Bible-Essential-Creativity-Imaginative/dp/0316118400) using force layouts. Created with React, Redux and D3 by [Brett Fouss](https://github.com/brettfouss) and [Jack Vallerie](https://github.com/jackvallerie).
 
 Visit the app at [food.tools](https://food.tools).
 
